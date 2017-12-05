@@ -9,15 +9,20 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gc.dao.UsersDao;
+import com.gc.dto.UserDto;
+import com.gc.factory.DaoFactory;
 import com.gc.util.APICredentials;
 import com.sun.jersey.core.util.Base64;
 import com.sun.xml.internal.ws.api.message.Header;
@@ -44,6 +49,26 @@ public class HomeController {
 	public ModelAndView home(){
 		
 		return new ModelAndView("home", "","");//Since there is no model I could return string with view name
+	}
+	
+	@RequestMapping({"/signup"})
+	public ModelAndView home2(Model model){
+		
+		//binding form to pojo
+		
+		
+		return new ModelAndView("signup", "command", new UserDto());//Since there is no model I could return string with view name
+	}
+	
+	@RequestMapping(value = {"/signup"}, method= RequestMethod.POST)
+	public ModelAndView signupPost(@ModelAttribute("command") UserDto newUser){
+		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+		
+		System.out.println(newUser.getFirstname());
+		dao.insertUser(newUser);
+		
+		List<UserDto> matches = dao.getMatches(newUser);
+		return new ModelAndView("matches", "matchmodel", matches);//Since there is no model I could return string with view name
 	}
 	/**
 	 *	3. Linked redirects back to this controller with a temporary code – 
