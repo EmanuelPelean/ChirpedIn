@@ -1,0 +1,23 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.gc.dto.UsersDto" table="users"
+		schema="usersdb">
+
+
+		<id name="userID">
+			<column name="user_id" sql-type="varchar(20)" length="20"></column>
+		</id>
+
+		<property name="firstname">
+			<column name="first_name" sql-type="varchar(45)" length="45"></column>
+		</property>
+		
+
+
+
+	</class>
+</hibernate-mapping>
