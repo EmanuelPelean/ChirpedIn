@@ -13,6 +13,7 @@ import com.gc.dao.UsersDao;
 public class DaoFactory {
 
 	public static final String USERSDAO = "userdao";
+	
 
 	public static UsersDao getInstance(String type) {
 		UserDaoImpl daoimpl = null;

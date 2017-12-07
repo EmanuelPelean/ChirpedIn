@@ -4,18 +4,41 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="com.gc.dto.UsersDto" table="users"
-		schema="usersdb">
+	<class name="com.gc.dto.UserDto" table="users" schema="usersdb">
 
 
-		<id name="userID">
+		<id name="linkedInId">
 			<column name="user_id" sql-type="varchar(20)" length="20"></column>
 		</id>
 
-		<property name="firstname">
+		<property name="linkedInFirstName">
 			<column name="first_name" sql-type="varchar(45)" length="45"></column>
 		</property>
-		
+		<property name="linkedInLastName">
+			<column name="last_name" sql-type="varchar(45)" length="45"></column>
+		</property>
+		<property name="linkedInHeadline">
+			<column name="headline" sql-type="varchar(255)" length="255"></column>
+		</property>
+		<property name="linkedInLocation">
+			<column name="location" sql-type="varchar(45)" length="45"></column>
+		</property>
+		<property name="linkedInSummary">
+			<column name="summary" sql-type="varchar(255)" length="255"></column>
+		</property>
+		<property name="linkedInPictureUrl">
+			<column name="small_pic" sql-type="varchar(255)" length="255"></column>
+		</property>
+		<property name="linkedInLargePictureUrl">
+			<column name="large_pic" sql-type="varchar(255)" length="255"></column>
+		</property>
+		<property name="linkedInPublicProfileUrl">
+			<column name="public_url" sql-type="varchar(255)" length="255"></column>
+		</property>
+		<property name="linkedInEmail">
+			<column name="email" sql-type="varchar(45)" length="45"></column>
+		</property>
+
 
 
 

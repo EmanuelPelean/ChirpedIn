@@ -3,8 +3,10 @@
  */
 package com.gc.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -37,8 +39,21 @@ public class UserDaoImpl implements UsersDao {
 	 */
 	@Override
 	public List<UserDto> getMatches(UserDto newUser) {
-		// TODO matching algorythm
-		return null;
+		Configuration config = new Configuration().configure("hibernate.cfg.xml");
+		SessionFactory sessionFactory = config.buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		Criteria crit = session.createCriteria(UserDto.class);
+		
+//		CriteriaBuilder builder = session.getCriteriaBuilder();
+//		CriteriaQuery criteria = (CriteriaQuery) builder.createQuery(UserDto.class);
+		
+		ArrayList<UserDto> list = (ArrayList<UserDto>)crit.list();
+		
+		session.getTransaction().commit();
+		session.close();
+		
+		return list;
 	}
 
 	@Override
