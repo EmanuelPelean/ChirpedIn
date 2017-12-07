@@ -42,13 +42,15 @@ public class UserDaoImpl implements UsersDao {
 	 */
 	@Override
 	public List<UserDto> getMatches(UserDto newUser, Model model) {
+		System.out.println("Running getMatches method");
 		Configuration config = new Configuration().configure("hibernate.cfg.xml");
 		SessionFactory sessionFactory = config.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		
+		
 		Criteria crit = session.createCriteria(UserDto.class);
-		crit.add(Restrictions.like("mentee_php", "1"));
+		crit.add(Restrictions.like("menteeSkillsPhp", true));
 		
 //		CriteriaBuilder builder = session.getCriteriaBuilder();
 //		CriteriaQuery criteria = (CriteriaQuery) builder.createQuery(UserDto.class);
@@ -58,6 +60,7 @@ public class UserDaoImpl implements UsersDao {
 				
 		session.close();
 //		new ModelAndView("matches", "matchresults", list);
+		String test = "Tim is a genius";
 		model.addAttribute("matchresults", list);
 		return list;
 		

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gc.dao.UserDaoImpl;
 import com.gc.dao.UsersDao;
 import com.gc.dto.UserDto;
 import com.gc.factory.DaoFactory;
@@ -59,7 +60,8 @@ public class HomeController {
 	//this is called when the signup page is first opened
 	@RequestMapping({"/signup"})
 	public ModelAndView signupPage(Model model){
-		
+		System.out.println("Regular Signup");
+
 		//binding form to pojo
 				
 		return new ModelAndView("signup", "command", new UserDto());
@@ -72,10 +74,11 @@ public class HomeController {
 		
 		dao.insertUser(newUser);
 		
-		List<UserDto> matches = dao.getMatches(newUser);
-		model.addAttribute("usermatch", matches.get(0));
 		
-		return new ModelAndView("matches", "matchmodel", matches);
+		List<UserDto> matches = dao.getMatches(newUser, model);
+		System.out.println("Form Signup");
+		return new ModelAndView("matches", "", "");
+		
 	}
 	/**
 	 *	3. Linked redirects back to this controller with a temporary code – 
