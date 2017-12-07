@@ -143,7 +143,7 @@ section
         <div>
        
           <table border="1">
-		<c:forEach var="matchedDto" items="${matchresults}">
+		<c:forEach var="matchedDto" items="${mentorresults}">
 			
 			<tr>
 				<td> <img src="${matchedDto.linkedInPictureUrl}"></td>

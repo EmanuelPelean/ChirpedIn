@@ -77,6 +77,8 @@ public class HomeController {
 		
 		List<UserDto> matches = dao.getMatches(newUser, model);
 		System.out.println("Form Signup");
+		List<UserDto> mentorList = dao.findMentor(newUser, model);
+		
 		return new ModelAndView("matches", "", "");
 		
 	}

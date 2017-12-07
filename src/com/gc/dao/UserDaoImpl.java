@@ -11,6 +11,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
@@ -67,9 +69,30 @@ public class UserDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public List<UserDto> matchMentor(UserDto newUser) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<UserDto> findMentor(UserDto userCriteriaDto, Model model) {
+		System.out.println("Running matchMentor method");
+		Configuration config = new Configuration().configure("hibernate.cfg.xml");
+		SessionFactory sessionFactory = config.buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		
+		
+		Criteria crit = session.createCriteria(UserDto.class);
+		Criterion Php = Restrictions.like("menteeSkillsPhp", userCriteriaDto.getMentorSkillsPhp());
+		Criterion Java = Restrictions.like("menteeSkillsJava", userCriteriaDto.getMentorSkillsJava());
+		
+		// To get records matching with OR conditions
+		LogicalExpression orExp = Restrictions.or(Php, Java);
+		crit.add( orExp );
+		
+		
+		ArrayList<UserDto> list = (ArrayList<UserDto>)crit.list();
+		tx.commit();
+				
+		session.close();
+		
+		model.addAttribute("mentorresults", list);
+		return list;
 	}
 
 	@Override
@@ -122,6 +145,18 @@ public class UserDaoImpl implements UsersDao {
 
 	@Override
 	public List<UserDto> getMatches(UserDto newUser) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<UserDto> matchMentor(UserDto newUser) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<UserDto> matchMentor(UserDto newUser, Model model) {
 		// TODO Auto-generated method stub
 		return null;
 	}
