@@ -38,9 +38,129 @@
 		<property name="linkedInEmail">
 			<column name="email" sql-type="varchar(45)" length="45"></column>
 		</property>
+		
+		
+		<property name="mentorSkillsJava">
+			<column name="mentor_java" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="mentorSkillsJsp">
+			<column name="mentor_jsp" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="mentorSkillsJstl">
+			<column name="mentor_jstl" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="mentorSkillsSql">
+			<column name="mentor_sql" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="mentorSkillsJdbc">
+			<column name="mentor_jdbc" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="mentorSkillsSpringMVC">
+			<column name="mentor_springmvc" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="mentorSkillsHibernate">
+			<column name="mentor_hibernate" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="mentorSkillsPhp">
+			<column name="mentor_php" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="mentorSkillsJavaScript">
+			<column name="mentor_javascript" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="mentorSkillsHTML">
+			<column name="mentor_html" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="mentorSkillsCSS">
+			<column name="mentor_css" sql-type="varchar(10)" length="10"></column>
+		</property>
+		
+		
+		<property name="menteeSkillsJava">
+			<column name="mentee_java" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="menteeSkillsJsp">
+			<column name="mentee_jsp" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="menteeSkillsJstl">
+			<column name="mentee_jstl" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="menteeSkillsSql">
+			<column name="mentee_sql" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="menteeSkillsJdbc">
+			<column name="mentee_jdbc" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="menteeSkillsSpringMVC">
+			<column name="mentee_springmvc" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="menteeSkillsHibernate">
+			<column name="mentee_hibernate" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="menteeSkillsPhp">
+			<column name="mentee_php" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="menteeSkillsJavaScript">
+			<column name="mentee_javascript" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="menteeSkillsHTML">
+			<column name="mentee_html" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="menteeSkillsCSS">
+			<column name="mentee_css" sql-type="varchar(10)" length="10"></column>
+		</property>
+		
+		
+		<property name="networkingFoodie">
+			<column name="network_foodie" sql-type="varchar(255)" length="255"></column>
+		</property>
+		<property name="networkingGaming">
+			<column name="network_gaming" sql-type="varchar(255)" length="255"></column>
+		</property>
+		<property name="networkingSports">
+			<column name="network_sports" sql-type="varchar(255)" length="255"></column>
+		</property>
+		<property name="networkingAnime">
+			<column name="network_anime" sql-type="varchar(255)" length="255"></column>
+		</property>
+		<property name="networkingFun">
+			<column name="network_fun" sql-type="varchar(255)" length="255"></column>
+		</property>
+	
 
-
-
-
+		<property name="networkingSkillsJava">
+			<column name="network_java" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="networkingSkillsJsp">
+			<column name="network_jsp" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="networkingSkillsJstl">
+			<column name="network_jstl" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="networkingSkillsSql">
+			<column name="network_sql" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="networkingSkillsJdbc">
+			<column name="network_jdbc" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="networkingSkillsSpringMVC">
+			<column name="network_springmvc" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="networkingSkillsHibernate">
+			<column name="network_hibernate" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="networkingSkillsPhp">
+			<column name="network_php" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="networkingSkillsJavaScript">
+			<column name="network_javascript" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="networkingSkillsHTML">
+			<column name="network_html" sql-type="varchar(10)" length="10"></column>
+		</property>
+		<property name="networkingSkillsCSS">
+			<column name="network_css" sql-type="varchar(10)" length="10"></column>
+		</property>
+	
+	
 	</class>
 </hibernate-mapping>
