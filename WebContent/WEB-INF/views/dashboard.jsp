@@ -8,13 +8,13 @@
 	<style type="text/css">
 		.header {
 			text-align: left;
-			background-color: orange;
+			background-color: light blue;
 			height: 100px;
 			width: 100%;
 		}
 		.footer {
 			text-align: center;
-			background-color: orange;
+			background-color: light blue;
 			height: 100px;
 			width: 100%;
 		}
