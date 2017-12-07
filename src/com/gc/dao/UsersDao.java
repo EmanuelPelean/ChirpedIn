@@ -5,6 +5,8 @@ package com.gc.dao;
 
 import java.util.List;
 
+import org.springframework.ui.Model;
+
 import com.gc.dto.UserDto;
 
 /**
@@ -41,4 +43,6 @@ public interface UsersDao {
 	List<UserDto> getFavs(UserDto NewUser);
 
 	UserDto getUser();
+
+	List<UserDto> getMatches(UserDto newUser, Model model);
 }

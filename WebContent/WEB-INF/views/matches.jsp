@@ -140,7 +140,7 @@ section
     <div class="container">
       <a class="item active" href="item-1">
         <div>
-          <h2>${userMatch.linkedInFirstName }</h2>
+          <h2>${matchresults }</h2>
           <p>Mentor</p>
         </div>
       </a>

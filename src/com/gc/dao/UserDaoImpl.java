@@ -11,6 +11,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.gc.dto.UserDto;
 
@@ -38,22 +41,26 @@ public class UserDaoImpl implements UsersDao {
 	 * @see com.gc.dao.UsersDao#getMatches(com.gc.dto.UserDto)
 	 */
 	@Override
-	public List<UserDto> getMatches(UserDto newUser) {
+	public List<UserDto> getMatches(UserDto newUser, Model model) {
 		Configuration config = new Configuration().configure("hibernate.cfg.xml");
 		SessionFactory sessionFactory = config.buildSessionFactory();
 		Session session = sessionFactory.openSession();
-		session.beginTransaction();
+		Transaction tx = session.beginTransaction();
+		
 		Criteria crit = session.createCriteria(UserDto.class);
+		crit.add(Restrictions.like("mentee_php", "1"));
 		
 //		CriteriaBuilder builder = session.getCriteriaBuilder();
 //		CriteriaQuery criteria = (CriteriaQuery) builder.createQuery(UserDto.class);
 		
 		ArrayList<UserDto> list = (ArrayList<UserDto>)crit.list();
-		
-		session.getTransaction().commit();
+		tx.commit();
+				
 		session.close();
-		
+//		new ModelAndView("matches", "matchresults", list);
+		model.addAttribute("matchresults", list);
 		return list;
+		
 	}
 
 	@Override
@@ -106,6 +113,12 @@ public class UserDaoImpl implements UsersDao {
 
 	@Override
 	public UserDto getUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<UserDto> getMatches(UserDto newUser) {
 		// TODO Auto-generated method stub
 		return null;
 	}
