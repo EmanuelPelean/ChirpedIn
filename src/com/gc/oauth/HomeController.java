@@ -98,6 +98,7 @@ public class HomeController {
 		
 		String jsonString = "";
 		String accessToken ="";
+		
 		UserDto userDataDto = null;
 		
 		try {
