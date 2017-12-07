@@ -51,24 +51,31 @@ public class HomeController {
 		return new ModelAndView("home", "","");//Since there is no model I could return string with view name
 	}
 	
+	
+	
+	
+	
+	
+	//this is called when the signup page is first opened
 	@RequestMapping({"/signup"})
-	public ModelAndView home2(Model model){
+	public ModelAndView signupPage(Model model){
 		
 		//binding form to pojo
-		
-		
-		return new ModelAndView("signup", "command", new UserDto());//Since there is no model I could return string with view name
+				
+		return new ModelAndView("signup", "command", new UserDto());
 	}
 	
+	//this is called when the user clicks to submit form data
 	@RequestMapping(value = {"/signup"}, method= RequestMethod.POST)
-	public ModelAndView signupPost(@ModelAttribute("command") UserDto newUser){
+	public ModelAndView signupPost(@ModelAttribute("command") UserDto newUser, Model model){
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 		
-		System.out.println(newUser.getFirstname());
 		dao.insertUser(newUser);
 		
 		List<UserDto> matches = dao.getMatches(newUser);
-		return new ModelAndView("matches", "matchmodel", matches);//Since there is no model I could return string with view name
+		model.addAttribute("usermatch", matches.get(0));
+		
+		return new ModelAndView("matches", "matchmodel", matches);
 	}
 	/**
 	 *	3. Linked redirects back to this controller with a temporary code – 
@@ -80,11 +87,14 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping("/result")
-	public ModelAndView result(@RequestParam("code")String code, @RequestParam("state")String state){
+	public ModelAndView result(Model model, @RequestParam("code")String code, @RequestParam("state")String state){
+		
+		
 		
 		String jsonString = "";
-
-
+		String accessToken ="";
+		UserDto userDataDto = null;
+		
 		try {
 			//4. Exchange temporary code for an access token
 			URL url = new URL( 
@@ -111,12 +121,12 @@ public class HomeController {
 			}
 			
 			JSONObject jsonObj = new JSONObject(jsonString);
-			String accessToken = jsonObj.getString("access_token");
+			accessToken = jsonObj.getString("access_token");
 			con.disconnect();
 
 			//5. Use access token to make calls to the LinkedIn Api on behalf of the user
 			
-			url = new URL("https://api.linkedin.com/v1/people/~:(id,num-connections,picture-url,location)?format=json&oauth2_access_token=" + accessToken);
+			url = new URL("https://api.linkedin.com/v1/people/~:(id,email-address,first-name,last-name,headline,location,summary,picture-url,picture-urls::(original),public-profile-url)?format=json&oauth2_access_token=" + accessToken);
 			con = (HttpURLConnection)url.openConnection();
 			con.setRequestMethod("GET");
 			
@@ -130,11 +140,33 @@ public class HomeController {
 			}		
 			
 			//Get the user data we want from the json string
+			System.out.println(jsonString);
 			jsonObj = new JSONObject(jsonString);
-			String name = "No name available";
-			if(jsonObj.isNull("name") == false){
-				name = (String) jsonObj.get("name");
-			}
+			
+			
+			String userID = (String) jsonObj.get("id");
+			String firstName = (String) jsonObj.get("firstName");
+			String lastName = (String) jsonObj.get("lastName");
+			String headline = (String) jsonObj.get("headline");
+//			String location = (String) jsonObj.get("name");
+//			String summary = (String) jsonObj.get("summary");
+			String smallPic = (String) jsonObj.get("pictureUrl");
+//			String largePic = (String) jsonObj.get("values");
+			String profileUrl = (String) jsonObj.get("publicProfileUrl");
+//			String email = (String) jsonObj.get("email-address");
+			
+			userDataDto = new UserDto();
+			
+			userDataDto.setLinkedInId(userID);
+			userDataDto.setLinkedInFirstName(firstName);
+			userDataDto.setLinkedInLastName(lastName);
+			userDataDto.setLinkedInHeadline(headline);
+//			userDataDto.setLinkedInLocation(location);
+//			userDataDto.setLinkedInSummary(summary);
+			userDataDto.setLinkedInPictureUrl(smallPic);
+//			userDataDto.setLinkedInLargePictureUrl(largePic);
+			userDataDto.setLinkedInPublicProfileUrl(profileUrl);
+//			userDataDto.setLinkedInEmail(email);
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -147,7 +179,8 @@ public class HomeController {
 		/*
 		 * TODO Change to return the name and avatar image in the instead of the raw json data the model
 		 */
-		return new ModelAndView("result", "data",jsonString);		
+		model.addAttribute("data", userDataDto);
+		return new ModelAndView("signup", "command", new UserDto());	
 	}	
 	
 	@RequestMapping("/matches")

@@ -140,7 +140,7 @@ section
     <div class="container">
       <a class="item active" href="item-1">
         <div>
-          <h2>Item 1</h2>
+          <h2>${userMatch.linkedInFirstName }</h2>
           <p>Mentor</p>
         </div>
       </a>
@@ -175,63 +175,6 @@ section
     <button data-to="item-2" class="next"><span>&gt;</span></button>
   </div>
 </section>
-
-
-
-<script type="text/javascript">const container =
-  document.querySelector('.container');
-const transitioners =
-  [].slice.apply(document.querySelectorAll('.item'));
-const next =
-  document.querySelector('.next');
-const prev =
-  document.querySelector('.prev');
-
-transitioners.forEach((t, index) => {
-  t.onclick = (evt) => {
-    evt.preventDefault();
-    
-    container.style.transform = `translateX(${-index * 100}%)`;
-    
-    transitioners.forEach((t, i) => {if(index != i) t.classList.remove('active')});
-    t.classList.add('active');
-    
-    prev.setAttribute('data-to', `item-${index <= 0 ? 1 : index}`);
-    next.setAttribute('data-to', `item-${index + 2 >= transitioners.length ? transitioners.length : index + 2}`);
-  }
-});
-
-next.onclick = () => triggerControl('next');
-
-prev.onclick = () => triggerControl('previous');
-
-document.onkeyup = (evt) => {
-  switch(evt.keyCode) {
-    case 39:
-      triggerControl('next');
-      break;
-      
-    case 37:
-      triggerControl('previous');
-      break;
-  }
-}
-
-function triggerControl(type) {
-  switch(type) {
-    case 'next':
-      const nextSelector = next.getAttribute('data-to');
-      const nextItem = document.querySelector(`[href="${nextSelector}"]`);
-      nextItem.click();
-      break;
-      
-    case 'previous':
-      const prevSelector = prev.getAttribute('data-to');
-      const prevItem = document.querySelector(`[href="${prevSelector}"]`);
-      prevItem.click();
-      break;
-  }
-}</script>
 
 </body>
 </html>
