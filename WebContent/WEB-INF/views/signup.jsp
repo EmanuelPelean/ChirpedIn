@@ -39,7 +39,7 @@
 		<form:checkbox name="mentorskills" path="mentorSkillsSql" value="true"/> SQL<br>
 		<form:checkbox name="mentorskills" path="mentorSkillsSpringMVC" value="true"/> Spring MVC<br>
 		<form:checkbox name="mentorskills" path="mentorSkillsHibernate" value="true"/> Hibernate<br>
-		
+		<form:checkbox name="mentorskills" path="mentorSkillsJdbc" value="true"/> JDBC<br>
 	<!-- <input type="button" onclick="saveSkills(mentorskills, 'mentor')"
 			value="Save Mentee Data"> <br>
 		<br> <input type="text" id="mentorSkillsSummary" size="50">
@@ -62,7 +62,7 @@
 		<form:checkbox name="menteeskills" path="menteeSkillsSql" value="true"/> SQL<br>
 		<form:checkbox name="menteeskills" path="menteeSkillsSpringMVC" value="true"/> Spring MVC<br>
 		<form:checkbox name="menteeskills" path="menteeSkillsHibernate" value="true"/> Hibernate<br>
-
+		<form:checkbox name="menteeskills" path="menteeSkillsJdbc" value="true"/> JDBC<br>
 		<!-- <input type="button" onclick="saveSkills(menteeskills, 'mentee')"
 			value="Save Mentor Data"> <br>
 		<br> <input type="text" id="menteeSkillsSummary" size="50">
@@ -92,6 +92,7 @@
 		<form:checkbox name="networkingskills" path="networkingSkillsSql" value="true"/> SQL<br>
 		<form:checkbox name="networkingskills" path="networkingSkillsSpringMVC" value="true"/> Spring MVC<br>
 		<form:checkbox name="networkingskills" path="networkingSkillsHibernate" value="true"/> Hibernate<br>
+				<form:checkbox name="networkingskills" path="networkingSkillsJdbc" value="true"/> JDBC
 
 		<input type="button" onclick="saveSkills(networkskills, 'network')"
 			value="Save Networker Data"> <br>

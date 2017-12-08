@@ -12,6 +12,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.ui.Model;
@@ -80,18 +81,32 @@ public class UserDaoImpl implements UsersDao {
 		Criteria crit = session.createCriteria(UserDto.class);
 		Criterion Php = Restrictions.like("menteeSkillsPhp", userCriteriaDto.getMentorSkillsPhp());
 		Criterion Java = Restrictions.like("menteeSkillsJava", userCriteriaDto.getMentorSkillsJava());
+		Criterion Css = Restrictions.like("menteeSkillsCSS", userCriteriaDto.getMentorSkillsCSS());
+		Criterion Html = Restrictions.like("menteeSkillsHTML", userCriteriaDto.getMentorSkillsHTML());
+
+//		// To get records matching with AND conditions
+//		LogicalExpression andExp = Restrictions.and(Php, Java);
+//		crit.add(andExp);
+//		ArrayList<UserDto> listAnd = (ArrayList<UserDto>)crit.list();
+//		System.out.println("This is listAnd: " + listAnd);
+//		if (listAnd.size()<=2) {
+//			System.out.println("ListAnd");
+			
+			// To get records matching with OR conditions
+			Disjunction orExp = Restrictions.or(Php, Java, Css, Html);
+			crit.add( orExp );
+			
+			ArrayList<UserDto> list = (ArrayList<UserDto>)crit.list();
+//			model.addAttribute("bestMatchList", listAnd);
+			
+//			model.addAllAttributes(arg0)
+//			return list;
+//		}
 		
-		// To get records matching with OR conditions
-		LogicalExpression orExp = Restrictions.or(Php, Java);
-		crit.add( orExp );
-		
-		
-		ArrayList<UserDto> list = (ArrayList<UserDto>)crit.list();
 		tx.commit();
-				
 		session.close();
 		
-		model.addAttribute("mentorresults", list);
+//		model.addAttribute("mentorresults", list);
 		return list;
 	}
 

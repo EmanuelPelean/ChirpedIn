@@ -142,9 +142,9 @@ section
       <a class="item active" href="item-1">
         <div>
        
+	<h2>These are the best matches:</h2>
           <table border="1">
 		<c:forEach var="matchedDto" items="${mentorresults}">
-			
 			<tr>
 				<td> <img src="${matchedDto.linkedInPictureUrl}"></td>
 				<td>First Name: ${matchedDto.linkedInFirstName}</td>

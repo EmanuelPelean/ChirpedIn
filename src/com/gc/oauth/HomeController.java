@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -25,6 +26,7 @@ import com.gc.dao.UsersDao;
 import com.gc.dto.UserDto;
 import com.gc.factory.DaoFactory;
 import com.gc.util.APICredentials;
+import com.gc.util.MentorListComparator;
 import com.sun.jersey.core.util.Base64;
 import com.sun.xml.internal.ws.api.message.Header;
 
@@ -38,6 +40,35 @@ import com.sun.xml.internal.ws.api.message.Header;
  */
 @Controller
 public class HomeController {
+	
+	public static void main(String[] args) {
+		ArrayList<String> skillsNeed = new ArrayList<String>();
+		
+		skillsNeed.add("php");
+		skillsNeed.add("java");
+		skillsNeed.add("css");
+		
+		
+		ArrayList<String> skillsHave = new ArrayList<String>();
+		
+		skillsHave.add("php");
+		//skillsHave.add("java");
+		//skillsHave.add("css");
+		int skillsCount = 0;
+		for(String skill: skillsNeed) {
+			if(skillsHave.contains(skill)) {				
+				skillsCount++;
+			}
+		}
+		
+		if(skillsCount == skillsNeed.size()) {
+			System.out.println("#1");
+		}else if(skillsCount < skillsNeed.size()) {
+			System.out.println("#2");
+		}
+		
+				
+	}
 	
 	/**
 	 * Home page mapping (you can use "/" if you want)
@@ -75,9 +106,16 @@ public class HomeController {
 		dao.insertUser(newUser);
 		
 		
-		List<UserDto> matches = dao.getMatches(newUser, model);
-		System.out.println("Form Signup");
+//		List<UserDto> matches = dao.getMatches(newUser, model);
+//		System.out.println("Form Signup");
 		List<UserDto> mentorList = dao.findMentor(newUser, model);
+		mentorList.sort(new MentorListComparator(newUser));
+		
+		model.addAttribute("mentorresults", mentorList);
+		
+		
+		
+		
 		
 		return new ModelAndView("matches", "", "");
 		
