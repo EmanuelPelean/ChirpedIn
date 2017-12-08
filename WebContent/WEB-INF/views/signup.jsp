@@ -23,8 +23,9 @@
 		<form:input type="text" name="linkedInPublicProfileUrl" path="linkedInPublicProfileUrl" value="${data.linkedInPublicProfileUrl }"></form:input><br/>
 		<form:input type="text" name="linkedInEmail" path="linkedInEmail" value="${data.linkedInEmail }"></form:input><br/>
 
-	<p>For which skills would you like to HAVE a mentor?</p>
+	
 	<h2>MENTEE SECTION</h2>
+	<p>For which skills would you like to HAVE a mentor?</p>
 		<h3>Front End</h3>
 		<form:checkbox path="mentorSkillsPhp" value="true"/> PHP <br>
 		<form:checkbox path="mentorSkillsJavaScript" value="true"/> JavaScript<br>
@@ -46,8 +47,9 @@
 		<input type="submit" value="Submit">  -->	
 
 
-	<p>For which skills would you like to BE a mentor?</p>
+	
 	<h2>MENTOR SECTION</h2>
+	<p>For which skills would you like to BE a mentor?</p>
 		<h3>Front End</h3>
 		<form:checkbox name="menteeskills" path="menteeSkillsPhp" value="true"/> PHP<br>
 		<form:checkbox name="menteeskills" path="menteeSkillsJavaScript" value="true"/> JavaScript<br>
@@ -68,8 +70,8 @@
 		<br> <input type="text" id="menteeSkillsSummary" size="50">
 		<input type="submit" value="Submit">  -->
 
-	<p>OR if you would like to just network?</p>
 	<h2>NETWORKING SECTION</h2>
+	<p>OR if you would like to just network?</p>
 		<h3>Extracurricular</h3>
 		<form:checkbox name="networkskills" path="networkingFoodie"/> Foodie<br>
 		<form:checkbox name="networkskills" path="networkingGaming"/> Gamer<br>
