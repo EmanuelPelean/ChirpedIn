@@ -8,7 +8,7 @@ import com.chirpedin.dto.UserDto;
  * @author timjohnson This class contains static methods to manipulate DTO data
  */
 public class ChirpedIn {
-	
+
 	/**
 	 * appends a string to a string and ArrayList
 	 * 
@@ -16,8 +16,8 @@ public class ChirpedIn {
 	 * @param skillsString
 	 * @return
 	 */
-	private static String updateArrayListAndStringWithNewSkill(ArrayList<String> skillArrayList,
-			String skillsString, String skill) {
+	private static String updateArrayListAndStringWithNewSkill(ArrayList<String> skillArrayList, String skillsString,
+			String skill) {
 		skillArrayList.add(skill);
 		skillsString += " " + skill;
 
@@ -29,13 +29,27 @@ public class ChirpedIn {
 	 * a string of all the skills this the UserDto has
 	 * 
 	 * @param userDto
-	 * @return
+	 * @return void
 	 */
 	public static void populateHaveSkills(UserDto userDto) {
 		userDto.setHaveSkills(createHaveSkills(userDto));
 
 	}
-	
+
+	private static String createListOfCommonWordsInTwoStrings(String firstString, String secondString) {
+		String commonElementsString = "";
+		String[] firstArr = firstString.split(" ");
+		String[] secondArr = secondString.split(" ");
+
+		for (String word : firstArr) {
+			for (int i = 0; i < secondArr.length; i++) {
+				if (secondArr[i].equals(word))
+					commonElementsString += word + " ";
+			}
+		}
+		return commonElementsString;
+	}
+
 	/***
 	 * Takes in a userDto, checks its fields and populates its needSkills field with
 	 * a string of all the skills this the UserDto needs
@@ -47,12 +61,10 @@ public class ChirpedIn {
 		userDto.setNeedSkills(createNeedSkills(userDto));
 
 	}
-	
-	
-	
+
 	/***
-	 * loop through UserDto menteeSkills fields, return string of haveSkills the UserDto
-	 * contains
+	 * loop through UserDto menteeSkills fields, return string of haveSkills the
+	 * UserDto contains
 	 * 
 	 * @param userDto
 	 * @return String
@@ -84,22 +96,23 @@ public class ChirpedIn {
 		if (userDto.getMenteeSkillsSpringMVC()) {
 			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "springMVC");
 		}
-		
+
 		if (userDto.getMenteeSkillsHibernate()) {
 			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "hibernate");
 		}
-		
+
 		if (userDto.getMenteeSkillsPhp()) {
 			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "php");
 		}
 		if (userDto.getMenteeSkillsJavaScript()) {
-			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "javascript");
+			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString,
+					"javascript");
 		}
-		
+
 		if (userDto.getMenteeSkillsHTML()) {
 			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "html");
 		}
-		
+
 		if (userDto.getMenteeSkillsCSS()) {
 			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "css");
 		}
@@ -108,7 +121,6 @@ public class ChirpedIn {
 
 	}
 
-	
 	/***
 	 * loop through UserDto mentorSkills fields, return string of skills the UserDto
 	 * has
@@ -143,22 +155,23 @@ public class ChirpedIn {
 		if (userDto.getMentorSkillsSpringMVC()) {
 			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "springMVC");
 		}
-		
+
 		if (userDto.getMentorSkillsHibernate()) {
 			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "hibernate");
 		}
-		
+
 		if (userDto.getMentorSkillsPhp()) {
 			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "php");
 		}
 		if (userDto.getMentorSkillsJavaScript()) {
-			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "javascript");
+			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString,
+					"javascript");
 		}
-		
+
 		if (userDto.getMentorSkillsHTML()) {
 			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "html");
 		}
-		
+
 		if (userDto.getMentorSkillsCSS()) {
 			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "css");
 		}

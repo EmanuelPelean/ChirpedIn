@@ -141,6 +141,7 @@ public class UserDto {
 			}
 
 		}
+		
 		if (skillsNeed.size() > 1) {
 			rank = (skillsCount / skillsNeed.size()) * 100;
 		}
