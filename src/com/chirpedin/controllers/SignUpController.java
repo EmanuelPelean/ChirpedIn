@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gc.controllers;
+package com.chirpedin.controllers;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gc.dao.UsersDao;
-import com.gc.dto.UserDto;
-import com.gc.factory.DaoFactory;
+import com.chirpedin.dao.UsersDao;
+import com.chirpedin.dto.UserDto;
+import com.chirpedin.factory.DaoFactory;
 
 /**
  * @author timjohnson

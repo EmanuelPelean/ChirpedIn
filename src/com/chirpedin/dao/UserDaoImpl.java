@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gc.dao;
+package com.chirpedin.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gc.dto.UserDto;
+import com.chirpedin.dto.UserDto;
 
 /**
  * @author Manu

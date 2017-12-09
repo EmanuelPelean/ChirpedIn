@@ -1,10 +1,10 @@
 /**
  * 
  */
-package com.gc.factory;
+package com.chirpedin.factory;
 
-import com.gc.dao.UserDaoImpl;
-import com.gc.dao.UsersDao;
+import com.chirpedin.dao.UserDaoImpl;
+import com.chirpedin.dao.UsersDao;
 
 /**
  * @author Manu

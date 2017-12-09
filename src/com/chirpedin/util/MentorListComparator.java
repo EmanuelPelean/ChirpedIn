@@ -1,11 +1,11 @@
 /**
  * 
  */
-package com.gc.util;
+package com.chirpedin.util;
 
 import java.util.Comparator;
 
-import com.gc.dto.UserDto;
+import com.chirpedin.dto.UserDto;
 
 /**
  * @author Manu

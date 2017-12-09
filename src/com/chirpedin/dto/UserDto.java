@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gc.dto;
+package com.chirpedin.dto;
 
 import java.util.ArrayList;
 
@@ -12,9 +12,13 @@ import java.util.ArrayList;
 public class UserDto {
 
 	private double percentMatch;
+	
 	private String matchingMentorSkills = "";
 	private String matchingMenteeSkills = "";
 	private String matchingNetworkginSkills = "";
+	
+	private String haveSkills = "";
+	private String needSkills = "";
 
 	private boolean mentorMatch;
 	private boolean menteeMatch;
@@ -91,6 +95,57 @@ public class UserDto {
 
 	public UserDto() {
 		super();
+	}
+	
+	public int getRank(UserDto need) {
+		//System.out.println("Entering getRank()...");
+
+		int skillsCount = 0;
+		int rank = 0;
+
+		ArrayList<String> skillsNeed = new ArrayList<String>();
+
+		if (need.mentorSkillsJava) {
+			skillsNeed.add("java");
+			//System.out.println("adding java skill");
+		}
+
+		if (need.mentorSkillsJsp) {
+			skillsNeed.add("jsp");
+			//System.out.println("adding jsp skill");
+		}
+
+		if (need.mentorSkillsCSS) {
+			skillsNeed.add("css");
+			//System.out.println("adding css skill");
+		}
+
+		ArrayList<String> skillsHave = new ArrayList<String>();
+
+		if (menteeSkillsJava) {
+			skillsHave.add("java");
+		} 
+		
+		if (menteeSkillsJsp) {
+			skillsHave.add("jsp");
+		}
+		if (menteeSkillsCSS) {
+			skillsHave.add("css");
+		}
+
+		for (String skill : skillsNeed) {
+
+			if (skillsHave.contains(skill)) {
+				skillsCount++;
+				this.matchingMentorSkills += " " + skill;
+			}
+
+		}
+		if (skillsNeed.size() > 1) {
+			rank = (skillsCount / skillsNeed.size()) * 100;
+		}
+
+		return rank;
 	}
 
 	public String getLinkedInFirstName() {
@@ -533,74 +588,60 @@ public class UserDto {
 		this.networkingMatch = networkingMatch;
 	}
 
-	public int getRank(UserDto need) {
-		System.out.println("Entering getRank()...");
+	public String getHaveSkills() {
+		return haveSkills;
+	}
 
-		int skillsCount = 0;
-		int rank = 0;
+	public void setHaveSkills(String haveSkills) {
+		this.haveSkills = haveSkills;
+	}
 
-		ArrayList<String> skillsNeed = new ArrayList<String>();
+	public String getNeedSkills() {
+		return needSkills;
+	}
 
-		if (need.mentorSkillsJava) {
-			skillsNeed.add("java");
-			System.out.println("adding java skill");
-		}
+	public void setNeedSkills(String needSkills) {
+		this.needSkills = needSkills;
+	}
 
-		if (need.mentorSkillsJsp) {
-			skillsNeed.add("jsp");
-			System.out.println("adding jsp skill");
-		}
+	public int getHaveSkillCount() {
+		return haveSkillCount;
+	}
 
-		if (need.mentorSkillsCSS) {
-			skillsNeed.add("css");
-			System.out.println("adding css skill");
-		}
+	public void setHaveSkillCount(int haveSkillCount) {
+		this.haveSkillCount = haveSkillCount;
+	}
 
-		ArrayList<String> skillsHave = new ArrayList<String>();
+	public int getNeedSkillCount() {
+		return needSkillCount;
+	}
 
-		if (menteeSkillsJava) {
-			skillsHave.add("java");
-		} 
-		
-		if (menteeSkillsJsp) {
-			skillsHave.add("jsp");
-		}
-		if (menteeSkillsCSS) {
-			skillsHave.add("css");
-		}
+	public void setNeedSkillCount(int needSkillCount) {
+		this.needSkillCount = needSkillCount;
+	}
 
-		for (String skill : skillsNeed) {
+	public int getNetworkingSkillCount() {
+		return networkingSkillCount;
+	}
 
-			if (skillsHave.contains(skill)) {
-				skillsCount++;
-				this.matchingMentorSkills += " " + skill;
-			}
+	public void setNetworkingSkillCount(int networkingSkillCount) {
+		this.networkingSkillCount = networkingSkillCount;
+	}
 
-		}
-		if (skillsNeed.size() > 1) {
-			rank = (skillsCount / skillsNeed.size()) * 100;
-		}
-
-		return rank;
+	@Override
+	public String toString() {
+		return "UserDto: " + linkedInFirstName + " " + linkedInLastName 
+				+ "\n percentMatch: " + percentMatch 
+				+ "\n matchingMentorSkills: " + matchingMentorSkills
+				+ "\n matchingMenteeSkills: " + matchingMenteeSkills 
+				+ "\n matchingNetworkginSkills: " + matchingNetworkginSkills 
+				+ "\n haveSkills: " + haveSkills 
+				+ "\n needSkills: " + needSkills
+				+ "\n mentorMatch: " + mentorMatch + ", menteeMatch: " + menteeMatch + ", networkingMatch: "
+				+ networkingMatch 
+				+ "\n haveSkillCount: " + haveSkillCount + ", needSkillCount: " + needSkillCount
+				+ ", networkingSkillCount: " + networkingSkillCount
+				+"\n\n";
 	}
 	
-	private ArrayList<String> skillsHave(UserDto userDto){
-		ArrayList<String> skillsHave = new ArrayList<String>();
-		
-		if (userDto.menteeSkillsJava) {
-			skillsHave.add("java");
-		} 
-		
-		if (userDto.menteeSkillsJsp) {
-			skillsHave.add("jsp");
-		}
-		
-		if (userDto.menteeSkillsCSS) {
-			skillsHave.add("css");
-		}
-		
-		return skillsHave;
-		
-	}
-
 }

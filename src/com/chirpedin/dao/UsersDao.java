@@ -1,13 +1,13 @@
 /**
  * 
  */
-package com.gc.dao;
+package com.chirpedin.dao;
 
 import java.util.List;
 
 import org.springframework.ui.Model;
 
-import com.gc.dto.UserDto;
+import com.chirpedin.dto.UserDto;
 
 /**
  * @author Manu
