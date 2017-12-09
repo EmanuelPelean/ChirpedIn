@@ -23,22 +23,63 @@ public class ChirpedIn {
 		String skillsHaveString = "";
 
 		if (userDto.getMenteeSkillsJava()) {
-			skillsHaveArrayList.add("java");
-			skillsHaveString += " " + "java";
+			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "java");
 		}
 
 		if (userDto.getMenteeSkillsJsp()) {
-			skillsHaveArrayList.add("jsp");
-			skillsHaveString += " " + "jsp";
+			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "jsp");
 		}
 
+		if (userDto.getMenteeSkillsJstl()) {
+			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "jstl");
+		}
+
+		if (userDto.getMenteeSkillsSql()) {
+			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "sql");
+		}
+
+		if (userDto.getMenteeSkillsJdbc()) {
+			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "jdbc");
+		}
+
+		if (userDto.getMenteeSkillsSpringMVC()) {
+			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "springMVC");
+		}
+		
+		if (userDto.getMenteeSkillsHibernate()) {
+			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "hibernate");
+		}
+		
+		if (userDto.getMenteeSkillsPhp()) {
+			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "php");
+		}
+		if (userDto.getMenteeSkillsJavaScript()) {
+			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "javascript");
+		}
+		
+		if (userDto.getMenteeSkillsHTML()) {
+			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "html");
+		}
+		
 		if (userDto.getMenteeSkillsCSS()) {
-			skillsHaveArrayList.add("css");
-			skillsHaveString += " " + "css";
+			skillsHaveString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsHaveString, "css");
 		}
 
 		return skillsHaveString;
 
+	}
+
+	/**
+	 * @param skillsHaveArrayList
+	 * @param skillsHaveString
+	 * @return
+	 */
+	private static String updateArrayListAndStringWithNewSkill(ArrayList<String> skillsHaveArrayList,
+			String skillsHaveString, String skill) {
+		skillsHaveArrayList.add(skill);
+		skillsHaveString += " " + skill;
+
+		return skillsHaveString;
 	}
 
 	/***
