@@ -95,15 +95,24 @@ public class HomeController {
 	public ModelAndView signupPost(@ModelAttribute("command") UserDto newUser, Model model) {
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 
+		ChirpedIn.populateHaveSkills(newUser);
+		ChirpedIn.populateNeedSkills(newUser);
+		ChirpedIn.populateNetworkingSkills(newUser);
+		
 		dao.insertUser(newUser);
 
 		// List<UserDto> matches = dao.getMatches(newUser, model);
 		// System.out.println("Form Signup");
 		List<UserDto> mentorList = dao.findMentor(newUser, model); // find mentors based on criteria
 		// do work to display the list in order
+		
 		for (int i = 0; i < mentorList.size(); i++) {// for each mentor, print matching skills
+			
 			ChirpedIn.populateHaveSkills(mentorList.get(i));
 			ChirpedIn.populateNeedSkills(mentorList.get(i));
+			ChirpedIn.populateNetworkingSkills(mentorList.get(i));
+			ChirpedIn.populateAllMatchingSkills(newUser, mentorList.get(i));
+			
 			System.out.println(mentorList.get(i));
 		}
 		mentorList.sort(new MentorListComparator(newUser));

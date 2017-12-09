@@ -19,6 +19,7 @@ public class UserDto {
 	
 	private String haveSkills = "";
 	private String needSkills = "";
+	private String networkingSkills = "";
 
 	private boolean mentorMatch;
 	private boolean menteeMatch;
@@ -638,11 +639,28 @@ public class UserDto {
 				+ "\n matchingNetworkginSkills: " + matchingNetworkingSkills 
 				+ "\n haveSkills: " + haveSkills 
 				+ "\n needSkills: " + needSkills
+				+ "\n networkingSkills: " + networkingSkills
 				+ "\n mentorMatch: " + mentorMatch + ", menteeMatch: " + menteeMatch + ", networkingMatch: "
 				+ networkingMatch 
 				+ "\n haveSkillCount: " + haveSkillCount + ", needSkillCount: " + needSkillCount
 				+ ", networkingSkillCount: " + networkingSkillCount
 				+"\n\n";
+	}
+
+	public String getMatchingNetworkingSkills() {
+		return matchingNetworkingSkills;
+	}
+
+	public void setMatchingNetworkingSkills(String matchingNetworkingSkills) {
+		this.matchingNetworkingSkills = matchingNetworkingSkills;
+	}
+
+	public String getNetworkingSkills() {
+		return networkingSkills;
+	}
+
+	public void setNetworkingSkills(String networkingSkills) {
+		this.networkingSkills = networkingSkills;
 	}
 	
 }

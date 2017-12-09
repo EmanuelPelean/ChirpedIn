@@ -24,19 +24,31 @@ public class ChirpedIn {
 		return skillsString;
 	}
 
+
+
 	/***
-	 * Takes in a userDto, checks its fields and populates its haveSkills field with
-	 * a string of all the skills this the UserDto has
+	 * takes criteriaUserDto and compares its haveSkills, needsSkills, and
+	 * networkingSkills against another UserDto
 	 * 
+	 * @param criteriaUserDto
 	 * @param userDto
-	 * @return void
+	 * @return
+	 * 
 	 */
-	public static void populateHaveSkills(UserDto userDto) {
-		userDto.setHaveSkills(createHaveSkills(userDto));
+	public static void populateAllMatchingSkills(UserDto criteriaUserDto, UserDto userDto) {
+
+		userDto.setMatchingMenteeSkills(
+				createStringOfCommonWordsInTwoStrings(criteriaUserDto.getHaveSkills(), userDto.getNeedSkills()));
+
+		userDto.setMatchingMentorSkills(
+				createStringOfCommonWordsInTwoStrings(criteriaUserDto.getNeedSkills(), userDto.getHaveSkills()));
+
+		userDto.setMatchingNetworkingSkills(createStringOfCommonWordsInTwoStrings(criteriaUserDto.getNetworkingSkills(),
+				userDto.getNetworkingSkills()));
 
 	}
 
-	private static String createListOfCommonWordsInTwoStrings(String firstString, String secondString) {
+	private static String createStringOfCommonWordsInTwoStrings(String firstString, String secondString) {
 		String commonElementsString = "";
 		String[] firstArr = firstString.split(" ");
 		String[] secondArr = secondString.split(" ");
@@ -50,17 +62,44 @@ public class ChirpedIn {
 		return commonElementsString;
 	}
 
+	
+	/***
+	 * Takes in a userDto, checks its fields and populates its haveSkills field with
+	 * a string of all the skills this the UserDto has
+	 * 
+	 * @param userDto
+	 * @return void
+	 */
+	public static void populateHaveSkills(UserDto userDto) {
+		userDto.setHaveSkills(createHaveSkills(userDto));
+
+	}
+	
+	
 	/***
 	 * Takes in a userDto, checks its fields and populates its needSkills field with
 	 * a string of all the skills this the UserDto needs
 	 * 
 	 * @param userDto
-	 * @return
+	 * @return void
 	 */
 	public static void populateNeedSkills(UserDto userDto) {
-		userDto.setNeedSkills(createNeedSkills(userDto));
+		userDto.setNeedSkills( createNeedSkills( userDto) );
 
 	}
+	
+	/***
+	 * Takes in a userDto, checks its fields and populates its networking Skills field with
+	 * a string of all the skills this the UserDto has
+	 * 
+	 * @param userDto
+	 * @return void
+	 */
+	public static void populateNetworkingSkills(UserDto userDto) {
+		userDto.setNetworkingSkills(createNetworkingSkills(userDto));
+
+	}
+	
 
 	/***
 	 * loop through UserDto menteeSkills fields, return string of haveSkills the
@@ -120,63 +159,163 @@ public class ChirpedIn {
 		return skillsHaveString;
 
 	}
-
+	
 	/***
-	 * loop through UserDto mentorSkills fields, return string of skills the UserDto
-	 * has
+	 * loop through UserDto mentorSkills fields, return string of needSkills the
+	 * UserDto contains
 	 * 
 	 * @param userDto
 	 * @return String
 	 */
 	public static String createNeedSkills(UserDto userDto) {
-		ArrayList<String> skillsHaveArrayList = new ArrayList<String>();
+		ArrayList<String> skillsNeedArrayList = new ArrayList<String>();
 		String skillsNeedString = "";
 
 		if (userDto.getMentorSkillsJava()) {
-			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "java");
+			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsNeedArrayList, skillsNeedString, "java");
 		}
 
 		if (userDto.getMentorSkillsJsp()) {
-			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "jsp");
+			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsNeedArrayList, skillsNeedString, "jsp");
 		}
 
 		if (userDto.getMentorSkillsJstl()) {
-			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "jstl");
+			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsNeedArrayList, skillsNeedString, "jstl");
 		}
 
 		if (userDto.getMentorSkillsSql()) {
-			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "sql");
+			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsNeedArrayList, skillsNeedString, "sql");
 		}
 
 		if (userDto.getMentorSkillsJdbc()) {
-			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "jdbc");
+			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsNeedArrayList, skillsNeedString, "jdbc");
 		}
 
 		if (userDto.getMentorSkillsSpringMVC()) {
-			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "springMVC");
+			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsNeedArrayList, skillsNeedString, "springMVC");
 		}
 
 		if (userDto.getMentorSkillsHibernate()) {
-			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "hibernate");
+			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsNeedArrayList, skillsNeedString, "hibernate");
 		}
 
 		if (userDto.getMentorSkillsPhp()) {
-			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "php");
+			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsNeedArrayList, skillsNeedString, "php");
 		}
 		if (userDto.getMentorSkillsJavaScript()) {
-			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString,
+			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsNeedArrayList, skillsNeedString,
 					"javascript");
 		}
 
 		if (userDto.getMentorSkillsHTML()) {
-			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "html");
+			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsNeedArrayList, skillsNeedString, "html");
 		}
 
 		if (userDto.getMentorSkillsCSS()) {
-			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsHaveArrayList, skillsNeedString, "css");
+			skillsNeedString = updateArrayListAndStringWithNewSkill(skillsNeedArrayList, skillsNeedString, "css");
 		}
 
 		return skillsNeedString;
+
+	}
+	
+
+	/***
+	 * loop through UserDto networkingSkills and other networking fields (i.e.
+	 * foodie, gaming, sportsing, etc), return string of skills the UserDto has
+	 * 
+	 * @param userDto
+	 * @return String
+	 */
+	public static String createNetworkingSkills(UserDto userDto) {
+		ArrayList<String> skillsNetworkingArrayList = new ArrayList<String>();
+		String skillsNetworkingString = "";
+
+		// Populating Skills section first, then below, populates interest section
+
+		if (userDto.getNetworkingSkillsJava()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "java");
+		}
+
+		if (userDto.getNetworkingSkillsJsp()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "jsp");
+		}
+
+		if (userDto.getNetworkingSkillsJstl()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "jstl");
+		}
+
+		if (userDto.getNetworkingSkillsSql()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "sql");
+		}
+
+		if (userDto.getNetworkingSkillsJdbc()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "jdbc");
+		}
+
+		if (userDto.getNetworkingSkillsSpringMVC()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "springMVC");
+		}
+
+		if (userDto.getNetworkingSkillsHibernate()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "hibernate");
+		}
+
+		if (userDto.getNetworkingSkillsPhp()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "php");
+		}
+
+		if (userDto.getNetworkingSkillsJavaScript()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "javascript");
+		}
+
+		if (userDto.getNetworkingSkillsHTML()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "html");
+		}
+
+		if (userDto.getNetworkingSkillsCSS()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "css");
+		}
+
+		// populating Networking interest sections
+
+		if (userDto.getNetworkingFoodie()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "foodie");
+		}
+
+		if (userDto.getNetworkingGaming()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "gaming");
+		}
+
+		if (userDto.getNetworkingSports()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "sports");
+		}
+
+		if (userDto.getNetworkingAnime()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "anime");
+		}
+
+		if (userDto.getNetworkingFun()) {
+			skillsNetworkingString = updateArrayListAndStringWithNewSkill(skillsNetworkingArrayList,
+					skillsNetworkingString, "fun");
+		}
+
+		return skillsNetworkingString;
 
 	}
 
