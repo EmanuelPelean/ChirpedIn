@@ -12,15 +12,25 @@
 	
 	Sign Up Page
 	<form:form action="signup" method="post" modelAttribute="command">
+	ID
 		<form:input type="text" name="linkedInId" path="linkedInId" value="${data.linkedInId }"></form:input><br/>
+		First Name:
 		<form:input type="text" name="linkedInFirstName" path="linkedInFirstName" value="${data.linkedInFirstName }"></form:input><br/>
+		Last Name:
 		<form:input type="text" name="linkedInLastName" path="linkedInLastName" value="${data.linkedInLastName }"></form:input><br/>
+		Headline
 		<form:input type="text" name="linkedInHeadline" path="linkedInHeadline" value="${data.linkedInHeadline }"></form:input><br/>
+		Location
 		<form:input type="text" name="linkedInLocation" path="linkedInLocation" value="${data.linkedInLocation }"></form:input><br/>
+		Summary
 		<form:input type="text" name="linkedInSummary" path="linkedInSummary" value="${data.linkedInSummary }"></form:input><br/>
+		Picture URL
 		<form:input type="text" name="linkedInPictureUrl" path="linkedInPictureUrl" value="${data.linkedInPictureUrl }"></form:input><br/>
+		Picture URL
 		<form:input type="text" name="linkedInLargePictureUrl" path="linkedInLargePictureUrl" value="${data.linkedInLargePictureUrl }"></form:input><br/>
+		Profile URL
 		<form:input type="text" name="linkedInPublicProfileUrl" path="linkedInPublicProfileUrl" value="${data.linkedInPublicProfileUrl }"></form:input><br/>
+		E-mail
 		<form:input type="text" name="linkedInEmail" path="linkedInEmail" value="${data.linkedInEmail }"></form:input><br/>
 
 	

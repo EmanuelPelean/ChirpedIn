@@ -146,10 +146,11 @@ section
           <table border="1">
 		<c:forEach var="matchedDto" items="${mentorresults}">
 			<tr>
-				<td> <img src="${matchedDto.linkedInPictureUrl}"></td>
-				<td>First Name: ${matchedDto.linkedInFirstName}</td>
-				<td>Last Name: ${matchedDto.linkedInLastName}</td>
-				<td>Headline: ${matchedDto.linkedInHeadline}</td>
+				<td> <img src="${matchedDto.linkedInPictureUrl}" style="width:100px;height:100px;"></td>
+				<td>${matchedDto.linkedInFirstName}</td>
+				<td>${matchedDto.linkedInLastName}</td>
+				<td>Mentor Skills: ${matchedDto.matchingMentorSkills}</td>
+				<!-- <td>Headline: ${matchedDto.linkedInHeadline}</td> -->
 			</tr>
 		</c:forEach>
 	</table>

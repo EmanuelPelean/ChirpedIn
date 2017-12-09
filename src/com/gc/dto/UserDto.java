@@ -12,9 +12,9 @@ import java.util.ArrayList;
 public class UserDto {
 
 	private double percentMatch;
-	private String matchingMentorSkills;
-	private String matchingMenteeSkills;
-	private String matchingNetworkginSkills;
+	private String matchingMentorSkills = "";
+	private String matchingMenteeSkills = "";
+	private String matchingNetworkginSkills = "";
 
 	private boolean mentorMatch;
 	private boolean menteeMatch;
@@ -53,7 +53,7 @@ public class UserDto {
 	private Boolean mentorSkillsHTML;
 	private Boolean mentorSkillsCSS;
 
-	// MENTEE BACKEND  skills you are qualified to mentor in
+	// MENTEE BACKEND skills you are qualified to mentor in
 	private Boolean menteeSkillsJava;
 	private Boolean menteeSkillsJsp;
 	private Boolean menteeSkillsJstl;
@@ -534,38 +534,73 @@ public class UserDto {
 	}
 
 	public int getRank(UserDto need) {
+		System.out.println("Entering getRank()...");
+
 		int skillsCount = 0;
+		int rank = 0;
 
 		ArrayList<String> skillsNeed = new ArrayList<String>();
 
 		if (need.mentorSkillsJava) {
 			skillsNeed.add("java");
-		} else if (need.mentorSkillsJsp) {
+			System.out.println("adding java skill");
+		}
+
+		if (need.mentorSkillsJsp) {
 			skillsNeed.add("jsp");
-		} else if (need.mentorSkillsCSS) {
+			System.out.println("adding jsp skill");
+		}
+
+		if (need.mentorSkillsCSS) {
 			skillsNeed.add("css");
+			System.out.println("adding css skill");
 		}
 
 		ArrayList<String> skillsHave = new ArrayList<String>();
 
 		if (menteeSkillsJava) {
 			skillsHave.add("java");
-		} else if (menteeSkillsJsp) {
+		} 
+		
+		if (menteeSkillsJsp) {
 			skillsHave.add("jsp");
-		} else if (menteeSkillsCSS) {
+		}
+		if (menteeSkillsCSS) {
 			skillsHave.add("css");
 		}
 
 		for (String skill : skillsNeed) {
-			if(skillsNeed.size() > 1)
+
 			if (skillsHave.contains(skill)) {
 				skillsCount++;
+				this.matchingMentorSkills += " " + skill;
 			}
+
+		}
+		if (skillsNeed.size() > 1) {
+			rank = (skillsCount / skillsNeed.size()) * 100;
 		}
 
-		int rank = (skillsCount / skillsNeed.size()) * 100;
-
 		return rank;
+	}
+	
+	private ArrayList<String> skillsHave(UserDto userDto){
+		ArrayList<String> skillsHave = new ArrayList<String>();
+		
+		if (userDto.menteeSkillsJava) {
+			skillsHave.add("java");
+		} 
+		
+		if (userDto.menteeSkillsJsp) {
+			skillsHave.add("jsp");
+		}
+		
+		if (userDto.menteeSkillsCSS) {
+			skillsHave.add("css");
+		}
+		
+		return skillsHave;
+		
 	}
 
 }

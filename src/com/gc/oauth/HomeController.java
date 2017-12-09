@@ -83,11 +83,6 @@ public class HomeController {
 		return new ModelAndView("home", "","");//Since there is no model I could return string with view name
 	}
 	
-	
-	
-	
-	
-	
 	//this is called when the signup page is first opened
 	@RequestMapping({"/signup"})
 	public ModelAndView signupPage(Model model){
@@ -113,10 +108,6 @@ public class HomeController {
 		
 		model.addAttribute("mentorresults", mentorList);
 		
-		
-		
-		
-		
 		return new ModelAndView("matches", "", "");
 		
 	}
@@ -126,7 +117,7 @@ public class HomeController {
 		4. Exchange temporary code for an access token
 		5. Use access tokens to make calls to the LinkedIn Api on behalf of the user		
 	 * @param code - code from https://LinkedIn.com/login/oauth/authorize call
-	 * @param state - nonce value received from https://LinkedIn.com/login/oauth/authorize call to guard against cross site forgery attacks
+	 * @param state - once value received from https://LinkedIn.com/login/oauth/authorize call to guard against cross site forgery attacks
 	 * @return
 	 */
 	@RequestMapping("/result")
