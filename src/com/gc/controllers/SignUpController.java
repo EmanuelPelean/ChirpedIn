@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gc.oauth;
+package com.gc.controllers;
 
 import java.util.List;
 
