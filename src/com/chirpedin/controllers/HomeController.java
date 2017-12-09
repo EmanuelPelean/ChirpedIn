@@ -102,7 +102,8 @@ public class HomeController {
 		List<UserDto> mentorList = dao.findMentor(newUser, model); // find mentors based on criteria
 		// do work to display the list in order
 		for (int i = 0; i < mentorList.size(); i++) {// for each mentor, print matching skills
-		ChirpedIn.populateSkillsHave(mentorList.get(i));
+		ChirpedIn.populateHaveSkills(mentorList.get(i));
+		ChirpedIn.populateNeedSkills(mentorList.get(i));
 		System.out.println(mentorList.get(i));
 		}
 		mentorList.sort(new MentorListComparator(newUser));

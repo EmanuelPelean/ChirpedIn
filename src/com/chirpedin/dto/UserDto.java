@@ -15,7 +15,7 @@ public class UserDto {
 	
 	private String matchingMentorSkills = "";
 	private String matchingMenteeSkills = "";
-	private String matchingNetworkginSkills = "";
+	private String matchingNetworkingSkills = "";
 	
 	private String haveSkills = "";
 	private String needSkills = "";
@@ -557,11 +557,11 @@ public class UserDto {
 	}
 
 	public String getMatchingNetworkginSkills() {
-		return matchingNetworkginSkills;
+		return matchingNetworkingSkills;
 	}
 
 	public void setMatchingNetworkginSkills(String matchingNetworkginSkills) {
-		this.matchingNetworkginSkills = matchingNetworkginSkills;
+		this.matchingNetworkingSkills = matchingNetworkginSkills;
 	}
 
 	public boolean isMentorMatch() {
@@ -634,7 +634,7 @@ public class UserDto {
 				+ "\n percentMatch: " + percentMatch 
 				+ "\n matchingMentorSkills: " + matchingMentorSkills
 				+ "\n matchingMenteeSkills: " + matchingMenteeSkills 
-				+ "\n matchingNetworkginSkills: " + matchingNetworkginSkills 
+				+ "\n matchingNetworkginSkills: " + matchingNetworkingSkills 
 				+ "\n haveSkills: " + haveSkills 
 				+ "\n needSkills: " + needSkills
 				+ "\n mentorMatch: " + mentorMatch + ", menteeMatch: " + menteeMatch + ", networkingMatch: "
