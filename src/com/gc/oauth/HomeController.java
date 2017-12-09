@@ -103,10 +103,12 @@ public class HomeController {
 		
 //		List<UserDto> matches = dao.getMatches(newUser, model);
 //		System.out.println("Form Signup");
-		List<UserDto> mentorList = dao.findMentor(newUser, model);
+		List<UserDto> mentorList = dao.findMentor(newUser, model); // find mentors based on criteria
+		// do work to display the list in order
+		// for each mentor, print matching skills
 		mentorList.sort(new MentorListComparator(newUser));
 		
-		model.addAttribute("mentorresults", mentorList);
+		model.addAttribute("mentorresults", mentorList);  // send data to view
 		
 		return new ModelAndView("matches", "", "");
 		
