@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -139,7 +140,7 @@ public class HomeController {
 	 */
 	@RequestMapping("/result")
 	public ModelAndView result(Model model, @RequestParam("code") String code, @RequestParam("state") String state) {
-
+		
 		String jsonString = "";
 		String accessToken = "";
 
@@ -191,30 +192,32 @@ public class HomeController {
 			// Get the user data we want from the json string
 			System.out.println(jsonString);
 			jsonObj = new JSONObject(jsonString);
+			JSONObject jsonLocation = (JSONObject) jsonObj.get("location");
+			JSONObject jsonLargePic = (JSONObject) jsonObj.get("pictureUrls");
 
-			String userID = (String) jsonObj.get("id");
-			String firstName = (String) jsonObj.get("firstName");
-			String lastName = (String) jsonObj.get("lastName");
-			String headline = (String) jsonObj.get("headline");
-			// String location = (String) jsonObj.get("name");
-			// String summary = (String) jsonObj.get("summary");
-			String smallPic = (String) jsonObj.get("pictureUrl");
-			// String largePic = (String) jsonObj.get("values");
-			String profileUrl = (String) jsonObj.get("publicProfileUrl");
-			// String email = (String) jsonObj.get("email-address");
+//			String userID = (String) jsonObj.get("id");
+//			String firstName = (String) jsonObj.get("firstName");
+//			String lastName = (String) jsonObj.get("lastName");
+//			String headline = (String) jsonObj.get("headline");
+//			String location = (String) jsonLocation.get("name");
+//			String smallPic = (String) jsonObj.get("pictureUrl");
+//			JSONObject jsonLargePicValues = (JSONObject) jsonLargePic.get("values");
+//			String largePic = (String) jsonLocation.get("values");
+//          String largePic = (String) jsonObj.get("values");
+//			String profileUrl = (String) jsonObj.get("publicProfileUrl");
+// 			String email = (String) jsonObj.get("email-address");
 
 			userDataDto = new UserDto();
 
-			userDataDto.setLinkedInId(userID);
-			userDataDto.setLinkedInFirstName(firstName);
-			userDataDto.setLinkedInLastName(lastName);
-			userDataDto.setLinkedInHeadline(headline);
-			// userDataDto.setLinkedInLocation(location);
-			// userDataDto.setLinkedInSummary(summary);
-			userDataDto.setLinkedInPictureUrl(smallPic);
-			// userDataDto.setLinkedInLargePictureUrl(largePic);
-			userDataDto.setLinkedInPublicProfileUrl(profileUrl);
-			// userDataDto.setLinkedInEmail(email);
+			userDataDto.setLinkedInId((String) jsonObj.get("id"));
+			userDataDto.setLinkedInFirstName((String) jsonObj.get("firstName"));
+			userDataDto.setLinkedInLastName((String) jsonObj.get("lastName"));
+			userDataDto.setLinkedInHeadline((String) jsonObj.get("headline"));
+			userDataDto.setLinkedInLocation((String) jsonLocation.get("name"));
+			userDataDto.setLinkedInPictureUrl((String) jsonObj.get("pictureUrl"));
+			userDataDto.setLinkedInLargePictureUrl(jsonLargePic.optString("values"));
+			userDataDto.setLinkedInPublicProfileUrl((String) jsonObj.get("publicProfileUrl"));
+			userDataDto.setLinkedInEmail((String) jsonObj.get("emailAddress"));
 
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block

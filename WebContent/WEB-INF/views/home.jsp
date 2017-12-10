@@ -9,6 +9,6 @@
 <body>
 <h1>Welcome to ChirpedIn!</h1>
 
-<a href="https://www.linkedin.com/oauth/v2/authorization?&response_type=code&client_id=86n54w1pjwv6o5&redirect_uri=http://localhost:8080/ChirpedIn/result&scope=r_basicprofile&scope=r_emailaddress&state=12345">Click Here to login with LinkedIn!</a>
+<a href="https://www.linkedin.com/oauth/v2/authorization?&response_type=code&client_id=86n54w1pjwv6o5&redirect_uri=http://localhost:8080/ChirpedIn/result&scope=r_basicprofile r_emailaddress&state=12345">Click Here to login with LinkedIn!</a>
 </body>
 </html>
