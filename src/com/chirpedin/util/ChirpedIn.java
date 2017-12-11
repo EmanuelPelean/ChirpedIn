@@ -55,19 +55,27 @@ public class ChirpedIn {
 	 * @param userDto
 	 */
 	public static void setMatchingSkillCounts(UserDto userDto) {
-		
 		userDto.setMatchingMenteeSkillCount(userDto.getMatchingMenteeSkills().split(" ").length);
 		userDto.setMatchingMentorSkillCount(userDto.getMatchingMentorSkills().split(" ").length);
 		userDto.setMatchingNetworkingSkillCount(userDto.getMatchingNetworkingSkills().split(" ").length);
-		
-		System.out.println(userDto.getLinkedInFirstName() + "\nMatchingMenteeSkillCount: "+ userDto.getMatchingMenteeSkillCount() );
+
+		System.out.println(userDto.getLinkedInFirstName() + "\nMatchingMenteeSkillCount: "
+				+ userDto.getMatchingMenteeSkillCount());
 		System.out.println("MatchingMentorSkillCount: " + userDto.getMatchingMentorSkillCount());
 		System.out.println("MatchingNetworkingSkillCount: " + userDto.getMatchingNetworkingSkillCount() + "\n");
 	}
 
+	public static void setSkillCount(UserDto userDto) {
+		userDto.setHaveSkillCount(userDto.getHaveSkills().split(" ").length);
+		userDto.setNeedSkillCount(userDto.getNeedSkills().split(" ").length);
+		userDto.setNetworkingSkillCount(userDto.getNetworkingSkills().split(" ").length);
+		
+	}
+	
 	
 	/***
-	 * populates all three skills at all at once
+	 * populates all three skill strings at all at once
+	 * 
 	 * @param userDto
 	 */
 	public static void populateAllSkills(UserDto userDto) {
@@ -75,8 +83,6 @@ public class ChirpedIn {
 		populateNeedSkills(userDto);
 		populateNetworkingSkills(userDto);
 	}
-
-
 
 	/***
 	 * takes criteriaUserDto and compares its haveSkills, needsSkills, and
@@ -100,6 +106,50 @@ public class ChirpedIn {
 
 	}
 
+	/***
+	 * takes a numerator and denominator and returns a percent 
+	 * 
+	 * @param numerator
+	 * @param denominator
+	 * @return
+	 */
+	public static Double calculatePercentMatch(int numerator, int denominator) {
+		if (denominator > 0) {
+			return  (double) numerator / (double) denominator ;
+		} else {
+			return 0.0;
+		}
+	}
+
+	/***
+	 * takes in criteriaDto, calculates a percent match for a usderDto and stores it the user's match percentage fields 
+	 * @param criteriaDto
+	 * @param userDto
+	 */
+	public static void calculateMatchPercentages(UserDto criteriaDto, UserDto userDto) {
+		double counter = 0.0;
+		
+		userDto.setMentorMatchPercent(calculatePercentMatch( userDto.getMatchingMenteeSkillCount(), criteriaDto.getNeedSkillCount() ) );
+		if (userDto.getMentorMatchPercent() > 0.00) { counter++; System.out.println(counter); }
+
+		userDto.setMenteeMatchPercent(calculatePercentMatch(userDto.getMatchingMentorSkillCount(), criteriaDto.getHaveSkillCount() ) ); 
+		if (userDto.getMenteeMatchPercent() > 0.00) {counter++; System.out.println(counter);}
+
+		userDto.setNetworkingMatchPercent( calculatePercentMatch( userDto.getMatchingNetworkingSkillCount(), criteriaDto.getNetworkingSkillCount() ) ); 
+		if (userDto.getNetworkingMatchPercent() > 0.00) { counter++; System.out.println(counter);}
+
+		if (counter > 0.00) {
+			System.out.println(counter + ": " + userDto.getMentorMatchPercent() + " " + userDto.getMenteeMatchPercent() + " " + userDto.getNetworkingMatchPercent());
+			
+			userDto.setTotalMatchPercent((double) ((double)userDto.getMentorMatchPercent() + (double) userDto.getMenteeMatchPercent()
+					+ (double) userDto.getNetworkingMatchPercent()) / (double) counter); 
+		} else {
+			System.out.println("Skipped straight to zero loop.");
+			userDto.setTotalMatchPercent(0.0);
+		}
+
+	}
+
 	private static String createStringOfCommonWordsInTwoStrings(String firstString, String secondString) {
 		String commonElementsString = "";
 		String[] firstArr = firstString.split(" ");
@@ -114,7 +164,6 @@ public class ChirpedIn {
 		return commonElementsString;
 	}
 
-	
 	/***
 	 * Takes in a userDto, checks its fields and populates its haveSkills field with
 	 * a string of all the skills this the UserDto has
@@ -126,8 +175,7 @@ public class ChirpedIn {
 		userDto.setHaveSkills(createHaveSkills(userDto));
 
 	}
-	
-	
+
 	/***
 	 * Takes in a userDto, checks its fields and populates its needSkills field with
 	 * a string of all the skills this the UserDto needs
@@ -136,13 +184,13 @@ public class ChirpedIn {
 	 * @return void
 	 */
 	public static void populateNeedSkills(UserDto userDto) {
-		userDto.setNeedSkills( createNeedSkills( userDto) );
+		userDto.setNeedSkills(createNeedSkills(userDto));
 
 	}
-	
+
 	/***
-	 * Takes in a userDto, checks its fields and populates its networking Skills field with
-	 * a string of all the skills this the UserDto has
+	 * Takes in a userDto, checks its fields and populates its networking Skills
+	 * field with a string of all the skills this the UserDto has
 	 * 
 	 * @param userDto
 	 * @return void
@@ -151,7 +199,6 @@ public class ChirpedIn {
 		userDto.setNetworkingSkills(createNetworkingSkills(userDto));
 
 	}
-	
 
 	/***
 	 * loop through UserDto menteeSkills fields, return string of haveSkills the
@@ -211,7 +258,7 @@ public class ChirpedIn {
 		return skillsHaveString;
 
 	}
-	
+
 	/***
 	 * loop through UserDto mentorSkills fields, return string of needSkills the
 	 * UserDto contains
@@ -270,7 +317,6 @@ public class ChirpedIn {
 		return skillsNeedString;
 
 	}
-	
 
 	/***
 	 * loop through UserDto networkingSkills and other networking fields (i.e.

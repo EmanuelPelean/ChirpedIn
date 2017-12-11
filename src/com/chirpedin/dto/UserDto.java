@@ -170,9 +170,11 @@ public class UserDto {
 	
 	@Override
 	public String toString() {
-		return "UserDto: " + linkedInFirstName + " " + linkedInLastName + "\n percentMatch: " + percentMatch
+		return "UserDto: " + linkedInFirstName + " " + linkedInLastName 
+				+ "\n Total Match: " + String.format("%3.3f", totalMatchPercent)
+				+ "\n  percentMentorMatch: " + String.format("%3.3f", mentorMatchPercent) + " percentMenteeMatch: " + String.format("%3.3f", menteeMatchPercent) + " percentNetworkingMatch: " + String.format("%3.3f", networkingMatchPercent)
 				+ "\n matchingMentorSkills: " + matchingMentorSkills + "\n matchingMenteeSkills: "
-				+ matchingMenteeSkills + "\n matchingNetworkginSkills: " + matchingNetworkingSkills + "\n haveSkills: "
+				+ matchingMenteeSkills + "\n matchingNetworkingSkills: " + matchingNetworkingSkills + "\n haveSkills: "
 				+ haveSkills + "\n needSkills: " + needSkills + "\n networkingSkills: " + networkingSkills
 				+ "\n mentorMatch: " + mentorMatch + ", menteeMatch: " + menteeMatch + ", networkingMatch: "
 				+ networkingMatch + "\n haveSkillCount: " + haveSkillCount + ", needSkillCount: " + needSkillCount
@@ -587,14 +589,14 @@ public class UserDto {
 		this.matchingMenteeSkills = matchingMenteeSkills;
 	}
 
-	public String getMatchingNetworkginSkills() {
+	/*public String getMatchingNetworkingSkills() {
 		return matchingNetworkingSkills;
 	}
 
 	public void setMatchingNetworkginSkills(String matchingNetworkginSkills) {
 		this.matchingNetworkingSkills = matchingNetworkginSkills;
 	}
-
+*/
 	public boolean isMentorMatch() {
 		return mentorMatch;
 	}

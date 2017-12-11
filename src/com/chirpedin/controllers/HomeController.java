@@ -102,6 +102,7 @@ public class HomeController {
 		ChirpedIn.populateHaveSkills(newUser);
 		ChirpedIn.populateNeedSkills(newUser);
 		ChirpedIn.populateNetworkingSkills(newUser);
+		ChirpedIn.setSkillCount(newUser);
 		
 		//Insert the newUser DTO into our MySQL database
 		dao.insertUser(newUser);
@@ -119,6 +120,7 @@ public class HomeController {
 			ChirpedIn.populateNetworkingSkills(mentorList.get(i));
 			ChirpedIn.populateAllMatchingSkills(newUser, mentorList.get(i));
 			ChirpedIn.setMatchingSkillCounts(mentorList.get(i));
+			ChirpedIn.calculateMatchPercentages(newUser, mentorList.get(i));
 			
 			System.out.println("This is our request field DTO:\n" + newUser);
 			//Split the MatchingMenteeSkills for the user and the match to compare amounts
