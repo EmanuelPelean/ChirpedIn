@@ -96,14 +96,17 @@ public class HomeController {
 	public ModelAndView signupPost(@ModelAttribute("command") UserDto newUser, Model model) {
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 
+		//Create strings for HaveSkills, NeedSkills, and Networking Skills and add them to the newUser DTO 
 		ChirpedIn.populateHaveSkills(newUser);
 		ChirpedIn.populateNeedSkills(newUser);
 		ChirpedIn.populateNetworkingSkills(newUser);
 		
+		//Insert the newUser DTO into our MySQL database
 		dao.insertUser(newUser);
 
 		// List<UserDto> matches = dao.getMatches(newUser, model);
 		// System.out.println("Form Signup");
+		
 		List<UserDto> mentorList = dao.findMentor(newUser, model); // find mentors based on criteria
 		// do work to display the list in order
 		
