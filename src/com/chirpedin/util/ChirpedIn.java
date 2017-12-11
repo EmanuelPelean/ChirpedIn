@@ -19,9 +19,61 @@ public class ChirpedIn {
 	private static String updateArrayListAndStringWithNewSkill(ArrayList<String> skillArrayList, String skillsString,
 			String skill) {
 		skillArrayList.add(skill);
-		skillsString += " " + skill;
+		skillsString += skill + " ";
 
 		return skillsString;
+	}
+
+	/***
+	 * Takes a UserDto, determines if the user is a Mentor, Mentee, or Networker
+	 * based on the matchingSkills set
+	 * 
+	 * @param userDto
+	 */
+	public static void setConnectionTypeFlags(UserDto userDto) {
+		// TODO this seems to provide false negatives for users logging in via LinkedIn
+		// (as opposed to our testing) propose a different method to check for
+		// negatives. Maybe split to an array and then count?
+
+		if (userDto.getMatchingMentorSkillCount() > 0) {
+			userDto.setMentorMatch(true);
+		}
+
+		if (userDto.getMatchingMenteeSkillCount() > 0) {
+			userDto.setMenteeMatch(true);
+		}
+
+		if (userDto.getMatchingNetworkingSkillCount() > 0) {
+			userDto.setNetworkingMatch(true);
+		}
+	}
+
+	/**
+	 * sets the number of matching skills for Mentor, Mentee, and Networking, this
+	 * will help with the matchPercent calculations
+	 * 
+	 * @param userDto
+	 */
+	public static void setMatchingSkillCounts(UserDto userDto) {
+		
+		userDto.setMatchingMenteeSkillCount(userDto.getMatchingMenteeSkills().split(" ").length);
+		userDto.setMatchingMentorSkillCount(userDto.getMatchingMentorSkills().split(" ").length);
+		userDto.setMatchingNetworkingSkillCount(userDto.getMatchingNetworkingSkills().split(" ").length);
+		
+		System.out.println(userDto.getLinkedInFirstName() + "\nMatchingMenteeSkillCount: "+ userDto.getMatchingMenteeSkillCount() );
+		System.out.println("MatchingMentorSkillCount: " + userDto.getMatchingMentorSkillCount());
+		System.out.println("MatchingNetworkingSkillCount: " + userDto.getMatchingNetworkingSkillCount() + "\n");
+	}
+
+	
+	/***
+	 * populates all three skills at all at once
+	 * @param userDto
+	 */
+	public static void populateAllSkills(UserDto userDto) {
+		populateHaveSkills(userDto);
+		populateNeedSkills(userDto);
+		populateNetworkingSkills(userDto);
 	}
 
 

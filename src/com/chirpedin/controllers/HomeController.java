@@ -42,32 +42,32 @@ import com.sun.xml.internal.ws.api.message.Header;
 @Controller
 public class HomeController {
 
-	public static void main(String[] args) {
-		ArrayList<String> skillsNeed = new ArrayList<String>();
-
-		skillsNeed.add("php");
-		skillsNeed.add("java");
-		skillsNeed.add("css");
-
-		ArrayList<String> skillsHave = new ArrayList<String>();
-
-		skillsHave.add("php");
-		// skillsHave.add("java");
-		// skillsHave.add("css");
-		int skillsCount = 0;
-		for (String skill : skillsNeed) {
-			if (skillsHave.contains(skill)) {
-				skillsCount++;
-			}
-		}
-
-		if (skillsCount == skillsNeed.size()) {
-			System.out.println("#1");
-		} else if (skillsCount < skillsNeed.size()) {
-			System.out.println("#2");
-		}
-
-	}
+//	public static void main(String[] args) {
+//		ArrayList<String> skillsNeed = new ArrayList<String>();
+//
+//		skillsNeed.add("php");
+//		skillsNeed.add("java");
+//		skillsNeed.add("css");
+//
+//		ArrayList<String> skillsHave = new ArrayList<String>();
+//
+//		skillsHave.add("php");
+//		// skillsHave.add("java");
+//		// skillsHave.add("css");
+//		int skillsCount = 0;
+//		for (String skill : skillsNeed) {
+//			if (skillsHave.contains(skill)) {
+//				skillsCount++;
+//			}
+//		}
+//
+//		if (skillsCount == skillsNeed.size()) {
+//			System.out.println("#1");
+//		} else if (skillsCount < skillsNeed.size()) {
+//			System.out.println("#2");
+//		}
+//
+//	}
 
 	/**
 	 * Home page mapping (you can use "/" if you want) 1)Redirect users to request
@@ -118,28 +118,32 @@ public class HomeController {
 			ChirpedIn.populateNeedSkills(mentorList.get(i));
 			ChirpedIn.populateNetworkingSkills(mentorList.get(i));
 			ChirpedIn.populateAllMatchingSkills(newUser, mentorList.get(i));
+			ChirpedIn.setMatchingSkillCounts(mentorList.get(i));
 			
-			System.out.println(newUser);
+			System.out.println("This is our request field DTO:\n" + newUser);
 			//Split the MatchingMenteeSkills for the user and the match to compare amounts
-			String[] userMentorMatchingSkills = newUser.getNeedSkills().split(" ");
-			List<String> userAmount = new ArrayList<String>(Arrays.asList(userMentorMatchingSkills));
-			String[] matchMentorMatchingSkills = mentorList.get(i).getMatchingMentorSkills().split(" ");
-			List<String> matcheeAmount = new ArrayList<String>(Arrays.asList(matchMentorMatchingSkills));
+//			System.out.println(newUser.getNeedSkills());
+//			String[] userMentorMatchingSkills = newUser.getNeedSkills().split(" ");
+//			List<String> userAmount = new ArrayList<String>(Arrays.asList(userMentorMatchingSkills));
+//			System.out.println(mentorList.get(i).getMatchingMentorSkills());
+//			String[] matchMentorMatchingSkills = mentorList.get(i).getMatchingMentorSkills().split(" ");
+//			List<String> matcheeAmount = new ArrayList<String>(Arrays.asList(matchMentorMatchingSkills));
+//			
 			
 			
-			
-			double total = 0;
-			total = (matcheeAmount.size() / userAmount.size()) * 100;
-			mentorList.get(i).setPercentMatch(total);
+//			double total = 0;
+//			total = (matcheeAmount.size() / userAmount.size()) * 100;
+//			mentorList.get(i).setPercentMatch(total);
+//			System.out.println(total);
 
 			
 			
 			
 			System.out.println(mentorList.get(i));
-			System.out.println(mentorList.get(i).getMatchingMenteeSkills());
-			System.out.println(mentorList.get(i).getMatchingMentorSkills());
-			System.out.println(mentorList.get(i).getMatchingNetworkingSkills());
-			System.out.println(mentorList.get(i).getPercentMatch());
+//			System.out.println(mentorList.get(i).getMatchingMenteeSkills());
+//			System.out.println(mentorList.get(i).getMatchingMentorSkills());
+//			System.out.println(mentorList.get(i).getMatchingNetworkingSkills());
+//			System.out.println(mentorList.get(i).getPercentMatch());
 			
 			
 			

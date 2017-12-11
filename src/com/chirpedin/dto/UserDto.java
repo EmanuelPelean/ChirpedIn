@@ -12,11 +12,29 @@ import java.util.ArrayList;
 public class UserDto {
 
 	private double percentMatch;
-	
+
+	// temporary variables to be calculated with every search
+	private double totalMatchPercent;
+	private double mentorMatchPercent;
+	private double menteeMatchPercent;
+	private double networkingMatchPercent;
+
+	private boolean isMentorMatch = false;
+	private boolean isMenteeMatch = false;
+	private boolean isNetworkingMatch = false;
+
+	private int matchingMentorSkillCount = 0;
+	private int matchingMenteeSkillCount = 0;
+	private int matchingNetworkingSkillCount = 0;
+
+	// these could be permanent but would need to add to database and plus we run
+	// the risk that it there may be a disconnect between updating and adjusting
+	// skills
+
 	private String matchingMentorSkills = "";
 	private String matchingMenteeSkills = "";
 	private String matchingNetworkingSkills = "";
-	
+
 	private String haveSkills = "";
 	private String needSkills = "";
 	private String networkingSkills = "";
@@ -97,9 +115,9 @@ public class UserDto {
 	public UserDto() {
 		super();
 	}
-	
+
 	public int getRank(UserDto need) {
-		//System.out.println("Entering getRank()...");
+		// System.out.println("Entering getRank()...");
 
 		int skillsCount = 0;
 		int rank = 0;
@@ -108,25 +126,25 @@ public class UserDto {
 
 		if (need.mentorSkillsJava) {
 			skillsNeed.add("java");
-			//System.out.println("adding java skill");
+			// System.out.println("adding java skill");
 		}
 
 		if (need.mentorSkillsJsp) {
 			skillsNeed.add("jsp");
-			//System.out.println("adding jsp skill");
+			// System.out.println("adding jsp skill");
 		}
 
 		if (need.mentorSkillsCSS) {
 			skillsNeed.add("css");
-			//System.out.println("adding css skill");
+			// System.out.println("adding css skill");
 		}
 
 		ArrayList<String> skillsHave = new ArrayList<String>();
 
 		if (menteeSkillsJava) {
 			skillsHave.add("java");
-		} 
-		
+		}
+
 		if (menteeSkillsJsp) {
 			skillsHave.add("jsp");
 		}
@@ -142,12 +160,23 @@ public class UserDto {
 			}
 
 		}
-		
+
 		if (skillsNeed.size() > 1) {
 			rank = (skillsCount / skillsNeed.size()) * 100;
 		}
 
 		return rank;
+	}
+	
+	@Override
+	public String toString() {
+		return "UserDto: " + linkedInFirstName + " " + linkedInLastName + "\n percentMatch: " + percentMatch
+				+ "\n matchingMentorSkills: " + matchingMentorSkills + "\n matchingMenteeSkills: "
+				+ matchingMenteeSkills + "\n matchingNetworkginSkills: " + matchingNetworkingSkills + "\n haveSkills: "
+				+ haveSkills + "\n needSkills: " + needSkills + "\n networkingSkills: " + networkingSkills
+				+ "\n mentorMatch: " + mentorMatch + ", menteeMatch: " + menteeMatch + ", networkingMatch: "
+				+ networkingMatch + "\n haveSkillCount: " + haveSkillCount + ", needSkillCount: " + needSkillCount
+				+ ", networkingSkillCount: " + networkingSkillCount + "\n\n";
 	}
 
 	public String getLinkedInFirstName() {
@@ -630,23 +659,6 @@ public class UserDto {
 		this.networkingSkillCount = networkingSkillCount;
 	}
 
-	@Override
-	public String toString() {
-		return "UserDto: " + linkedInFirstName + " " + linkedInLastName 
-				+ "\n percentMatch: " + percentMatch 
-				+ "\n matchingMentorSkills: " + matchingMentorSkills
-				+ "\n matchingMenteeSkills: " + matchingMenteeSkills 
-				+ "\n matchingNetworkginSkills: " + matchingNetworkingSkills 
-				+ "\n haveSkills: " + haveSkills 
-				+ "\n needSkills: " + needSkills
-				+ "\n networkingSkills: " + networkingSkills
-				+ "\n mentorMatch: " + mentorMatch + ", menteeMatch: " + menteeMatch + ", networkingMatch: "
-				+ networkingMatch 
-				+ "\n haveSkillCount: " + haveSkillCount + ", needSkillCount: " + needSkillCount
-				+ ", networkingSkillCount: " + networkingSkillCount
-				+"\n\n";
-	}
-
 	public String getMatchingNetworkingSkills() {
 		return matchingNetworkingSkills;
 	}
@@ -662,5 +674,61 @@ public class UserDto {
 	public void setNetworkingSkills(String networkingSkills) {
 		this.networkingSkills = networkingSkills;
 	}
-	
+
+	public double getTotalMatchPercent() {
+		return totalMatchPercent;
+	}
+
+	public void setTotalMatchPercent(double totalMatchPercent) {
+		this.totalMatchPercent = totalMatchPercent;
+	}
+
+	public double getMentorMatchPercent() {
+		return mentorMatchPercent;
+	}
+
+	public void setMentorMatchPercent(double mentorMatchPercent) {
+		this.mentorMatchPercent = mentorMatchPercent;
+	}
+
+	public double getMenteeMatchPercent() {
+		return menteeMatchPercent;
+	}
+
+	public void setMenteeMatchPercent(double menteeMatchPercent) {
+		this.menteeMatchPercent = menteeMatchPercent;
+	}
+
+	public double getNetworkingMatchPercent() {
+		return networkingMatchPercent;
+	}
+
+	public void setNetworkingMatchPercent(double networkingMatchPercent) {
+		this.networkingMatchPercent = networkingMatchPercent;
+	}
+
+	public int getMatchingMentorSkillCount() {
+		return matchingMentorSkillCount;
+	}
+
+	public void setMatchingMentorSkillCount(int matchingMentorSkillCount) {
+		this.matchingMentorSkillCount = matchingMentorSkillCount;
+	}
+
+	public int getMatchingMenteeSkillCount() {
+		return matchingMenteeSkillCount;
+	}
+
+	public void setMatchingMenteeSkillCount(int matchingMenteeSkillCount) {
+		this.matchingMenteeSkillCount = matchingMenteeSkillCount;
+	}
+
+	public int getMatchingNetworkingSkillCount() {
+		return matchingNetworkingSkillCount;
+	}
+
+	public void setMatchingNetworkingSkillCount(int matchingNetworkingSkillCount) {
+		this.matchingNetworkingSkillCount = matchingNetworkingSkillCount;
+	}
+
 }

@@ -15,14 +15,16 @@ public class SandBox {
 	public static void main(String[] args) {
 
 		String firstString = "jsp dog cat HTML jss";
-		String secondString = "jsp no elephant HTML jss";
+		String secondString = "jsp HTML jss";
 
 		System.out.println(createListOfCommonWordsInTwoStrings(firstString, secondString));
-
+		System.out.println(firstString.split(" ").length);
+		System.out.println(secondString.split(" ").length);
 	}
 
 	private static String createListOfCommonWordsInTwoStrings(String firstString, String secondString) {
 		String commonElementsString = "";
+		
 		String[] firstArr = firstString.split(" ");
 		String[] secondArr = secondString.split(" ");
 
