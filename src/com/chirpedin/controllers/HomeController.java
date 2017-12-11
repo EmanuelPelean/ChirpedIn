@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -77,6 +78,7 @@ public class HomeController {
 	 */
 	@RequestMapping({ "/", "/home" })
 	public ModelAndView home() {
+		
 
 		return new ModelAndView("home", "", "");// Since there is no model I could return string with view name
 	}
@@ -117,7 +119,31 @@ public class HomeController {
 			ChirpedIn.populateNetworkingSkills(mentorList.get(i));
 			ChirpedIn.populateAllMatchingSkills(newUser, mentorList.get(i));
 			
+			System.out.println(newUser);
+			//Split the MatchingMenteeSkills for the user and the match to compare amounts
+			String[] userMentorMatchingSkills = newUser.getNeedSkills().split(" ");
+			List<String> userAmount = new ArrayList<String>(Arrays.asList(userMentorMatchingSkills));
+			String[] matchMentorMatchingSkills = mentorList.get(i).getMatchingMentorSkills().split(" ");
+			List<String> matcheeAmount = new ArrayList<String>(Arrays.asList(matchMentorMatchingSkills));
+			
+			
+			
+			double total = 0;
+			total = (matcheeAmount.size() / userAmount.size()) * 100;
+			mentorList.get(i).setPercentMatch(total);
+
+			
+			
+			
 			System.out.println(mentorList.get(i));
+			System.out.println(mentorList.get(i).getMatchingMenteeSkills());
+			System.out.println(mentorList.get(i).getMatchingMentorSkills());
+			System.out.println(mentorList.get(i).getMatchingNetworkingSkills());
+			System.out.println(mentorList.get(i).getPercentMatch());
+			
+			
+			
+			
 		}
 		mentorList.sort(new MentorListComparator(newUser));
 
@@ -243,5 +269,15 @@ public class HomeController {
 
 		return "matches";
 	}
+	
+	// this is called when the dashboard.jsp page is first opened
+		@RequestMapping({ "/dashboard" })
+		public ModelAndView userDashboard(Model model) {
+			
+
+			// binding form to pojo
+
+			return new ModelAndView("dashboard", "", "");
+		}
 
 }
