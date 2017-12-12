@@ -26,7 +26,9 @@ import com.chirpedin.dto.UserDto;
  */
 public class UserDaoImpl implements UsersDao {
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.gc.dao.UsersDao#insertUser(com.gc.dto.UserDto)
 	 */
 	@Override
@@ -39,13 +41,12 @@ public class UserDaoImpl implements UsersDao {
 		tx.commit();
 		session.close();
 	}
-	
-	
+
 	/*****
-	*
-	*needed to create updateUser for updating UserDto.favorites as a String)
-	*
-	**********/
+	 *
+	 * needed to create updateUser for updating UserDto.favorites as a String)
+	 *
+	 **********/
 
 	@Override
 	public void updateUser(UserDto updatedUser) {
@@ -57,7 +58,10 @@ public class UserDaoImpl implements UsersDao {
 		tx.commit();
 		session.close();
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.gc.dao.UsersDao#getMatches(com.gc.dto.UserDto)
 	 */
 	@Override
@@ -67,78 +71,122 @@ public class UserDaoImpl implements UsersDao {
 		SessionFactory sessionFactory = config.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		
-		
-		
+
 		Criteria crit = session.createCriteria(UserDto.class);
 		crit.add(Restrictions.like("menteeSkillsPhp", true));
-	
-		
-//		CriteriaBuilder builder = session.getCriteriaBuilder();
-//		CriteriaQuery criteria = (CriteriaQuery) builder.createQuery(UserDto.class);
-		
-		ArrayList<UserDto> list = (ArrayList<UserDto>)crit.list();
+
+		ArrayList<UserDto> list = (ArrayList<UserDto>) crit.list();
 		tx.commit();
-				
+
 		session.close();
-//		new ModelAndView("matches", "matchresults", list);
-		String test = "Tim is a genius";
-		model.addAttribute("matchresults", list);
+
 		return list;
-		
+
 	}
 
 	@Override
-	public List<UserDto> findMentor(UserDto userCriteriaDto, Model model) {
-		System.out.println("Running matchMentor method");
+	public List<UserDto> findMentor(UserDto userCriteriaDto) {
 		Configuration config = new Configuration().configure("hibernate.cfg.xml");
 		SessionFactory sessionFactory = config.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		
-		
+
 		Criteria crit = session.createCriteria(UserDto.class);
 		Criterion Php = Restrictions.like("menteeSkillsPhp", userCriteriaDto.getMentorSkillsPhp());
 		Criterion Java = Restrictions.like("menteeSkillsJava", userCriteriaDto.getMentorSkillsJava());
 		Criterion Css = Restrictions.like("menteeSkillsCSS", userCriteriaDto.getMentorSkillsCSS());
 		Criterion Html = Restrictions.like("menteeSkillsHTML", userCriteriaDto.getMentorSkillsHTML());
+		Criterion Jsp = Restrictions.like("menteeSkillsJsp", userCriteriaDto.getMentorSkillsJsp());
+		Criterion Jstl = Restrictions.like("menteeSkillsJstl", userCriteriaDto.getMentorSkillsJstl());
+		Criterion Sql = Restrictions.like("menteeSkillsSql", userCriteriaDto.getMentorSkillsSql());
+		Criterion Jdbc = Restrictions.like("menteeSkillsJdbc", userCriteriaDto.getMentorSkillsJdbc());
+		Criterion SpringMvc = Restrictions.like("menteeSkillsSpringMVC", userCriteriaDto.getMentorSkillsSpringMVC());
+		Criterion Hibernate = Restrictions.like("menteeSkillsHibernate", userCriteriaDto.getMentorSkillsHibernate());
+		Criterion JavaScript = Restrictions.like("menteeSkillsJavaScript", userCriteriaDto.getMentorSkillsJavaScript());
 
-//		// To get records matching with AND conditions
-//		LogicalExpression andExp = Restrictions.and(Php, Java);
-//		crit.add(andExp);
-//		ArrayList<UserDto> listAnd = (ArrayList<UserDto>)crit.list();
-//		System.out.println("This is listAnd: " + listAnd);
-//		if (listAnd.size()<=2) {
-//			System.out.println("ListAnd");
-			
-			// To get records matching with OR conditions
-			Disjunction orExp = Restrictions.or(Php, Java, Css, Html);
-			crit.add( orExp );
-			
-			ArrayList<UserDto> list = (ArrayList<UserDto>)crit.list();
-//			model.addAttribute("bestMatchList", listAnd);
-			
-//			model.addAllAttributes(arg0)
-//			return list;
-//		}
-		
+		// To get records matching with OR conditions
+		Disjunction orExp = Restrictions.or(Php, Java, Css, Html, Jsp, Jstl, Sql, Jdbc, SpringMvc, Hibernate,
+				JavaScript);
+		crit.add(orExp);
+
+		ArrayList<UserDto> list = (ArrayList<UserDto>) crit.list();
+
 		tx.commit();
 		session.close();
-		
-//		model.addAttribute("mentorresults", list);
+
 		return list;
 	}
 
 	@Override
-	public List<UserDto> matchMentee(UserDto newUser) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<UserDto> findMentee(UserDto userCriteriaDto) {
+		Configuration config = new Configuration().configure("hibernate.cfg.xml");
+		SessionFactory sessionFactory = config.buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		Criteria crit = session.createCriteria(UserDto.class);
+		Criterion Php = Restrictions.like("mentorSkillsPhp", userCriteriaDto.getMenteeSkillsPhp());
+		Criterion Java = Restrictions.like("mentorSkillsJava", userCriteriaDto.getMenteeSkillsJava());
+		Criterion Css = Restrictions.like("mentorSkillsCSS", userCriteriaDto.getMenteeSkillsCSS());
+		Criterion Html = Restrictions.like("mentorSkillsHTML", userCriteriaDto.getMenteeSkillsHTML());
+		Criterion Jsp = Restrictions.like("mentorSkillsJsp", userCriteriaDto.getMenteeSkillsJsp());
+		Criterion Jstl = Restrictions.like("mentorSkillsJstl", userCriteriaDto.getMenteeSkillsJstl());
+		Criterion Sql = Restrictions.like("mentorSkillsSql", userCriteriaDto.getMenteeSkillsSql());
+		Criterion Jdbc = Restrictions.like("mentorSkillsJdbc", userCriteriaDto.getMenteeSkillsJdbc());
+		Criterion SpringMvc = Restrictions.like("mentorSkillsSpringMVC", userCriteriaDto.getMenteeSkillsSpringMVC());
+		Criterion Hibernate = Restrictions.like("mentorSkillsHibernate", userCriteriaDto.getMenteeSkillsHibernate());
+		Criterion JavaScript = Restrictions.like("mentorSkillsJavaScript", userCriteriaDto.getMenteeSkillsJavaScript());
+
+		// To get records matching with OR conditions
+		Disjunction orExp = Restrictions.or(Php, Java, Css, Html, Jsp, Jstl, Sql, Jdbc, SpringMvc, Hibernate,
+				JavaScript);
+		crit.add(orExp);
+
+		ArrayList<UserDto> list = (ArrayList<UserDto>) crit.list();
+
+		tx.commit();
+		session.close();
+
+		return list;
 	}
 
 	@Override
-	public List<UserDto> matchNetworking(UserDto newUser) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<UserDto> matchNetworking(UserDto userCriteriaDto) {
+		Configuration config = new Configuration().configure("hibernate.cfg.xml");
+		SessionFactory sessionFactory = config.buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		Criteria crit = session.createCriteria(UserDto.class);
+		Criterion Php = Restrictions.like("networkingSkillsPhp", userCriteriaDto.getNetworkingSkillsPhp());
+		Criterion Java = Restrictions.like("networkingSkillsJava", userCriteriaDto.getNetworkingSkillsJava());
+		Criterion Css = Restrictions.like("networkingSkillsCSS", userCriteriaDto.getNetworkingSkillsCSS());
+		Criterion Html = Restrictions.like("networkingSkillsHTML", userCriteriaDto.getNetworkingSkillsHTML());
+		Criterion Jsp = Restrictions.like("networkingSkillsJsp", userCriteriaDto.getNetworkingSkillsJsp());
+		Criterion Jstl = Restrictions.like("networkingSkillsJstl", userCriteriaDto.getNetworkingSkillsJstl());
+		Criterion Sql = Restrictions.like("networkingSkillsSql", userCriteriaDto.getNetworkingSkillsSql());
+		Criterion Jdbc = Restrictions.like("networkingSkillsJdbc", userCriteriaDto.getNetworkingSkillsJdbc());
+		Criterion SpringMvc = Restrictions.like("networkingSkillsSpringMVC", userCriteriaDto.getNetworkingSkillsSpringMVC());
+		Criterion Hibernate = Restrictions.like("networkingSkillsHibernate", userCriteriaDto.getNetworkingSkillsHibernate());
+		Criterion JavaScript = Restrictions.like("networkingSkillsJavaScript", userCriteriaDto.getNetworkingSkillsJavaScript());
+		Criterion Foodie = Restrictions.like("networkingFoodie", userCriteriaDto.getNetworkingFoodie());
+		Criterion Gaming = Restrictions.like("networkingGaming", userCriteriaDto.getNetworkingGaming());
+		Criterion Sports = Restrictions.like("networkingSports", userCriteriaDto.getNetworkingSports());
+		Criterion Anime = Restrictions.like("networkingAnime", userCriteriaDto.getNetworkingAnime());
+		Criterion Fun = Restrictions.like("networkingFun", userCriteriaDto.getNetworkingFun());
+		
+		
+		// To get records matching with OR conditions
+		Disjunction orExp = Restrictions.or(Php, Java, Css, Html, Jsp, Jstl, Sql, Jdbc, SpringMvc, Hibernate,
+				JavaScript, Foodie, Gaming, Sports, Anime, Fun);
+		crit.add(orExp);
+
+		ArrayList<UserDto> list = (ArrayList<UserDto>) crit.list();
+
+		tx.commit();
+		session.close();
+
+		return list;
 	}
 
 	@Override
@@ -150,13 +198,13 @@ public class UserDaoImpl implements UsersDao {
 	@Override
 	public void chirp() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void saveAsFav(String userID) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -191,6 +239,12 @@ public class UserDaoImpl implements UsersDao {
 
 	@Override
 	public List<UserDto> matchMentor(UserDto newUser, Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<UserDto> matchMentee(UserDto newUser) {
 		// TODO Auto-generated method stub
 		return null;
 	}

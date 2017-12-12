@@ -49,5 +49,6 @@ public interface UsersDao {
 
 	List<UserDto> matchMentor(UserDto newUser, Model model);
 
-	List<UserDto> findMentor(UserDto userCriteriaDto, Model model);
+	List<UserDto> findMentee(UserDto userCriteriaDto);
+	List<UserDto> findMentor(UserDto userCriteriaDto);
 }

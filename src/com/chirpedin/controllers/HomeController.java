@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,32 +43,34 @@ import com.sun.xml.internal.ws.api.message.Header;
 @Controller
 public class HomeController {
 
-//	public static void main(String[] args) {
-//		ArrayList<String> skillsNeed = new ArrayList<String>();
-//
-//		skillsNeed.add("php");
-//		skillsNeed.add("java");
-//		skillsNeed.add("css");
-//
-//		ArrayList<String> skillsHave = new ArrayList<String>();
-//
-//		skillsHave.add("php");
-//		// skillsHave.add("java");
-//		// skillsHave.add("css");
-//		int skillsCount = 0;
-//		for (String skill : skillsNeed) {
-//			if (skillsHave.contains(skill)) {
-//				skillsCount++;
-//			}
-//		}
-//
-//		if (skillsCount == skillsNeed.size()) {
-//			System.out.println("#1");
-//		} else if (skillsCount < skillsNeed.size()) {
-//			System.out.println("#2");
-//		}
-//
-//	}
+	// public static void main(String[] args) {
+	// ArrayList<String> skillsNeed = new ArrayList<String>();
+	//
+	// skillsNeed.add("php");
+	// skillsNeed.add("java");
+	// skillsNeed.add("css");
+	//
+	// ArrayList<String> skillsHave = new ArrayList<String>();
+	//
+	// skillsHave.add("php");
+	// // skillsHave.add("java");
+	// // skillsHave.add("css");
+	// int skillsCount = 0;
+	// for (String skill : skillsNeed) {
+	// if (skillsHave.contains(skill)) {
+	// skillsCount++;
+	// }
+	// }
+	//
+	// if (skillsCount == skillsNeed.size()) {
+	// System.out.println("#1");
+	// } else if (skillsCount < skillsNeed.size()) {
+	// System.out.println("#2");
+	// }
+	//
+	// }
+
+	
 
 	/**
 	 * Home page mapping (you can use "/" if you want) 1)Redirect users to request
@@ -79,7 +82,6 @@ public class HomeController {
 	@RequestMapping({ "/", "/home" })
 	public ModelAndView home() {
 		
-
 		return new ModelAndView("home", "", "");// Since there is no model I could return string with view name
 	}
 
@@ -98,58 +100,52 @@ public class HomeController {
 	public ModelAndView signupPost(@ModelAttribute("command") UserDto newUser, Model model) {
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 
-		//Create strings for HaveSkills, NeedSkills, and Networking Skills and add them to the newUser DTO 
+		// Create strings for HaveSkills, NeedSkills, and Networking Skills and add them
+		// to the newUser DTO
 		ChirpedIn.populateHaveSkills(newUser);
 		ChirpedIn.populateNeedSkills(newUser);
 		ChirpedIn.populateNetworkingSkills(newUser);
 		ChirpedIn.setSkillCount(newUser);
-		
-		//Insert the newUser DTO into our MySQL database
+
+		// Insert the newUser DTO into our MySQL database
 		dao.insertUser(newUser);
 
 		// List<UserDto> matches = dao.getMatches(newUser, model);
 		// System.out.println("Form Signup");
-		
-		List<UserDto> mentorList = dao.findMentor(newUser, model); // find mentors based on criteria
+
+		List<UserDto> mentorList = dao.findMentor(newUser); // find mentors based on criteria
+		List<UserDto> menteeList = dao.findMentee(newUser); // find mentees based on criteria
+		List<UserDto> networkingList = dao.matchNetworking(newUser); // find networking matches based on criteria
+
+		System.out.println("This is mentorList before modification :" + mentorList); // Debugging
+
+		for (UserDto userDto : menteeList) {
+			if (!mentorList.contains(userDto))
+				mentorList.add(userDto);
+		}
+
+		for (UserDto userDto : networkingList) {
+			if (!mentorList.contains(userDto))
+				mentorList.add(userDto);
+		}
+
+		System.out.println("This is mentorList after modification :" + mentorList);
+
 		// do work to display the list in order
-		
+
 		for (int i = 0; i < mentorList.size(); i++) {// for each mentor, print matching skills
-			
+
 			ChirpedIn.populateHaveSkills(mentorList.get(i));
 			ChirpedIn.populateNeedSkills(mentorList.get(i));
 			ChirpedIn.populateNetworkingSkills(mentorList.get(i));
 			ChirpedIn.populateAllMatchingSkills(newUser, mentorList.get(i));
 			ChirpedIn.setMatchingSkillCounts(mentorList.get(i));
 			ChirpedIn.calculateMatchPercentages(newUser, mentorList.get(i));
-			
-			System.out.println("This is our request field DTO:\n" + newUser);
-			//Split the MatchingMenteeSkills for the user and the match to compare amounts
-//			System.out.println(newUser.getNeedSkills());
-//			String[] userMentorMatchingSkills = newUser.getNeedSkills().split(" ");
-//			List<String> userAmount = new ArrayList<String>(Arrays.asList(userMentorMatchingSkills));
-//			System.out.println(mentorList.get(i).getMatchingMentorSkills());
-//			String[] matchMentorMatchingSkills = mentorList.get(i).getMatchingMentorSkills().split(" ");
-//			List<String> matcheeAmount = new ArrayList<String>(Arrays.asList(matchMentorMatchingSkills));
-//			
-			
-			
-//			double total = 0;
-//			total = (matcheeAmount.size() / userAmount.size()) * 100;
-//			mentorList.get(i).setPercentMatch(total);
-//			System.out.println(total);
 
-			
-			
-			
+			System.out.println("This is our request field DTO:\n" + newUser);
+
 			System.out.println(mentorList.get(i));
-//			System.out.println(mentorList.get(i).getMatchingMenteeSkills());
-//			System.out.println(mentorList.get(i).getMatchingMentorSkills());
-//			System.out.println(mentorList.get(i).getMatchingNetworkingSkills());
-//			System.out.println(mentorList.get(i).getPercentMatch());
-			
-			
-			
-			
+
 		}
 		mentorList.sort(new MentorListComparator(newUser));
 
@@ -175,10 +171,9 @@ public class HomeController {
 	 */
 	@RequestMapping("/result")
 	public ModelAndView result(Model model, @RequestParam("code") String code, @RequestParam("state") String state) {
-		
+
 		String jsonString = "";
 		String accessToken = "";
-
 		UserDto userDataDto = null;
 
 		try {
@@ -230,17 +225,17 @@ public class HomeController {
 			JSONObject jsonLocation = (JSONObject) jsonObj.get("location");
 			JSONObject jsonLargePic = (JSONObject) jsonObj.get("pictureUrls");
 
-//			String userID = (String) jsonObj.get("id");
-//			String firstName = (String) jsonObj.get("firstName");
-//			String lastName = (String) jsonObj.get("lastName");
-//			String headline = (String) jsonObj.get("headline");
-//			String location = (String) jsonLocation.get("name");
-//			String smallPic = (String) jsonObj.get("pictureUrl");
-//			JSONObject jsonLargePicValues = (JSONObject) jsonLargePic.get("values");
-//			String largePic = (String) jsonLocation.get("values");
-//          String largePic = (String) jsonObj.get("values");
-//			String profileUrl = (String) jsonObj.get("publicProfileUrl");
-// 			String email = (String) jsonObj.get("email-address");
+			// String userID = (String) jsonObj.get("id");
+			// String firstName = (String) jsonObj.get("firstName");
+			// String lastName = (String) jsonObj.get("lastName");
+			// String headline = (String) jsonObj.get("headline");
+			// String location = (String) jsonLocation.get("name");
+			// String smallPic = (String) jsonObj.get("pictureUrl");
+			// JSONObject jsonLargePicValues = (JSONObject) jsonLargePic.get("values");
+			// String largePic = (String) jsonLocation.get("values");
+			// String largePic = (String) jsonObj.get("values");
+			// String profileUrl = (String) jsonObj.get("publicProfileUrl");
+			// String email = (String) jsonObj.get("email-address");
 
 			userDataDto = new UserDto();
 
@@ -275,31 +270,27 @@ public class HomeController {
 
 		return "matches";
 	}
-	
+
 	// this is called when the dashboard.jsp page is first opened
-		@RequestMapping({ "/dashboard" })
-		public ModelAndView userDashboard(Model model) {
-			
+	@RequestMapping({ "/dashboard" })
+	public ModelAndView userDashboard(Model model) {
 
-			// binding form to pojo
+		// binding form to pojo
 
-			return new ModelAndView("dashboard", "", "");
-		}
-		
-		@RequestMapping(value = { "/faved" }, method = RequestMethod.POST)
-		public ModelAndView faved(@ModelAttribute("command") UserDto selectedDto, UserDto userDto, Model model) {
-			
-			userDto.setFavorites(userDto.getFavorites() + " " + selectedDto.getFavorites());
-			
-			UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
-			
-			dao.updateUser(userDto);
-			
+		return new ModelAndView("dashboard", "", "");
+	}
 
+	@RequestMapping(value = { "/faved" }, method = RequestMethod.POST)
+	public ModelAndView faved(@ModelAttribute("command") UserDto selectedDto, UserDto userDto, Model model) {
 
+		userDto.setFavorites(userDto.getFavorites() + " " + selectedDto.getFavorites());
 
-			return new ModelAndView("matches", "", "");
+		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 
-		}
+		dao.updateUser(userDto);
+
+		return new ModelAndView("matches", "", "");
+
+	}
 
 }
