@@ -70,8 +70,6 @@ public class HomeController {
 	//
 	// }
 
-	
-
 	/**
 	 * Home page mapping (you can use "/" if you want) 1)Redirect users to request
 	 * LinkedIn access – (provide a value for the state and scopes you need) home
@@ -81,7 +79,7 @@ public class HomeController {
 	 */
 	@RequestMapping({ "/", "/home" })
 	public ModelAndView home() {
-		
+
 		return new ModelAndView("home", "", "");// Since there is no model I could return string with view name
 	}
 
@@ -119,37 +117,50 @@ public class HomeController {
 
 		System.out.println("This is mentorList before modification :" + mentorList); // Debugging
 
+		List<UserDto> allMatchesList = new ArrayList<UserDto>();
+
 		for (UserDto userDto : menteeList) {
-			if (!mentorList.contains(userDto))
-				mentorList.add(userDto);
+			if (!allMatchesList.contains(userDto))
+				allMatchesList.add(userDto);
+		}
+
+		for (UserDto userDto : menteeList) {
+			if (!allMatchesList.contains(userDto))
+				allMatchesList.add(userDto);
 		}
 
 		for (UserDto userDto : networkingList) {
-			if (!mentorList.contains(userDto))
-				mentorList.add(userDto);
+			if (!allMatchesList.contains(userDto))
+				allMatchesList.add(userDto);
 		}
 
-		System.out.println("This is mentorList after modification :" + mentorList);
+		for (UserDto userDto : networkingList) {
+			if (userDto.getLinkedInId().contains(newUser.getLinkedInId())) {
+				allMatchesList.remove(userDto);
+			}
+		}
+
+		System.out.println("This is mentorList after modification :" + allMatchesList);
 
 		// do work to display the list in order
 
-		for (int i = 0; i < mentorList.size(); i++) {// for each mentor, print matching skills
+		for (int i = 0; i < allMatchesList.size(); i++) {// for each mentor, print matching skills
 
-			ChirpedIn.populateHaveSkills(mentorList.get(i));
-			ChirpedIn.populateNeedSkills(mentorList.get(i));
-			ChirpedIn.populateNetworkingSkills(mentorList.get(i));
-			ChirpedIn.populateAllMatchingSkills(newUser, mentorList.get(i));
-			ChirpedIn.setMatchingSkillCounts(mentorList.get(i));
-			ChirpedIn.calculateMatchPercentages(newUser, mentorList.get(i));
+			ChirpedIn.populateHaveSkills(allMatchesList.get(i));
+			ChirpedIn.populateNeedSkills(allMatchesList.get(i));
+			ChirpedIn.populateNetworkingSkills(allMatchesList.get(i));
+			ChirpedIn.populateAllMatchingSkills(newUser, allMatchesList.get(i));
+			ChirpedIn.setMatchingSkillCounts(allMatchesList.get(i));
+			ChirpedIn.calculateMatchPercentages(newUser, allMatchesList.get(i));
 
 			System.out.println("This is our request field DTO:\n" + newUser);
 
-			System.out.println(mentorList.get(i));
+			System.out.println(allMatchesList.get(i));
 
 		}
 		mentorList.sort(new MentorListComparator(newUser));
 
-		model.addAttribute("mentorresults", mentorList); // send data to view
+		model.addAttribute("mentorresults", allMatchesList); // send data to view
 
 		return new ModelAndView("matches", "", "");
 
