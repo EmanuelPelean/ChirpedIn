@@ -52,7 +52,6 @@ public class UserDto {
 	private String linkedInLastName;
 	private String linkedInHeadline;
 	private String linkedInLocation;
-	private String linkedInSummary;
 	private String linkedInPictureUrl;
 	private String linkedInLargePictureUrl;
 	private String linkedInPublicProfileUrl;
@@ -222,14 +221,6 @@ public class UserDto {
 
 	public void setLinkedInLocation(String linkedInLocation) {
 		this.linkedInLocation = linkedInLocation;
-	}
-
-	public String getLinkedInSummary() {
-		return linkedInSummary;
-	}
-
-	public void setLinkedInSummary(String linkedInSummary) {
-		this.linkedInSummary = linkedInSummary;
 	}
 
 	public String getLinkedInPictureUrl() {

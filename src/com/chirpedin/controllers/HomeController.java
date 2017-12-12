@@ -114,16 +114,18 @@ public class HomeController {
 		List<UserDto> mentorList = dao.findMentor(newUser); // find mentors based on criteria
 		List<UserDto> menteeList = dao.findMentee(newUser); // find mentees based on criteria
 		List<UserDto> networkingList = dao.matchNetworking(newUser); // find networking matches based on criteria
-
-		System.out.println("This is mentorList before modification :" + mentorList); // Debugging
-
 		List<UserDto> allMatchesList = new ArrayList<UserDto>();
+		System.out.println("This is mentorList before modification :" + allMatchesList); // Debugging
 
-		for (UserDto userDto : menteeList) {
+		
+
+		//Adds all the UserDto's from menteeList to allMatchesList
+		for (UserDto userDto : mentorList) {
 			if (!allMatchesList.contains(userDto))
 				allMatchesList.add(userDto);
 		}
 
+		//Adds all the UserDto's from menteeList to allMatchesList
 		for (UserDto userDto : menteeList) {
 			if (!allMatchesList.contains(userDto))
 				allMatchesList.add(userDto);
@@ -158,8 +160,13 @@ public class HomeController {
 			System.out.println(allMatchesList.get(i));
 
 		}
-		mentorList.sort(new MentorListComparator(newUser));
+		
+		System.out.println(allMatchesList);
+		
+		allMatchesList.sort(new MentorListComparator());
 
+		System.out.println(allMatchesList);
+		
 		model.addAttribute("mentorresults", allMatchesList); // send data to view
 
 		return new ModelAndView("matches", "", "");
