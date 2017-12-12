@@ -15,6 +15,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.NativeQuery;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,6 +28,9 @@ import com.chirpedin.util.SendEmail;
  */
 public class UserDaoImpl implements UsersDao {
 
+	private static final String ADDFAV_SQL = "INSERT INTO `chirpedin`.`favorites`(`userlinkedin_id`, `fav_id`) VALUES ( :user_id, :fav_id)";
+	private static final String GETFAV_SQL = "SELECT *  FROM chirpedin.users as table1 LEFT JOIN chirpedin.favorites as table2 ON table2.fav_id = table1.user_id Where table2.userlinkedin_id = :user_id";
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -255,6 +259,44 @@ public class UserDaoImpl implements UsersDao {
 	public void chirp() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void addFavorites(UserDto userDto, UserDto selectedDTO) {
+		Configuration config = new Configuration().configure("hibernate.cfg.xml");
+		SessionFactory sessionFactory = config.buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		
+		NativeQuery query = session.createSQLQuery(ADDFAV_SQL);
+		query.setString("user_id", userDto.getLinkedInId());
+		query.setString("fav_id", selectedDTO.getLinkedInId());
+		query.executeUpdate();
+		
+		tx.commit();
+		session.close();
+
+	
+		
+	}
+
+	@Override
+	public List<UserDto> getFavorites(UserDto user1) {
+		
+
+		Configuration config = new Configuration().configure("hibernate.cfg.xml");
+		SessionFactory sessionFactory = config.buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		
+		NativeQuery query = session.createSQLQuery(GETFAV_SQL);
+		query.setString("user_id", user1.getLinkedInId());
+		
+		List<UserDto> list = query.list();
+		
+		tx.commit();
+		session.close();
+		return list;
 	}
 
 }

@@ -324,5 +324,36 @@ public class HomeController {
 		return new ModelAndView("matches", "", "");
 
 	}
+	
+	@RequestMapping("/addFavorites")
+	public ModelAndView favorites() {
+		
+		UserDto user1 = new UserDto();
+		user1.setLinkedInId("dani");
+		
+		UserDto user2 = new UserDto();
+		user2.setLinkedInId("format");
+		
+		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+		dao.addFavorites(user1, user2);
+		
+		return null;
+		
+	}
+	
+	@RequestMapping("/getFavorites")
+	public ModelAndView getFavorites() {
+		
+		UserDto user1 = new UserDto();
+		user1.setLinkedInId("dani");
+		
+		
+		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+		List<UserDto> favorites = dao.getFavorites(user1);
+		System.out.println(favorites);
+		
+		return null;
+		
+	}
 
 }
