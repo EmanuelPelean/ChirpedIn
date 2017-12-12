@@ -160,13 +160,8 @@ public class HomeController {
 			System.out.println(allMatchesList.get(i));
 
 		}
-		
-		System.out.println(allMatchesList);
-		
 		allMatchesList.sort(new MentorListComparator());
 
-		System.out.println(allMatchesList);
-		
 		model.addAttribute("mentorresults", allMatchesList); // send data to view
 
 		return new ModelAndView("matches", "", "");
