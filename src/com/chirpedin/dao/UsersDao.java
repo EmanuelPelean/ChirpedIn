@@ -16,6 +16,7 @@ import com.chirpedin.dto.UserDto;
 public interface UsersDao {
 
 	void insertUser(UserDto newUser);
+	void updateUser(UserDto newUser);
 
 	List<UserDto> getMatches(UserDto newUser);
 

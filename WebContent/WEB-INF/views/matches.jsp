@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -135,7 +136,6 @@ section
 <body>
 
 
-
 <section>
   <div class="wrapper">
     <div class="container">
@@ -150,9 +150,17 @@ section
 				<td>${matchedDto.linkedInFirstName}</td>
 				<td>${matchedDto.linkedInLastName}</td>
 				<td>Mentor Skills: ${matchedDto.matchingMentorSkills}</td>
+				<td>${matchedDto.linkedInId }</td>  <!--  Pratima added for favorites-->
+				<form:form action="faved" method="post" modelAttribute="command">
+				<form:input type="hidden" name="linkedInId" path="linkedInId" value="${matchedDto.linkedInId}"></form:input><br/>
+				<input type="submit" value="Submit">
+				</form:form>
+				<td></td>
+				
 				<!-- <td>Headline: ${matchedDto.linkedInHeadline}</td> -->
 			</tr>
 		</c:forEach>
+		
 	</table>
           <p>Mentor</p>
         </div>

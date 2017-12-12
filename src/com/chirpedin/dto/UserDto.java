@@ -111,6 +111,17 @@ public class UserDto {
 	private Boolean networkingSkillsJavaScript;
 	private Boolean networkingSkillsHTML;
 	private Boolean networkingSkillsCSS;
+	
+	// favorites
+	private String favorites;  //added by Pratima
+
+	public String getFavorites() {     //added by Pratima
+		return favorites;
+	}
+
+	public void setFavorites(String favorites) {       //added by Pratima
+		this.favorites = favorites;
+	}
 
 	public UserDto() {
 		super();
@@ -309,6 +320,7 @@ public class UserDto {
 		this.mentorSkillsSpringMVC = mentorSkillsSpringMVC;
 	}
 
+	
 	public Boolean getMentorSkillsHibernate() {
 		return mentorSkillsHibernate;
 	}

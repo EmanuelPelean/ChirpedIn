@@ -98,12 +98,12 @@
 		<form:checkbox name="networkingskills" path="networkingSkillsHibernate" value="true"/> Hibernate<br>
 				<form:checkbox name="networkingskills" path="networkingSkillsJdbc" value="true"/> JDBC
 
-		<input type="button" onclick="saveSkills(networkskills, 'network')"
+		<!-- <input type="button" onclick="saveSkills(networkskills, 'network')"
 			value="Save Networker Data"> <br>
-		<br> <input type="text" id="networkSkillsSummary" size="50">
+		<br> <input type="text" id="networkSkillsSummary" size="50">  -->
 		<input type="submit" value="Submit">
 		
-		<button type="submit">Update</button>
+		<!-- <button type="submit">Update</button> -->
 	</form:form>
 
 	<script>

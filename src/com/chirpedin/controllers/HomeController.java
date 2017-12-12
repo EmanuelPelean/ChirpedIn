@@ -285,5 +285,21 @@ public class HomeController {
 
 			return new ModelAndView("dashboard", "", "");
 		}
+		
+		@RequestMapping(value = { "/faved" }, method = RequestMethod.POST)
+		public ModelAndView faved(@ModelAttribute("command") UserDto selectedDto, UserDto userDto, Model model) {
+			
+			userDto.setFavorites(userDto.getFavorites() + " " + selectedDto.getFavorites());
+			
+			UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+			
+			dao.updateUser(userDto);
+			
+
+
+
+			return new ModelAndView("matches", "", "");
+
+		}
 
 }

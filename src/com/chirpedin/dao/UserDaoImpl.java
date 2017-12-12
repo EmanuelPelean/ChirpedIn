@@ -39,7 +39,24 @@ public class UserDaoImpl implements UsersDao {
 		tx.commit();
 		session.close();
 	}
+	
+	
+	/*****
+	*
+	*needed to create updateUser for updating UserDto.favorites as a String)
+	*
+	**********/
 
+	@Override
+	public void updateUser(UserDto updatedUser) {
+		Configuration config = new Configuration().configure("hibernate.cfg.xml");
+		SessionFactory sessionFactory = config.buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.save(updatedUser);
+		tx.commit();
+		session.close();
+	}
 	/* (non-Javadoc)
 	 * @see com.gc.dao.UsersDao#getMatches(com.gc.dto.UserDto)
 	 */
@@ -52,8 +69,10 @@ public class UserDaoImpl implements UsersDao {
 		Transaction tx = session.beginTransaction();
 		
 		
+		
 		Criteria crit = session.createCriteria(UserDto.class);
 		crit.add(Restrictions.like("menteeSkillsPhp", true));
+	
 		
 //		CriteriaBuilder builder = session.getCriteriaBuilder();
 //		CriteriaQuery criteria = (CriteriaQuery) builder.createQuery(UserDto.class);
