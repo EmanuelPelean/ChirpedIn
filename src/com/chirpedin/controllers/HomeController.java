@@ -117,15 +117,13 @@ public class HomeController {
 		List<UserDto> allMatchesList = new ArrayList<UserDto>();
 		System.out.println("This is mentorList before modification :" + allMatchesList); // Debugging
 
-		
-
-		//Adds all the UserDto's from menteeList to allMatchesList
+		// Adds all the UserDto's from menteeList to allMatchesList
 		for (UserDto userDto : mentorList) {
 			if (!allMatchesList.contains(userDto))
 				allMatchesList.add(userDto);
 		}
 
-		//Adds all the UserDto's from menteeList to allMatchesList
+		// Adds all the UserDto's from menteeList to allMatchesList
 		for (UserDto userDto : menteeList) {
 			if (!allMatchesList.contains(userDto))
 				allMatchesList.add(userDto);
@@ -160,13 +158,13 @@ public class HomeController {
 			System.out.println(allMatchesList.get(i));
 
 		}
-		
+
 		System.out.println(allMatchesList);
-		
+
 		allMatchesList.sort(new MentorListComparator());
 
 		System.out.println(allMatchesList);
-		
+
 		model.addAttribute("mentorresults", allMatchesList); // send data to view
 
 		return new ModelAndView("matches", "", "");
@@ -300,13 +298,29 @@ public class HomeController {
 
 	@RequestMapping(value = { "/faved" }, method = RequestMethod.POST)
 	public ModelAndView faved(@ModelAttribute("command") UserDto selectedDto, UserDto userDto, Model model) {
+		
+		System.out.println("This is the userDto fav before: " + userDto.getFavorites());
+		
+		System.out.println("This is the userDtoLinkedInID: " + userDto.getLinkedInId());
+		System.out.println("This is the selectedDto LinkedInID: " + selectedDto.getLinkedInId());
+		
+		System.out.println("This is the userDto: ");
+		System.out.println(userDto);
+		
+		System.out.println("This is the selectedDto: ");
+		System.out.println(selectedDto);
+		
+		
+		userDto.setFavorites(userDto.getFavorites() + " " + selectedDto.getLinkedInId());
+		
+		System.out.println("This is fav after fav field update: " + userDto.getFavorites());
+		
+		//UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 
-		userDto.setFavorites(userDto.getFavorites() + " " + selectedDto.getFavorites());
-
-		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
-
-		dao.updateUser(userDto);
-
+		//dao.updateUser(userDto);
+		
+		System.out.println("This is fav after dao update: " + userDto.getFavorites());
+		
 		return new ModelAndView("matches", "", "");
 
 	}

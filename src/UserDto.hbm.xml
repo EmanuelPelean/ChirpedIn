@@ -6,10 +6,18 @@
 <hibernate-mapping>
 	<class name="com.chirpedin.dto.UserDto" table="users" schema="chirpedin">
 
-
 		<id name="linkedInId">
 			<column name="user_id" sql-type="varchar(20)" length="20"></column>
 		</id>
+
+		<property name="favorites">
+			<column name="favorites" sql-type="mediumtext" length="65535"></column>
+		</property>
+
+		<property name="chirps">
+			<column name="chirps" sql-type="mediumtext" length="65535"></column>
+		</property>
+
 
 		<property name="linkedInFirstName">
 			<column name="first_name" sql-type="varchar(45)" length="45"></column>
@@ -35,8 +43,8 @@
 		<property name="linkedInEmail">
 			<column name="email" sql-type="varchar(45)" length="45"></column>
 		</property>
-		
-		
+
+
 		<property name="mentorSkillsJava">
 			<column name="mentor_java" sql-type="varchar(10)" length="10"></column>
 		</property>
@@ -62,7 +70,8 @@
 			<column name="mentor_php" sql-type="varchar(10)" length="10"></column>
 		</property>
 		<property name="mentorSkillsJavaScript">
-			<column name="mentor_javascript" sql-type="varchar(10)" length="10"></column>
+			<column name="mentor_javascript" sql-type="varchar(10)"
+				length="10"></column>
 		</property>
 		<property name="mentorSkillsHTML">
 			<column name="mentor_html" sql-type="varchar(10)" length="10"></column>
@@ -70,8 +79,8 @@
 		<property name="mentorSkillsCSS">
 			<column name="mentor_css" sql-type="varchar(10)" length="10"></column>
 		</property>
-		
-		
+
+
 		<property name="menteeSkillsJava">
 			<column name="mentee_java" sql-type="varchar(10)" length="10"></column>
 		</property>
@@ -97,7 +106,8 @@
 			<column name="mentee_php" sql-type="varchar(10)" length="10"></column>
 		</property>
 		<property name="menteeSkillsJavaScript">
-			<column name="mentee_javascript" sql-type="varchar(10)" length="10"></column>
+			<column name="mentee_javascript" sql-type="varchar(10)"
+				length="10"></column>
 		</property>
 		<property name="menteeSkillsHTML">
 			<column name="mentee_html" sql-type="varchar(10)" length="10"></column>
@@ -105,8 +115,8 @@
 		<property name="menteeSkillsCSS">
 			<column name="mentee_css" sql-type="varchar(10)" length="10"></column>
 		</property>
-		
-		
+
+
 		<property name="networkingFoodie">
 			<column name="network_foodie" sql-type="varchar(255)" length="255"></column>
 		</property>
@@ -122,7 +132,7 @@
 		<property name="networkingFun">
 			<column name="network_fun" sql-type="varchar(255)" length="255"></column>
 		</property>
-	
+
 
 		<property name="networkingSkillsJava">
 			<column name="network_java" sql-type="varchar(10)" length="10"></column>
@@ -140,16 +150,19 @@
 			<column name="network_jdbc" sql-type="varchar(10)" length="10"></column>
 		</property>
 		<property name="networkingSkillsSpringMVC">
-			<column name="network_springmvc" sql-type="varchar(10)" length="10"></column>
+			<column name="network_springmvc" sql-type="varchar(10)"
+				length="10"></column>
 		</property>
 		<property name="networkingSkillsHibernate">
-			<column name="network_hibernate" sql-type="varchar(10)" length="10"></column>
+			<column name="network_hibernate" sql-type="varchar(10)"
+				length="10"></column>
 		</property>
 		<property name="networkingSkillsPhp">
 			<column name="network_php" sql-type="varchar(10)" length="10"></column>
 		</property>
 		<property name="networkingSkillsJavaScript">
-			<column name="network_javascript" sql-type="varchar(10)" length="10"></column>
+			<column name="network_javascript" sql-type="varchar(10)"
+				length="10"></column>
 		</property>
 		<property name="networkingSkillsHTML">
 			<column name="network_html" sql-type="varchar(10)" length="10"></column>
@@ -157,7 +170,7 @@
 		<property name="networkingSkillsCSS">
 			<column name="network_css" sql-type="varchar(10)" length="10"></column>
 		</property>
-	
-	
+
+
 	</class>
 </hibernate-mapping>

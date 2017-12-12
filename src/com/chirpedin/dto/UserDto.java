@@ -13,6 +13,14 @@ public class UserDto {
 
 	private double percentMatch;
 
+	
+	private String favorites = " ";
+	private String chirps = " ";
+	
+	private boolean isFavorited;
+	private boolean isChirped;
+	
+	
 	// temporary variables to be calculated with every search
 	private double totalMatchPercent;
 	private double mentorMatchPercent;
@@ -111,8 +119,7 @@ public class UserDto {
 	private Boolean networkingSkillsHTML;
 	private Boolean networkingSkillsCSS;
 	
-	// favorites
-	private String favorites;  //added by Pratima
+
 
 	public String getFavorites() {     //added by Pratima
 		return favorites;
@@ -734,6 +741,30 @@ public class UserDto {
 
 	public void setMatchingNetworkingSkillCount(int matchingNetworkingSkillCount) {
 		this.matchingNetworkingSkillCount = matchingNetworkingSkillCount;
+	}
+
+	public String getChirps() {
+		return chirps;
+	}
+
+	public void setChirps(String chirps) {
+		this.chirps = chirps;
+	}
+
+	public boolean isFavorited() {
+		return isFavorited;
+	}
+
+	public void setFavorited(boolean isFavorited) {
+		this.isFavorited = isFavorited;
+	}
+
+	public boolean isChirped() {
+		return isChirped;
+	}
+
+	public void setChirped(boolean isChirped) {
+		this.isChirped = isChirped;
 	}
 
 }

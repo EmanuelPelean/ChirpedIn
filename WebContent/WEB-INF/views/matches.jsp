@@ -152,8 +152,8 @@ section
 				<td>Mentor Skills: ${matchedDto.matchingMentorSkills}</td>
 				<td>${matchedDto.linkedInId }</td>  <!--  Pratima added for favorites-->
 				<form:form action="faved" method="post" modelAttribute="command">
-				<form:input type="hidden" name="linkedInId" path="linkedInId" value="${matchedDto.linkedInId}"></form:input><br/>
-				<input type="submit" value="Submit">
+				<td><form:input type="hidden" name="linkedInId" path="linkedInId" value="${matchedDto.linkedInId}"></form:input><br/>
+				<input type="submit" value="Submit"></td>
 				</form:form>
 				<td></td>
 				
