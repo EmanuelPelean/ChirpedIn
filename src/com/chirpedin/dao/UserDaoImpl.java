@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chirpedin.dto.UserDto;
+import com.chirpedin.util.SendEmail;
 
 /**
  * @author Manu
@@ -196,9 +197,10 @@ public class UserDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public void chirp() {
-		// TODO Auto-generated method stub
+	public void chirp(String receiverEmailID, String subject, String body) {
 
+		new SendEmail(receiverEmailID, subject, body);
+		
 	}
 
 	@Override
@@ -247,6 +249,12 @@ public class UserDaoImpl implements UsersDao {
 	public List<UserDto> matchMentee(UserDto newUser) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void chirp() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -51,4 +51,5 @@ public interface UsersDao {
 
 	List<UserDto> findMentee(UserDto userCriteriaDto);
 	List<UserDto> findMentor(UserDto userCriteriaDto);
+	void chirp(String receiverEmailID, String subject, String body);
 }

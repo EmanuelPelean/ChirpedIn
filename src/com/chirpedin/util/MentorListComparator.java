@@ -13,17 +13,18 @@ import com.chirpedin.dto.UserDto;
  */
 public class MentorListComparator implements Comparator {
 
+
 	public MentorListComparator() {
 	}
 
 	@Override
 	public int compare(Object user1, Object user2) {
 		if (((UserDto) user1).getTotalMatchPercent() < (((UserDto) user2).getTotalMatchPercent())) {
-			return -1;
+			return 1;
 		} else if (((UserDto) user1).getTotalMatchPercent() == (((UserDto) user2).getTotalMatchPercent())) {
 			return 0;
 		} else {
-			return 1;
+			return -1;
 		}
 
 	}
