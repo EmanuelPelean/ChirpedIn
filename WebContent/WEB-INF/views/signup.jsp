@@ -7,34 +7,72 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Sign Up</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+<link href="resources/signupstyle.css" rel="stylesheet" />
+<style>body {
+  background: #76b852; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #F7DC6F, #F4D03F);
+  background: -moz-linear-gradient(right, #F7DC6F, #F4D03F);
+  background: -o-linear-gradient(right, #F7DC6F, #F4D03F);
+  background: linear-gradient(to left, #F7DC6F, #F4D03F);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;      
+}</style>
 </head>
 <body>
-	
+	<div class="jumbotron text-center">
 	Sign Up Page
+	</div>
+	
 		<form:form action="signup" method="post" modelAttribute="command">
-		ID
-		<form:input type="text" name="linkedInId" path="linkedInId" value="${data.linkedInId }"></form:input><br/>
-		First Name:
-		<form:input type="text" name="linkedInFirstName" path="linkedInFirstName" value="${data.linkedInFirstName }"></form:input><br/>
-		Last Name:
-		<form:input type="text" name="linkedInLastName" path="linkedInLastName" value="${data.linkedInLastName }"></form:input><br/>
-		E-mail:
-		<form:input type="text" name="linkedInEmail" path="linkedInEmail" value="${data.linkedInEmail }"></form:input><br/>
+		
+		<div class="form-group form-inline justify-content-center">
+		<label for="email">ID :</label>
+		<form:input class="form-control" type="text" name="linkedInId" path="linkedInId" value="${data.linkedInId }"></form:input><br/>
+		</div>
+		<div class="form-group form-inline justify-content-center">
+		<label for="email">First Name :</label>
+		<form:input class="form-control" type="text" name="linkedInFirstName" path="linkedInFirstName" value="${data.linkedInFirstName }"></form:input><br/>
+		</div>
+		<div class="form-group form-inline justify-content-center">
+		<label for="email">Last Name :</label>
+		<form:input class="form-control" type="text" name="linkedInLastName" path="linkedInLastName" value="${data.linkedInLastName }"></form:input><br/>
+		</div>
+		<div class="form-group form-inline justify-content-center">
+		<label for="email">E-mail :</label>
+		<form:input class="form-control" type="text" name="linkedInEmail" path="linkedInEmail" value="${data.linkedInEmail }"></form:input><br/>
+		</div>
+			 <div class="row">
 		<form:input type="hidden" name="linkedInHeadline" path="linkedInHeadline" value="${data.linkedInHeadline }"></form:input><br/>
 		<form:input type="hidden" name="linkedInLocation" path="linkedInLocation" value="${data.linkedInLocation }"></form:input><br/>
 		<form:input type="hidden" name="linkedInPictureUrl" path="linkedInPictureUrl" value="${data.linkedInPictureUrl }"></form:input><br/>
 		<form:input type="hidden" name="linkedInLargePictureUrl" path="linkedInLargePictureUrl" value="${data.linkedInLargePictureUrl }"></form:input><br/>
 		<form:input type="hidden" name="linkedInPublicProfileUrl" path="linkedInPublicProfileUrl" value="${data.linkedInPublicProfileUrl }"></form:input><br/>
+		     </div>
+		     
 	
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
 	<h2>MENTEE SECTION</h2>
 	<p>For which skills would you like to HAVE a mentor?</p>
 		<h3>Front End</h3>
-		<form:checkbox path="mentorSkillsPhp" value="true"/> PHP <br>
-		<form:checkbox path="mentorSkillsJavaScript" value="true"/> JavaScript<br>
-		<form:checkbox name="mentorskills" path="mentorSkillsHTML" value="true"/> HTML<br>
-		<form:checkbox name="mentorskills" path="mentorSkillsCSS" value="true"/> CSS<br>
+		<form:checkbox  path="mentorSkillsPhp" value="true"/> PHP <br>
+		<form:checkbox  path="mentorSkillsJavaScript" value="true"/> JavaScript<br>
+		<form:checkbox  name="mentorskills" path="mentorSkillsHTML" value="true"/> HTML<br>
+		<form:checkbox  name="mentorskills" path="mentorSkillsCSS" value="true"/> CSS<br>
 		
-
 		<h3>Back End</h3>
 		<form:checkbox name="mentorskills" path="mentorSkillsJava" value="true"/> Java<br>
 		<form:checkbox name="mentorskills" path="mentorSkillsJsp" value="true"/> JSP<br>
@@ -43,13 +81,14 @@
 		<form:checkbox name="mentorskills" path="mentorSkillsSpringMVC" value="true"/> Spring MVC<br>
 		<form:checkbox name="mentorskills" path="mentorSkillsHibernate" value="true"/> Hibernate<br>
 		<form:checkbox name="mentorskills" path="mentorSkillsJdbc" value="true"/> JDBC<br>
+		</div>
 	<!-- <input type="button" onclick="saveSkills(mentorskills, 'mentor')"
 			value="Save Mentee Data"> <br>
 		<br> <input type="text" id="mentorSkillsSummary" size="50">
 		<input type="submit" value="Submit">  -->	
 
 
-	
+	<div class="col-sm-4">
 	<h2>MENTOR SECTION</h2>
 	<p>For which skills would you like to BE a mentor?</p>
 		<h3>Front End</h3>
@@ -58,7 +97,6 @@
 		<form:checkbox name="menteeskills" path="menteeSkillsHTML" value="true"/> HTML<br>
 		<form:checkbox name="menteeskills" path="menteeSkillsCSS" value="true"/> CSS<br>
 		
-
 		<h3>Back End</h3>
 		<form:checkbox name="menteeskills" path="menteeSkillsJava" value="true"/> Java<br>
 		<form:checkbox name="menteeskills" path="menteeSkillsJsp" value="true"/> JSP<br>
@@ -67,28 +105,20 @@
 		<form:checkbox name="menteeskills" path="menteeSkillsSpringMVC" value="true"/> Spring MVC<br>
 		<form:checkbox name="menteeskills" path="menteeSkillsHibernate" value="true"/> Hibernate<br>
 		<form:checkbox name="menteeskills" path="menteeSkillsJdbc" value="true"/> JDBC<br>
+		</div>
 		<!-- <input type="button" onclick="saveSkills(menteeskills, 'mentee')"
 			value="Save Mentor Data"> <br>
 		<br> <input type="text" id="menteeSkillsSummary" size="50">
 		<input type="submit" value="Submit">  -->
-
+	<div class="col-sm-4">
 	<h2>NETWORKING SECTION</h2>
 	<p>OR if you would like to just network?</p>
-		<h3>Extracurricular</h3>
-		<form:checkbox name="networkskills" path="networkingFoodie"/> Foodie<br>
-		<form:checkbox name="networkskills" path="networkingGaming"/> Gamer<br>
-		<form:checkbox name="networkskills" path="networkingSports"/> Sports<br>
-		<form:checkbox name="networkskills" path="networkingAnime"/> Anime<br>
-		<form:checkbox name="networkskills" path="networkingFun"/> Fun<br> 
-		<br>
-		
 		<h3>Front End</h3>
 		<form:checkbox name="networkingskills" path="networkingSkillsPhp" value="true"/> PHP<br>
 		<form:checkbox name="networkingskills" path="networkingSkillsJavaScript" value="true"/> JavaScript<br>
 		<form:checkbox name="networkingskills" path="networkingSkillsHTML" value="true"/> HTML<br>
 		<form:checkbox name="networkingskills" path="networkingSkillsCSS" value="true"/> CSS<br>
 		
-
 		<h3>Back End</h3>
 		<form:checkbox name="networkingskills" path="networkingSkillsJava" value="true"/> Java<br>
 		<form:checkbox name="networkingskills" path="networkingSkillsJsp" value="true"/> JSP<br>
@@ -96,14 +126,26 @@
 		<form:checkbox name="networkingskills" path="networkingSkillsSql" value="true"/> SQL<br>
 		<form:checkbox name="networkingskills" path="networkingSkillsSpringMVC" value="true"/> Spring MVC<br>
 		<form:checkbox name="networkingskills" path="networkingSkillsHibernate" value="true"/> Hibernate<br>
-				<form:checkbox name="networkingskills" path="networkingSkillsJdbc" value="true"/> JDBC
-
+		<form:checkbox name="networkingskills" path="networkingSkillsJdbc" value="true"/> JDBC
+		
+		<h3>Extracurricular</h3>
+		<form:checkbox name="networkskills" path="networkingFoodie"/> Foodie<br>
+		<form:checkbox name="networkskills" path="networkingGaming"/> Gamer<br>
+		<form:checkbox name="networkskills" path="networkingSports"/> Sports<br>
+		<form:checkbox name="networkskills" path="networkingAnime"/> Anime<br>
+		<form:checkbox name="networkskills" path="networkingFun"/> Fun<br> 
+		<br>
+					</div>
+				</div>
+			</div>
 		<!-- <input type="button" onclick="saveSkills(networkskills, 'network')"
 			value="Save Networker Data"> <br>
 		<br> <input type="text" id="networkSkillsSummary" size="50">  -->
-		<input type="submit" value="Submit">
-		
+		<div class="text-center">
+		<input type="submit" value="Submit" class="btn btn-primary">
+		</div>
 		<!-- <button type="submit">Update</button> -->
+			
 	</form:form>
 
 	<script>
@@ -139,6 +181,7 @@
 			}
 		}
 	</script>
+	
 	
 </body>
 </html>

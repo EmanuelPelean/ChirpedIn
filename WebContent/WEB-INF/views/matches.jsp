@@ -153,7 +153,7 @@ section
 				<td>${matchedDto.linkedInId }</td>  <!--  Pratima added for favorites-->
 				<form:form action="faved" method="post" modelAttribute="command">
 				<td><form:input type="hidden" name="linkedInId" path="linkedInId" value="${matchedDto.linkedInId}"></form:input><br/>
-				<input type="submit" value="Submit"></td>
+				<input type="submit" value="Add to Fav"></td>
 				</form:form>
 				<td></td>
 				

@@ -167,7 +167,7 @@ public class HomeController {
 
 		model.addAttribute("mentorresults", allMatchesList); // send data to view
 
-		return new ModelAndView("matches", "", "");
+		return new ModelAndView("matches", "command", new UserDto());
 
 	}
 
@@ -321,7 +321,7 @@ public class HomeController {
 		
 		System.out.println("This is fav after dao update: " + userDto.getFavorites());
 		
-		return new ModelAndView("matches", "", "");
+		return new ModelAndView("matches", "command", new UserDto());
 
 	}
 	
