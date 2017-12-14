@@ -54,27 +54,10 @@ body {
 </head>
 <body>
 
-	<!--  
-<td> <img src="${matchedDto.linkedInPictureUrl}" style="width:100px;height:100px;"></td>
-				<td>${matchedDto.linkedInFirstName}</td>
-				<td>${matchedDto.linkedInLastName}</td>
-				<td>${matchedDto.totalMatchPercent}</td>
-				<td>Mentor Skills: ${matchedDto.matchingMentorSkills}</td>
-				<td>${matchedDto.linkedInId }</td>  
-				<form:form method="post" modelAttribute="command" onsubmit="event.preventDefault(); return loadDoc(this);">
-				<td><form:input type="hidden" name="linkedInId" path="linkedInId" value="${matchedDto.linkedInId}"></form:input><br/>
-				<td><form:input type="hidden" name="newUserlinkedInId" path="linkedInId" value="${newUser.linkedInId}"></form:input><br/>
-				<input type="submit" value="Add to Fav"></td>
-				</form:form>
-				<td></td>
-				 
-				<td>Headline: ${matchedDto.linkedInHeadline}</td> -->
 
-
-	<!-- <h2>These are the best matches:</h2>
-          <table border="1">
+	
 		
-<div id="content" >
+<div id="content">
 	<div class="container">
   <h2>Browse through your top matches!</h2>
   <div id="myCarousel" style="width:50%;height:50%;" class="carousel slide" data-ride="carousel">
@@ -88,31 +71,41 @@ body {
 	<!-- Wrapper for slides -->
 	<div class="carousel-inner">
 
+
+<div class="item active">
+			<img src="https://media.licdn.com/mpr/mprx/0_p4PFpjnimxqDjJ9cKB5bfl338v1QjOGVr-5wAqKi8JQWjMGUSAboGjNT8xQWjg_HSAFZG4N2tM8Xlr3jut-gi4nKtM8blKh4ut-r_UnptMQXljviK-bbtlnFiri8Tp1gd6Qa"
+				style="width: 100%; height: 100%;" alt= "NoUser">
+			<div class="carousel-caption d-none d-md-block">
+				<h3>Emanuel Pelean 100% Match!</h3>
+				<br>
+				<h6>Java Developer focused on increasing patient care by
+					decreasing virtual wait times.</h6>
+				<br>
+				<p>Mentor Match for: Java, MySQL</p>
+			</div>
+		</div>
+		
+		
+		
 		<c:forEach var="matchedDto" items="${mentorresults}">
 			<tr>
-
-				<div class="item active">
-					<img src="${matchedDto.linkedInPictureUrl}" style="width: 100%; height: 100%;" No ImageFound">
+				<div class="item">
+					<img src="${matchedDto.linkedInPictureUrl}" style="width: 100%; height: 100%;" alt= "No ImageFound">
 					<div class="carousel-caption d-none d-md-block">
-						<h3>${matchedDto.linkedInFirstName} ${matchedDto.linkedInLastName} ${matchedDto.totalMatchPercent}</h3><br>
+						<h3>${matchedDto.linkedInFirstName} ${matchedDto.linkedInLastName} ${matchedDto.mentorMatchPercent}</h3><br>
 						<h6>${matchedDto.linkedInHeadline}</h6><br>
 						<p>Mentor Match for: ${matchedDto.matchingMentorSkills}</p>
 					</div>
 				</div>
-
-				<form:form method="post" modelAttribute="command" onsubmit="event.preventDefault(); return loadDoc(this);">
-					<td><form:input type="hidden" name="linkedInId" path="linkedInId" value="${matchedDto.linkedInId}"></form:input><br />
-					<td><form:input type="hidden" name="newUserlinkedInId" path="newUserlinkedInId" value="${newUser.linkedInId}"></form:input><br />
-				    <input type="submit" value="Add to Fav"></td>
-				</form:form>
-
 			</tr>
 		</c:forEach>
 
+		
+
 
 		<div class="item">
-			<img src="${matchedDto.linkedInPictureUrl}"
-				style="width: 100%; height: 100%;" NoUser">
+			<img src="https://media.licdn.com/mpr/mprx/0_p4PFpjnimxqDjJ9cKB5bfl338v1QjOGVr-5wAqKi8JQWjMGUSAboGjNT8xQWjg_HSAFZG4N2tM8Xlr3jut-gi4nKtM8blKh4ut-r_UnptMQXljviK-bbtlnFiri8Tp1gd6Qa"
+				style="width: 100%; height: 100%;" alt= "NoUser">
 			<div class="carousel-caption d-none d-md-block">
 				<h3>Emanuel Pelean 100% Match!</h3>
 				<br>
@@ -123,7 +116,7 @@ body {
 			</div>
 		</div>
 
-		<!-- Left and right controls -->
+		
 		<a class="left carousel-control" href="#myCarousel" data-slide="prev">
 			<span class="glyphicon glyphicon-chevron-left"></span> <span
 			class="sr-only">Previous</span>
