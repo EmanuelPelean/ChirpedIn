@@ -94,10 +94,7 @@ body{
 </head>
 <body>
 
-<img border="0" src="/portal_content/img/chirpedinlogo.gif"
-     alt="Pulpit rock" width="304" height="228">
-     
-     
+
 <div class="vid-container">
   <video class="bgvid" autoplay="autoplay" muted="muted" preload="auto" loop>
       <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?1410742112" type="video/webm">

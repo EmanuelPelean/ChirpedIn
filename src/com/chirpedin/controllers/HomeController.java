@@ -135,7 +135,7 @@ public class HomeController {
 			userDataDto.setLinkedInHeadline((String) jsonObj.get("headline"));
 			userDataDto.setLinkedInLocation((String) jsonLocation.get("name"));
 			userDataDto.setLinkedInPictureUrl((String) jsonObj.get("pictureUrl"));
-			userDataDto.setLinkedInLargePictureUrl(jsonLargePic.optString("values"));
+			userDataDto.setLinkedInLargePictureUrl(jsonLargePic.getJSONArray("values").getString(0));
 			userDataDto.setLinkedInPublicProfileUrl((String) jsonObj.get("publicProfileUrl"));
 			userDataDto.setLinkedInEmail((String) jsonObj.get("emailAddress"));
 
