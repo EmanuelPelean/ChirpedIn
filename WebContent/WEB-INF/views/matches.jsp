@@ -59,7 +59,7 @@ body {
 		
 <div id="content">
 	<div class="container">
-  <h2>Browse through your top matches!</h2>
+  <h2 >Browse through your top matches!</h2>
   <div id="myCarousel" style="width:50%;height:50%;" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
 	<ol class="carousel-indicators">
@@ -72,7 +72,7 @@ body {
 	<div class="carousel-inner">
 
 
-<div class="item active">
+          <div class="item active">
 			<img src="https://media.licdn.com/mpr/mprx/0_p4PFpjnimxqDjJ9cKB5bfl338v1QjOGVr-5wAqKi8JQWjMGUSAboGjNT8xQWjg_HSAFZG4N2tM8Xlr3jut-gi4nKtM8blKh4ut-r_UnptMQXljviK-bbtlnFiri8Tp1gd6Qa"
 				style="width: 100%; height: 100%;" alt= "NoUser">
 			<div class="carousel-caption d-none d-md-block">
@@ -95,14 +95,13 @@ body {
 						<h3>${matchedDto.linkedInFirstName} ${matchedDto.linkedInLastName} ${matchedDto.mentorMatchPercent}</h3><br>
 						<h6>${matchedDto.linkedInHeadline}</h6><br>
 						<p>Mentor Match for: ${matchedDto.matchingMentorSkills}</p>
+						<a href="chirp?fName=${matchedDto.linkedInFirstName}&lName= ${matchedDto.linkedInLastName}">Chirp</a>
 					</div>
 				</div>
 			</tr>
+			
 		</c:forEach>
-
 		
-
-
 		<div class="item">
 			<img src="https://media.licdn.com/mpr/mprx/0_p4PFpjnimxqDjJ9cKB5bfl338v1QjOGVr-5wAqKi8JQWjMGUSAboGjNT8xQWjg_HSAFZG4N2tM8Xlr3jut-gi4nKtM8blKh4ut-r_UnptMQXljviK-bbtlnFiri8Tp1gd6Qa"
 				style="width: 100%; height: 100%;" alt= "NoUser">
@@ -127,7 +126,11 @@ body {
 		</a>
 	</div>
 	<div>
-		<button type="button" class="btn btn-primary">
+	<form method="GET" onsubmit="event.preventDefault(); return loadDoc(this);">
+			<input type="hidden" id="linkedInName" name="linkedInName" value="george@gmailcom">
+			<input id="chirp" type= "submit" value= "Add">
+		</form>
+		<button type="button" class="btn btn-primary" onclick="event.preventDefault(); return loadDoc();">
 			<span class="glyphicon glyphicon-plus-sign"></span>Add Favorite
 		</button>
 		<button type="button" class="btn btn-primary">
@@ -141,17 +144,16 @@ body {
 
 
 	<script>
-		function loadDoc(form) {
+		function loadDoc() {
 
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					document.getElementById("demo").innerHTML = this.responseText;
-				}
+					
 			};
-			xhttp.open("GET", "ajax_info.txt", true);
+			xhttp.open("GET", "chirp?", true);
 			xhttp.send();
-		}
+		}}
 	</script>
 
 	<script

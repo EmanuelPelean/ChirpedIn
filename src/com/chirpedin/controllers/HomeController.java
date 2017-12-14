@@ -16,6 +16,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.collections4.ListUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chirpedin.dao.UserDaoImpl;
@@ -44,6 +47,7 @@ import com.sun.xml.internal.ws.api.message.Header;
  *
  */
 @Controller
+@SessionAttributes("newUserTest")
 public class HomeController {
 
 	/**
@@ -174,7 +178,7 @@ public class HomeController {
 
 	// this is called when the user clicks to submit form data
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
-	public ModelAndView signupPost(@ModelAttribute("command") UserDto newUser, Model model) {
+	public ModelAndView signupPost(@ModelAttribute("command") UserDto newUser, Model model, HttpSession session) {
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 
 		// Create strings for HaveSkills, NeedSkills, and Networking Skills and add them
@@ -186,7 +190,7 @@ public class HomeController {
 
 		// Insert the newUser DTO into our MySQL database
 		dao.insertUser(newUser);
-
+		session.setAttribute("newUserTest", newUser);
 		// List<UserDto> matches = dao.getMatches(newUser, model);
 		// System.out.println("Form Signup");
 		
@@ -402,5 +406,24 @@ public class HomeController {
 		return null;
 
 	}
+	
+	@RequestMapping(value = "/chirp")
+	public String chirpUserButton(@RequestParam("fName") String firstName, @RequestParam("lName") String lastName, Model model, @ModelAttribute("newUserTest") UserDto newUser) {
+		
+		System.out.println("This works");
+		
+		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+		
+		dao.chirp("manu.pelean@gmail.com", "ChirpedIn Chirp", "You've been chirped");
+		 model.addAttribute("test", firstName + " " + lastName);
+
+		 
+		 List<UserDto> uniqueMatchesList = dao.findMentor(newUser);
+		 model.addAttribute("mentorresults", uniqueMatchesList);
+		 
+		return "matches";
+
+	}
+
 
 }
