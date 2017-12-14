@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.collections4.ListUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -43,11 +44,10 @@ import com.sun.xml.internal.ws.api.message.Header;
 @Controller
 public class HomeController {
 
-	
 	/**
 	 * Home page mapping (you can use "/" if you want) 1)Redirect users to request
-	 * LinkedIn access (provide a value for the state and scopes you need) home
-	 * page has the hyperlink to do a get request to LinkedIN endpoit
+	 * LinkedIn access (provide a value for the state and scopes you need) home page
+	 * has the hyperlink to do a get request to LinkedIN endpoit
 	 * 
 	 * @return
 	 */
@@ -56,7 +56,7 @@ public class HomeController {
 
 		return new ModelAndView("home", "", "");// Since there is no model I could return string with view name
 	}
-	
+
 	/**
 	 * 3. Linked redirects back to this controller with a temporary code and
 	 * (returned state/once should match state passed in step 2) 4. Exchange
@@ -152,13 +152,15 @@ public class HomeController {
 		 * json data the model
 		 */
 		model.addAttribute("data", userDataDto);
-		/*we then go to the "signup.jsp" page and pass in a new UserDto
-		 * this UserDto is attached to the form on the signup.jsp page by "command"
+		/*
+		 * we then go to the "signup.jsp" page and pass in a new UserDto this UserDto is
+		 * attached to the form on the signup.jsp page by "command"
 		 */
 		return new ModelAndView("signup", "command", new UserDto());
 	}
 
-	// this is called when the signup page is opened without going through the "results" mapping
+	// this is called when the signup page is opened without going through the
+	// "results" mapping
 	@RequestMapping({ "/signup" })
 	public ModelAndView signupPage(Model model) {
 		System.out.println("Regular Signup");
@@ -189,64 +191,99 @@ public class HomeController {
 		List<UserDto> mentorList = dao.findMentor(newUser); // find mentors based on criteria
 		List<UserDto> menteeList = dao.findMentee(newUser); // find mentees based on criteria
 		List<UserDto> networkingList = dao.matchNetworking(newUser); // find networking matches based on criteria
-		List<UserDto> allMatchesList = new ArrayList<UserDto>();
-		System.out.println("This is mentorList before modification :" + allMatchesList); // Debugging
+		List<UserDto> uniqueMatchesList = new ArrayList<UserDto>();
+		System.out.println("This is mentorList before modification :" + mentorList.size()); // Debugging
+		System.out.println("This is menteeList before modification :" + menteeList.size()); // Debugging
+		System.out.println("This is networkingList before modification :" + networkingList.size()); // Debugging
 
+		List<UserDto> intersectionList = ListUtils.intersection(mentorList, menteeList);
+		
+		List<UserDto> intersectionList2 = ListUtils.sum( networkingList, intersectionList);
+
+		List<UserDto> intersectionList3 = ListUtils.subtract(networkingList, intersectionList);
+		
+		
+		System.out.println("This is the one from intersection Merc1: " + intersectionList.size());
+		System.out.println("This is the one from sum Merc2: " + intersectionList2.size());
+		System.out.println("This is the one from subtract Merc3: " + intersectionList3.size());
+		
+		
+		
+		
+		
+//		
+//		// Adds all the UserDto's from menteeList to allMatchesList
+//		for (UserDto userDto : mentorList) {
+//				uniqueMatchesList.add(userDto);
+//		}
+//		uniqueMatchesList.add(mentorList.get(0));
+//		
+//		System.out.println("This is unique matching before modification :" + uniqueMatchesList.size());
+//		
+//		for (int j = 0; j < menteeList.size(); j++) {
+//			for (int i = 0; i < uniqueMatchesList.size(); i++) {
+//				if (!(menteeList.get(j).getLinkedInId() == (uniqueMatchesList.get(i).getLinkedInId()))) {
+//					uniqueMatchesList.add(menteeList.get(i));
+//				}
+//			}
+//		}
+
+//		System.out.println("This is unique matching after modification :" + uniqueMatchesList.size());
+		
 		// Adds all the UserDto's from menteeList to allMatchesList
-		for (UserDto userDto : mentorList) {
-			if (!allMatchesList.contains(userDto))
-				allMatchesList.add(userDto);
-		}
+//		for (UserDto userDto : menteeList) {
+//			if (!uniqueMatchesList.contains(userDto))
+//				uniqueMatchesList.add(userDto);
+//		}
+//
+//		for (UserDto userDto : networkingList) {
+//			if (!uniqueMatchesList.contains(userDto))
+//				uniqueMatchesList.add(userDto);
+//		}
+//
+//		System.out.println("Unique match count before modification :" + uniqueMatchesList.size());
+//
+//		UserDto ourUser = null;
+//
+//		for (UserDto userDto : uniqueMatchesList) {
+//			if (userDto.getLinkedInId().contains(newUser.getLinkedInId())) {
+//				ourUser = userDto;
+//			}
+//		}
 
-		// Adds all the UserDto's from menteeList to allMatchesList
-		for (UserDto userDto : menteeList) {
-			if (!allMatchesList.contains(userDto))
-				allMatchesList.add(userDto);
-		}
+	//	uniqueMatchesList.remove(ourUser);
 
-		for (UserDto userDto : networkingList) {
-			if (!allMatchesList.contains(userDto))
-				allMatchesList.add(userDto);
-		}
-
-		for (UserDto userDto : networkingList) {
-			if (userDto.getLinkedInId().contains(newUser.getLinkedInId())) {
-				allMatchesList.remove(userDto);
-			}
-		}
-
-		System.out.println("This is mentorList after modification :" + allMatchesList);
+		System.out.println("Unique match count after modification :" + uniqueMatchesList.size());
 
 		// do work to display the list in order
 
-		for (int i = 0; i < allMatchesList.size(); i++) {// for each mentor, print matching skills
+		for (int i = 0; i < uniqueMatchesList.size(); i++) {// for each mentor, print matching skills
 
-			ChirpedIn.populateHaveSkills(allMatchesList.get(i));
-			ChirpedIn.populateNeedSkills(allMatchesList.get(i));
-			ChirpedIn.populateNetworkingSkills(allMatchesList.get(i));
-			ChirpedIn.populateAllMatchingSkills(newUser, allMatchesList.get(i));
-			ChirpedIn.setMatchingSkillCounts(allMatchesList.get(i));
-			ChirpedIn.calculateMatchPercentages(newUser, allMatchesList.get(i));
+			ChirpedIn.populateHaveSkills(uniqueMatchesList.get(i));
+			ChirpedIn.populateNeedSkills(uniqueMatchesList.get(i));
+			ChirpedIn.populateNetworkingSkills(uniqueMatchesList.get(i));
+			ChirpedIn.populateAllMatchingSkills(newUser, uniqueMatchesList.get(i));
+			ChirpedIn.setMatchingSkillCounts(uniqueMatchesList.get(i));
+			ChirpedIn.calculateMatchPercentages(newUser, uniqueMatchesList.get(i));
 
-			System.out.println("This is our request field DTO:\n" + newUser);
-
-			System.out.println(allMatchesList.get(i));
+			// System.out.println("This is our request field DTO:\n" + newUser);
+			//
+			// System.out.println(uniqueMatchesList.get(i));
 
 		}
 
-		System.out.println(allMatchesList);
+		uniqueMatchesList.sort(new MentorListComparator());
 
-		allMatchesList.sort(new MentorListComparator());
+		// System.out.println(uniqueMatchesList);
 
-		System.out.println(allMatchesList);
+		model.addAttribute("mentorresults", uniqueMatchesList); // send data to view
 
-		model.addAttribute("mentorresults", allMatchesList); // send data to view
-
+		model.addAttribute("newUser", newUser);
+		
 		return new ModelAndView("matches", "command", new UserDto());
 
 	}
 
-	
 	@RequestMapping("/matches")
 	public String showMatches(Model model) {
 
@@ -262,64 +299,65 @@ public class HomeController {
 		return new ModelAndView("dashboard", "", "");
 	}
 
-	@RequestMapping(value = { "/faved" }, method = RequestMethod.POST)
-	public ModelAndView faved(@ModelAttribute("command") UserDto selectedDto, UserDto userDto, Model model) {
-		
-		System.out.println("This is the userDto fav before: " + userDto.getFavorites());
-		
-		System.out.println("This is the userDtoLinkedInID: " + userDto.getLinkedInId());
-		System.out.println("This is the selectedDto LinkedInID: " + selectedDto.getLinkedInId());
-		
-		System.out.println("This is the userDto: ");
-		System.out.println(userDto);
-		
-		System.out.println("This is the selectedDto: ");
-		System.out.println(selectedDto);
-		
-		
-		userDto.setFavorites(userDto.getFavorites() + " " + selectedDto.getLinkedInId());
-		
-		System.out.println("This is fav after fav field update: " + userDto.getFavorites());
-		
-		//UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
-
-		//dao.updateUser(userDto);
-		
-		System.out.println("This is fav after dao update: " + userDto.getFavorites());
-		
-		return new ModelAndView("matches", "command", new UserDto());
-
-	}
+//	@RequestMapping(value = { "/faved" }, method = RequestMethod.POST)
+//	public ModelAndView faved(@ModelAttribute("command") UserDto selectedDto, UserDto userDto, Model model) {
+//
+//		System.out.println("This is the userDto fav before: " + userDto.getFavorites());
+//
+//		System.out.println("This is the userDtoLinkedInID: " + userDto.getLinkedInId());
+//		System.out.println("This is the selectedDto LinkedInID: " + selectedDto.getLinkedInId());
+//
+//		System.out.println("This is the userDto: ");
+//		System.out.println(userDto);
+//
+//		System.out.println("This is the selectedDto: ");
+//		System.out.println(selectedDto);
+//
+//		userDto.setFavorites(userDto.getFavorites() + " " + selectedDto.getLinkedInId());
+//
+//		System.out.println("This is fav after fav field update: " + userDto.getFavorites());
+//
+//		// UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+//
+//		// dao.updateUser(userDto);
+//
+//		System.out.println("This is fav after dao update: " + userDto.getFavorites());
+//
+//		return new ModelAndView("matches", "command", new UserDto());
+//
+//	}
 	
-	@RequestMapping("/addFavorites")
-	public ModelAndView favorites() {
+	
+	@RequestMapping(value = { "/addFavorites" }, method = RequestMethod.POST)
+	public ModelAndView favorites(@RequestParam("linkedInId") String matchedDto, @RequestParam("newUserlinkedInId") String userDto) {
+
 		
-		UserDto user1 = new UserDto();
-		user1.setLinkedInId("dani");
 		
-		UserDto user2 = new UserDto();
-		user2.setLinkedInId("format");
-		
+//		UserDto user1 = new UserDto();
+//		user1.setLinkedInId("dani");
+//
+//		UserDto user2 = new UserDto();
+//		user2.setLinkedInId("format");
+
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
-		dao.addFavorites(user1, user2);
-		
+		dao.addFavorites(userDto, matchedDto);
+
 		return null;
-		
+
 	}
-	
+
 	@RequestMapping("/getFavorites")
 	public ModelAndView getFavorites() {
-		
+
 		UserDto user1 = new UserDto();
 		user1.setLinkedInId("dani");
-		
-		
+
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 		List<UserDto> favorites = dao.getFavorites(user1);
 		System.out.println(favorites);
-		
+
 		return null;
-		
+
 	}
 
 }

@@ -149,10 +149,12 @@ section
 				<td> <img src="${matchedDto.linkedInPictureUrl}" style="width:100px;height:100px;"></td>
 				<td>${matchedDto.linkedInFirstName}</td>
 				<td>${matchedDto.linkedInLastName}</td>
+				<td>${matchedDto.totalMatchPercent}</td>
 				<td>Mentor Skills: ${matchedDto.matchingMentorSkills}</td>
 				<td>${matchedDto.linkedInId }</td>  <!--  Pratima added for favorites-->
-				<form:form action="faved" method="post" modelAttribute="command">
+				<form:form method="post" modelAttribute="command" onsubmit="event.preventDefault(); return loadDoc(this);">
 				<td><form:input type="hidden" name="linkedInId" path="linkedInId" value="${matchedDto.linkedInId}"></form:input><br/>
+				<td><form:input type="hidden" name="newUserlinkedInId" path="newUserlinkedInId" value="${newUser.linkedInId}"></form:input><br/>
 				<input type="submit" value="Add to Fav"></td>
 				</form:form>
 				<td></td>
@@ -196,6 +198,23 @@ section
     <button data-to="item-2" class="next"><span>&gt;</span></button>
   </div>
 </section>
+
+<script>
+function loadDoc(form) {
+	
+	
+	
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "ajax_info.txt", true);
+  xhttp.send();
+}
+</script>
 
 </body>
 </html>

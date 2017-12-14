@@ -55,4 +55,5 @@ public interface UsersDao {
 	
 	void addFavorites(UserDto userDto, UserDto selectedDTO);
 	List<UserDto> getFavorites(UserDto user1);
+	void addFavorites(String userDto, String selectedDTO);
 }

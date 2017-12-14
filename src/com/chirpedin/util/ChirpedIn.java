@@ -59,10 +59,10 @@ public class ChirpedIn {
 		userDto.setMatchingMentorSkillCount(userDto.getMatchingMentorSkills().split(" ").length);
 		userDto.setMatchingNetworkingSkillCount(userDto.getMatchingNetworkingSkills().split(" ").length);
 
-		System.out.println(userDto.getLinkedInFirstName() + "\nMatchingMenteeSkillCount: "
-				+ userDto.getMatchingMenteeSkillCount());
-		System.out.println("MatchingMentorSkillCount: " + userDto.getMatchingMentorSkillCount());
-		System.out.println("MatchingNetworkingSkillCount: " + userDto.getMatchingNetworkingSkillCount() + "\n");
+//		System.out.println(userDto.getLinkedInFirstName() + "\nMatchingMenteeSkillCount: "
+//				+ userDto.getMatchingMenteeSkillCount());
+//		System.out.println("MatchingMentorSkillCount: " + userDto.getMatchingMentorSkillCount());
+//		System.out.println("MatchingNetworkingSkillCount: " + userDto.getMatchingNetworkingSkillCount() + "\n");
 	}
 
 	public static void setSkillCount(UserDto userDto) {
@@ -130,21 +130,21 @@ public class ChirpedIn {
 		double counter = 0.0;
 		
 		userDto.setMentorMatchPercent(calculatePercentMatch( userDto.getMatchingMenteeSkillCount(), criteriaDto.getNeedSkillCount() ) );
-		if (userDto.getMentorMatchPercent() > 0.00) { counter++; System.out.println(counter); }
+		if (userDto.getMentorMatchPercent() > 0.00) { counter++;  }
 
 		userDto.setMenteeMatchPercent(calculatePercentMatch(userDto.getMatchingMentorSkillCount(), criteriaDto.getHaveSkillCount() ) ); 
-		if (userDto.getMenteeMatchPercent() > 0.00) {counter++; System.out.println(counter);}
+		if (userDto.getMenteeMatchPercent() > 0.00) {counter++; }
 
 		userDto.setNetworkingMatchPercent( calculatePercentMatch( userDto.getMatchingNetworkingSkillCount(), criteriaDto.getNetworkingSkillCount() ) ); 
-		if (userDto.getNetworkingMatchPercent() > 0.00) { counter++; System.out.println(counter);}
+		if (userDto.getNetworkingMatchPercent() > 0.00) { counter++; }
 
 		if (counter > 0.00) {
-			System.out.println(counter + ": " + userDto.getMentorMatchPercent() + " " + userDto.getMenteeMatchPercent() + " " + userDto.getNetworkingMatchPercent());
+//			System.out.println(counter + ": " + userDto.getMentorMatchPercent() + " " + userDto.getMenteeMatchPercent() + " " + userDto.getNetworkingMatchPercent());
 			
 			userDto.setTotalMatchPercent((double) ((double)userDto.getMentorMatchPercent() + (double) userDto.getMenteeMatchPercent()
 					+ (double) userDto.getNetworkingMatchPercent()) / (double) counter); 
 		} else {
-			System.out.println("Skipped straight to zero loop.");
+//			System.out.println("Skipped straight to zero loop.");
 			userDto.setTotalMatchPercent(0.0);
 		}
 
