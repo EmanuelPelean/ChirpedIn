@@ -195,7 +195,8 @@ public class UserDto {
 				+ haveSkills + "\n needSkills: " + needSkills + "\n networkingSkills: " + networkingSkills
 				+ "\n mentorMatch: " + mentorMatch + ", menteeMatch: " + menteeMatch + ", networkingMatch: "
 				+ networkingMatch + "\n haveSkillCount: " + haveSkillCount + ", needSkillCount: " + needSkillCount
-				+ ", networkingSkillCount: " + networkingSkillCount + "\n\n";
+				+ ", networkingSkillCount: " + networkingSkillCount 
+				+ "\n linkedIn ID: " + linkedInId + "\n\n";
 	}
 
 	public String getLinkedInFirstName() {
@@ -766,5 +767,40 @@ public class UserDto {
 	public void setChirped(boolean isChirped) {
 		this.isChirped = isChirped;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((linkedInId == null) ? 0 : linkedInId.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserDto other = (UserDto) obj;
+		if (linkedInId == null) {
+			if (other.linkedInId != null)
+				return false;
+		} else if (!linkedInId.equals(other.linkedInId))
+			return false;
+		return true;
+	}
+	
+	/*
+	 * https://stackoverflow.com/questions/13429119/get-unique-values-from-arraylist-in-java
+	 */
 
 }

@@ -154,7 +154,7 @@ section
 				<td>${matchedDto.linkedInId }</td>  <!--  Pratima added for favorites-->
 				<form:form method="post" modelAttribute="command" onsubmit="event.preventDefault(); return loadDoc(this);">
 				<td><form:input type="hidden" name="linkedInId" path="linkedInId" value="${matchedDto.linkedInId}"></form:input><br/>
-				<td><form:input type="hidden" name="newUserlinkedInId" path="newUserlinkedInId" value="${newUser.linkedInId}"></form:input><br/>
+				<td><form:input type="hidden" name="newUserlinkedInId" path="linkedInId" value="${newUser.linkedInId}"></form:input><br/>
 				<input type="submit" value="Add to Fav"></td>
 				</form:form>
 				<td></td>

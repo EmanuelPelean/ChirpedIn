@@ -12,7 +12,9 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.collections4.ListUtils;
 import org.json.JSONArray;
@@ -191,67 +193,89 @@ public class HomeController {
 		List<UserDto> mentorList = dao.findMentor(newUser); // find mentors based on criteria
 		List<UserDto> menteeList = dao.findMentee(newUser); // find mentees based on criteria
 		List<UserDto> networkingList = dao.matchNetworking(newUser); // find networking matches based on criteria
+
 		List<UserDto> uniqueMatchesList = new ArrayList<UserDto>();
+
 		System.out.println("This is mentorList before modification :" + mentorList.size()); // Debugging
 		System.out.println("This is menteeList before modification :" + menteeList.size()); // Debugging
 		System.out.println("This is networkingList before modification :" + networkingList.size()); // Debugging
 
-		List<UserDto> intersectionList = ListUtils.intersection(mentorList, menteeList);
-		
-		List<UserDto> intersectionList2 = ListUtils.sum( networkingList, intersectionList);
+		List<UserDto> mentorAndMenteeDtoList = ListUtils.union(mentorList, menteeList);
+		List<UserDto> networkingMentorAndMenteeDtoList = ListUtils.union(networkingList, mentorAndMenteeDtoList);
 
-		List<UserDto> intersectionList3 = ListUtils.subtract(networkingList, intersectionList);
-		
-		
-		System.out.println("This is the one from intersection Merc1: " + intersectionList.size());
-		System.out.println("This is the one from sum Merc2: " + intersectionList2.size());
-		System.out.println("This is the one from subtract Merc3: " + intersectionList3.size());
-		
-		
-		
-		
-		
-//		
-//		// Adds all the UserDto's from menteeList to allMatchesList
-//		for (UserDto userDto : mentorList) {
-//				uniqueMatchesList.add(userDto);
-//		}
-//		uniqueMatchesList.add(mentorList.get(0));
-//		
-//		System.out.println("This is unique matching before modification :" + uniqueMatchesList.size());
-//		
-//		for (int j = 0; j < menteeList.size(); j++) {
-//			for (int i = 0; i < uniqueMatchesList.size(); i++) {
-//				if (!(menteeList.get(j).getLinkedInId() == (uniqueMatchesList.get(i).getLinkedInId()))) {
-//					uniqueMatchesList.add(menteeList.get(i));
-//				}
-//			}
-//		}
+		System.out.println("mentorAndMenteeList size: " + mentorAndMenteeDtoList.size());
+		System.out.println("networkingMentorAndMenteeList size: " + networkingMentorAndMenteeDtoList.size());
 
-//		System.out.println("This is unique matching after modification :" + uniqueMatchesList.size());
-		
+		ArrayList<String> listOfAllIds = new ArrayList<String>();
+
+		for (UserDto userDto : networkingMentorAndMenteeDtoList) {
+			listOfAllIds.add(userDto.getLinkedInId());
+		}
+
+		System.out.println("listOfAllIds size: " + listOfAllIds.size());
+		System.out.println("converting to unique set...");
+
+		Set<String> hashList = new HashSet<String>(listOfAllIds);
+		ArrayList<String> uniqueListOfIds = new ArrayList<String>();
+
+		for (String value : hashList) {
+			uniqueListOfIds.add(value);
+			for (UserDto userDto : networkingMentorAndMenteeDtoList) {
+				if (value.equals(userDto.getLinkedInId())) {
+					uniqueMatchesList.add(userDto);
+					break;
+				}
+			}
+		}
+
+		System.out.println("uniqueListOfIds size: " + uniqueListOfIds.size());
+		System.out.println("uniqueMatchesList size: " + uniqueMatchesList.size());
+
+		//
+		// // Adds all the UserDto's from menteeList to allMatchesList
+		// for (UserDto userDto : mentorList) {
+		// uniqueMatchesList.add(userDto);
+		// }
+		// uniqueMatchesList.add(mentorList.get(0));
+		//
+		// System.out.println("This is unique matching before modification :" +
+		// uniqueMatchesList.size());
+		//
+		// for (int j = 0; j < menteeList.size(); j++) {
+		// for (int i = 0; i < uniqueMatchesList.size(); i++) {
+		// if (!(menteeList.get(j).getLinkedInId() ==
+		// (uniqueMatchesList.get(i).getLinkedInId()))) {
+		// uniqueMatchesList.add(menteeList.get(i));
+		// }
+		// }
+		// }
+
+		// System.out.println("This is unique matching after modification :" +
+		// uniqueMatchesList.size());
+
 		// Adds all the UserDto's from menteeList to allMatchesList
-//		for (UserDto userDto : menteeList) {
-//			if (!uniqueMatchesList.contains(userDto))
-//				uniqueMatchesList.add(userDto);
-//		}
-//
-//		for (UserDto userDto : networkingList) {
-//			if (!uniqueMatchesList.contains(userDto))
-//				uniqueMatchesList.add(userDto);
-//		}
-//
-//		System.out.println("Unique match count before modification :" + uniqueMatchesList.size());
-//
-//		UserDto ourUser = null;
-//
-//		for (UserDto userDto : uniqueMatchesList) {
-//			if (userDto.getLinkedInId().contains(newUser.getLinkedInId())) {
-//				ourUser = userDto;
-//			}
-//		}
+		// for (UserDto userDto : menteeList) {
+		// if (!uniqueMatchesList.contains(userDto))
+		// uniqueMatchesList.add(userDto);
+		// }
+		//
+		// for (UserDto userDto : networkingList) {
+		// if (!uniqueMatchesList.contains(userDto))
+		// uniqueMatchesList.add(userDto);
+		// }
+		//
+		// System.out.println("Unique match count before modification :" +
+		// uniqueMatchesList.size());
 
-	//	uniqueMatchesList.remove(ourUser);
+		UserDto ourUser = null;
+
+		for (UserDto userDto : uniqueMatchesList) {
+			if (userDto.getLinkedInId().contains(newUser.getLinkedInId())) {
+				ourUser = userDto;
+			}
+		}
+
+		uniqueMatchesList.remove(ourUser);
 
 		System.out.println("Unique match count after modification :" + uniqueMatchesList.size());
 
@@ -279,7 +303,7 @@ public class HomeController {
 		model.addAttribute("mentorresults", uniqueMatchesList); // send data to view
 
 		model.addAttribute("newUser", newUser);
-		
+
 		return new ModelAndView("matches", "command", new UserDto());
 
 	}
@@ -299,45 +323,50 @@ public class HomeController {
 		return new ModelAndView("dashboard", "", "");
 	}
 
-//	@RequestMapping(value = { "/faved" }, method = RequestMethod.POST)
-//	public ModelAndView faved(@ModelAttribute("command") UserDto selectedDto, UserDto userDto, Model model) {
-//
-//		System.out.println("This is the userDto fav before: " + userDto.getFavorites());
-//
-//		System.out.println("This is the userDtoLinkedInID: " + userDto.getLinkedInId());
-//		System.out.println("This is the selectedDto LinkedInID: " + selectedDto.getLinkedInId());
-//
-//		System.out.println("This is the userDto: ");
-//		System.out.println(userDto);
-//
-//		System.out.println("This is the selectedDto: ");
-//		System.out.println(selectedDto);
-//
-//		userDto.setFavorites(userDto.getFavorites() + " " + selectedDto.getLinkedInId());
-//
-//		System.out.println("This is fav after fav field update: " + userDto.getFavorites());
-//
-//		// UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
-//
-//		// dao.updateUser(userDto);
-//
-//		System.out.println("This is fav after dao update: " + userDto.getFavorites());
-//
-//		return new ModelAndView("matches", "command", new UserDto());
-//
-//	}
-	
-	
-	@RequestMapping(value = { "/addFavorites" }, method = RequestMethod.POST)
-	public ModelAndView favorites(@RequestParam("linkedInId") String matchedDto, @RequestParam("newUserlinkedInId") String userDto) {
+	// @RequestMapping(value = { "/faved" }, method = RequestMethod.POST)
+	// public ModelAndView faved(@ModelAttribute("command") UserDto selectedDto,
+	// UserDto userDto, Model model) {
+	//
+	// System.out.println("This is the userDto fav before: " +
+	// userDto.getFavorites());
+	//
+	// System.out.println("This is the userDtoLinkedInID: " +
+	// userDto.getLinkedInId());
+	// System.out.println("This is the selectedDto LinkedInID: " +
+	// selectedDto.getLinkedInId());
+	//
+	// System.out.println("This is the userDto: ");
+	// System.out.println(userDto);
+	//
+	// System.out.println("This is the selectedDto: ");
+	// System.out.println(selectedDto);
+	//
+	// userDto.setFavorites(userDto.getFavorites() + " " +
+	// selectedDto.getLinkedInId());
+	//
+	// System.out.println("This is fav after fav field update: " +
+	// userDto.getFavorites());
+	//
+	// // UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+	//
+	// // dao.updateUser(userDto);
+	//
+	// System.out.println("This is fav after dao update: " +
+	// userDto.getFavorites());
+	//
+	// return new ModelAndView("matches", "command", new UserDto());
+	//
+	// }
 
-		
-		
-//		UserDto user1 = new UserDto();
-//		user1.setLinkedInId("dani");
-//
-//		UserDto user2 = new UserDto();
-//		user2.setLinkedInId("format");
+	@RequestMapping(value = { "/addFavorites" }, method = RequestMethod.POST)
+	public ModelAndView favorites(@RequestParam("linkedInId") String matchedDto,
+			@RequestParam("newUserlinkedInId") String userDto) {
+
+		// UserDto user1 = new UserDto();
+		// user1.setLinkedInId("dani");
+		//
+		// UserDto user2 = new UserDto();
+		// user2.setLinkedInId("format");
 
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 		dao.addFavorites(userDto, matchedDto);
