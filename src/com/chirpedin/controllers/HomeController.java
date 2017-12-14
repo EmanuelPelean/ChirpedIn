@@ -189,16 +189,27 @@ public class HomeController {
 
 		// List<UserDto> matches = dao.getMatches(newUser, model);
 		// System.out.println("Form Signup");
+		
+		
+		/**
+		 * removed for DEMO day
+		 */
+		
+		
+		//List<UserDto> mentorList = dao.findMentor(newUser); // find mentors based on criteria
 
-		List<UserDto> mentorList = dao.findMentor(newUser); // find mentors based on criteria
-		List<UserDto> menteeList = dao.findMentee(newUser); // find mentees based on criteria
+		List<UserDto> uniqueMatchesList = dao.findMentor(newUser); // find mentors based on criteria
+
+		
+		 
+		/*List<UserDto> menteeList = dao.findMentee(newUser); // find mentees based on criteria
 		List<UserDto> networkingList = dao.matchNetworking(newUser); // find networking matches based on criteria
 
 		List<UserDto> uniqueMatchesList = new ArrayList<UserDto>();
 
 		System.out.println("This is mentorList before modification :" + mentorList.size()); // Debugging
-		System.out.println("This is menteeList before modification :" + menteeList.size()); // Debugging
-		System.out.println("This is networkingList before modification :" + networkingList.size()); // Debugging
+		System.out.println("This is menteeList before modification :" + menteeList.size()); // DEMO 
+		System.out.println("This is networkingList before modification :" + networkingList.size()); // DEMO
 
 		List<UserDto> mentorAndMenteeDtoList = ListUtils.union(mentorList, menteeList);
 		List<UserDto> networkingMentorAndMenteeDtoList = ListUtils.union(networkingList, mentorAndMenteeDtoList);
@@ -230,6 +241,8 @@ public class HomeController {
 
 		System.out.println("uniqueListOfIds size: " + uniqueListOfIds.size());
 		System.out.println("uniqueMatchesList size: " + uniqueMatchesList.size());
+
+
 
 		//
 		// // Adds all the UserDto's from menteeList to allMatchesList
@@ -278,6 +291,7 @@ public class HomeController {
 		uniqueMatchesList.remove(ourUser);
 
 		System.out.println("Unique match count after modification :" + uniqueMatchesList.size());
+		*/
 
 		// do work to display the list in order
 
@@ -290,9 +304,9 @@ public class HomeController {
 			ChirpedIn.setMatchingSkillCounts(uniqueMatchesList.get(i));
 			ChirpedIn.calculateMatchPercentages(newUser, uniqueMatchesList.get(i));
 
-			// System.out.println("This is our request field DTO:\n" + newUser);
-			//
-			// System.out.println(uniqueMatchesList.get(i));
+			//System.out.println("This is our request field DTO:\n" + newUser);
+
+			System.out.println(uniqueMatchesList.get(i));
 
 		}
 
