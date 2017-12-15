@@ -6,6 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Home</title>
 <style>
+img {
+    display: block;
+    margin: 0 auto;
+}
 body{
   padding:0;
   margin:0;
@@ -45,17 +49,18 @@ body{
   font-family:Helvetica;
   color:#fff;
   background:rgba(0,0,0,0.13);
-  padding:30px 0px;
+  padding:10px 0px;
 }
 .box h1{
-  text-align:center;
-  margin:30px 0;
+  text-align: center;
+  margin:15px 0;
   font-size:45px;
 }
 .box h2{
   text-align:center;
-  margin:30px 0;
-  font-size:30px;
+  margin:15px 0;
+  font-size:15px;
+  font-weight: 200;
 }
 .box input{
   display:block;
@@ -104,8 +109,9 @@ body{
       <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?random=1" type="video/webm">
     </video>
     <div class="box">
+    <img alt="ChirpedInLogo" height="50%" id="hplogo" src="https://files.slack.com/files-tmb/T04UPFZ31-F8F6YBURJ-8516b8475f/chirpedinfinal_360.png">
       <h1>ChirpedIn</h1>
-      <h2>Join us now to connect with your Grand Circus peers like never before.</h2>
+      <h2>Connect with your Grand Circus peers like never before.</h2>
       <button type="submit" onclick="relocate_home()">Login with LinkedIn!</button>
     </div>
   </div>
