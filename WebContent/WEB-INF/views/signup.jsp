@@ -19,39 +19,103 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 <link href="resources/signupstyle.css" rel="stylesheet" />
-<style>body {
-  background: #76b852; /* fallback for old browsers */
-  background: -webkit-linear-gradient(right, #F7DC6F, #F4D03F);
-  background: -moz-linear-gradient(right, #F7DC6F, #F4D03F);
-  background: -o-linear-gradient(right, #F7DC6F, #F4D03F);
-  background: linear-gradient(to left, #F7DC6F, #F4D03F);
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;      
-}</style>
+<style>
+
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,700);
+
+
+
+body{background:#59ABE3;
+	margin:0
+}
+
+.form{width:340px;
+	height:440px;
+	background:#e6e6e6;
+	border-radius:8px;
+	box-shadow:0 0 40px -10px #000;
+	margin:calc(50vh - 220px) auto;
+	padding:20px 30px;
+	max-width:calc(100vw - 40px);
+	box-sizing:border-box;
+	font-family:'Montserrat',sans-serif;
+	position:relative}
+.title{margin:10px 0;
+	padding-bottom:10px;
+	width:180px;color:#78788c;
+	left: 60px;
+	border-bottom:3px solid #78788c}
+input{width:100%;
+	padding:10px;
+	box-sizing:border-box;
+	background:none;
+	outline:none;
+	resize:none;
+	border:0;
+	font-family:'Montserrat',sans-serif;
+	transition:all .3s;
+	border-bottom:2px solid #bebed2}
+input:focus{border-bottom:2px solid #78788c}
+#mydiv{content:'Hi';
+	bottom:-380px;
+	background:#50505a;
+	right: -500px;
+	color:#fff;
+	width:60%;
+	padding:16px 4px 16px 0;
+	border-radius:6px;
+	font-size:13px;
+	box-shadow:10px 10px 40px -14px #000}
+#mydiv2{content:'Hi';
+	bottom:-380px;
+	right: -400px;
+	background:#50505a;
+	color:#fff;
+	width:25%;
+	padding:16px 4px 16px 0;
+	border-radius:6px;
+	font-size:13px;
+	box-shadow:10px 10px 40px -14px #000}
+span{margin:0 5px 0 15px}
+.Absolute-Center {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 15;
+  border: 3px solid #73AD21;
+}
+
+.Top-Left {
+   position: relative;
+    left: 60px;
+    top: 60px;
+    border: 3px solid #73AD21;
+  }
+
+</style>
 </head>
 <body>
-	<div class="jumbotron text-center">
-	Sign Up Page
-	</div>
+		<div class="title">
+		<h2>Signup Now!</h2>
+		</div>
 	
 		<form:form action="signup" method="post" modelAttribute="command">
-		
+		<div id="mydiv2" class="Top-Left">
 		<div class="form-group form-inline justify-content-center">
 		<label for="email">ID :</label>
-		<form:input class="form-control" type="text" name="linkedInId" path="linkedInId" value="${data.linkedInId }"></form:input><br/>
+		<form:input id="fancy-inputs" class="input form-control" type="text" name="linkedInId" path="linkedInId" value="${data.linkedInId }"></form:input><br/>
 		</div>
 		<div class="form-group form-inline justify-content-center">
 		<label for="email">First Name :</label>
-		<form:input class="form-control" type="text" name="linkedInFirstName" path="linkedInFirstName" value="${data.linkedInFirstName }"></form:input><br/>
+		<form:input id="fancy-inputs" class="form-control" type="text" name="linkedInFirstName" path="linkedInFirstName" value="${data.linkedInFirstName }"></form:input><br/>
 		</div>
 		<div class="form-group form-inline justify-content-center">
 		<label for="email">Last Name :</label>
-		<form:input class="form-control" type="text" name="linkedInLastName" path="linkedInLastName" value="${data.linkedInLastName }"></form:input><br/>
+		<form:input id="fancy-inputs" class="form-control" type="text" name="linkedInLastName" path="linkedInLastName" value="${data.linkedInLastName }"></form:input><br/>
 		</div>
 		<div class="form-group form-inline justify-content-center">
 		<label for="email">E-mail :</label>
-		<form:input class="form-control" type="text" name="linkedInEmail" path="linkedInEmail" value="${data.linkedInEmail }"></form:input><br/>
+		<form:input id="fancy-inputs" class="form-control" type="text" name="linkedInEmail" path="linkedInEmail" value="${data.linkedInEmail }"></form:input><br/>
+		</div>
 		</div>
 			 <div class="row">
 		<form:input type="hidden" name="linkedInHeadline" path="linkedInHeadline" value="${data.linkedInHeadline }"></form:input><br/>
@@ -61,7 +125,7 @@
 		<form:input type="hidden" name="linkedInPublicProfileUrl" path="linkedInPublicProfileUrl" value="${data.linkedInPublicProfileUrl }"></form:input><br/>
 		     </div>
 		     
-	
+	<div id="mydiv" class="text-center Absolute-Center">
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
@@ -138,10 +202,12 @@
 					</div>
 				</div>
 			</div>
+			
+			</div>
 		<!-- <input type="button" onclick="saveSkills(networkskills, 'network')"
 			value="Save Networker Data"> <br>
 		<br> <input type="text" id="networkSkillsSummary" size="50">  -->
-		<div class="text-center">
+		<div class="text-left">
 		<input type="submit" value="Submit" class="btn btn-primary">
 		</div>
 		<!-- <button type="submit">Update</button> -->
