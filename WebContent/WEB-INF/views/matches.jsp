@@ -34,6 +34,12 @@
 }
 </style>
 <style>
+
+#chirplink {
+
+
+}
+
 #content {
 	width: 80%;
 	margin: 0 auto;
@@ -81,7 +87,7 @@ body {
 				<h6>Java Developer focused on increasing patient care by
 					decreasing virtual wait times.</h6>
 				<br>
-				<p>Mentor Match for: Java, MySQL</p>
+				<p>Mentor Match for: ALL!</p>
 			</div>
 		</div>
 		
@@ -90,31 +96,17 @@ body {
 		<c:forEach var="matchedDto" items="${mentorresults}">
 			<tr>
 				<div class="item">
-					<img src="${matchedDto.linkedInPictureUrl}" style="width: 100%; height: 100%;" alt= "No ImageFound">
+					<img src="${matchedDto.linkedInLargePictureUrl}" style="width: 100%; height: 100%;" alt= "No ImageFound">
 					<div class="carousel-caption d-none d-md-block">
-						<h3>${matchedDto.linkedInFirstName} ${matchedDto.linkedInLastName} ${matchedDto.mentorMatchPercent}</h3><br>
+						<h3>${matchedDto.linkedInFirstName} ${matchedDto.linkedInLastName} ${matchedDto.mentorMatchPercent}% Match!</h3><br>
 						<h6>${matchedDto.linkedInHeadline}</h6><br>
 						<p>Mentor Match for: ${matchedDto.matchingMentorSkills}</p>
-						<a href="chirp?fName=${matchedDto.linkedInFirstName}&lName= ${matchedDto.linkedInLastName}">Chirp</a>
+						<a id="chirplink" href="chirp?fName=${matchedDto.linkedInFirstName}&lName= ${matchedDto.linkedInLastName}&Email= ${matchedDto.linkedInEmail}">Chirp</a>
 					</div>
 				</div>
 			</tr>
 			
 		</c:forEach>
-		
-		<div class="item">
-			<img src="https://media.licdn.com/mpr/mprx/0_p4PFpjnimxqDjJ9cKB5bfl338v1QjOGVr-5wAqKi8JQWjMGUSAboGjNT8xQWjg_HSAFZG4N2tM8Xlr3jut-gi4nKtM8blKh4ut-r_UnptMQXljviK-bbtlnFiri8Tp1gd6Qa"
-				style="width: 100%; height: 100%;" alt= "NoUser">
-			<div class="carousel-caption d-none d-md-block">
-				<h3>Emanuel Pelean 100% Match!</h3>
-				<br>
-				<h6>Java Developer focused on increasing patient care by
-					decreasing virtual wait times.</h6>
-				<br>
-				<p>Mentor Match for: Java, MySQL</p>
-			</div>
-		</div>
-
 		
 		<a class="left carousel-control" href="#myCarousel" data-slide="prev">
 			<span class="glyphicon glyphicon-chevron-left"></span> <span
@@ -126,11 +118,7 @@ body {
 		</a>
 	</div>
 	<div>
-	<form method="GET" onsubmit="event.preventDefault(); return loadDoc(this);">
-			<input type="hidden" id="linkedInName" name="linkedInName" value="george@gmailcom">
-			<input id="chirp" type= "submit" value= "Add">
-		</form>
-		<button type="button" class="btn btn-primary" onclick="event.preventDefault(); return loadDoc();">
+		<button type="button" class="btn btn-primary">
 			<span class="glyphicon glyphicon-plus-sign"></span>Add Favorite
 		</button>
 		<button type="button" class="btn btn-primary">
@@ -140,24 +128,8 @@ body {
 	</div>
 
 	</div>
-
-
-
 	<script>
-		function loadDoc() {
 
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					
-			};
-			xhttp.open("GET", "chirp?", true);
-			xhttp.send();
-		}}
-	</script>
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 </body>
 </html>

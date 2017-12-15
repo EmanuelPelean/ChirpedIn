@@ -179,144 +179,205 @@ public class HomeController {
 	// this is called when the user clicks to submit form data
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
 	public ModelAndView signupPost(@ModelAttribute("command") UserDto newUser, Model model, HttpSession session) {
+		System.out.println("Entering sign up method called by '/signup'");
+
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 
 		// Create strings for HaveSkills, NeedSkills, and Networking Skills and add them
 		// to the newUser DTO
 		ChirpedIn.populateHaveSkills(newUser);
 		ChirpedIn.populateNeedSkills(newUser);
-		ChirpedIn.populateNetworkingSkills(newUser);
+//		ChirpedIn.populateNetworkingSkills(newUser);
 		ChirpedIn.setSkillCount(newUser);
 
+		System.out.println("This is the new user's info: " + newUser);
 		// Insert the newUser DTO into our MySQL database
 		dao.insertUser(newUser);
+		
 		session.setAttribute("newUserTest", newUser);
 		// List<UserDto> matches = dao.getMatches(newUser, model);
 		// System.out.println("Form Signup");
-		
-		
+
 		/**
 		 * removed for DEMO day
 		 */
-		
-		
-		//List<UserDto> mentorList = dao.findMentor(newUser); // find mentors based on criteria
+
+		// List<UserDto> mentorList = dao.findMentor(newUser); // find mentors based on
+		// criteria
 
 		List<UserDto> uniqueMatchesList = dao.findMentor(newUser); // find mentors based on criteria
-
 		
-		 
-		/*List<UserDto> menteeList = dao.findMentee(newUser); // find mentees based on criteria
-		List<UserDto> networkingList = dao.matchNetworking(newUser); // find networking matches based on criteria
-
-		List<UserDto> uniqueMatchesList = new ArrayList<UserDto>();
-
-		System.out.println("This is mentorList before modification :" + mentorList.size()); // Debugging
-		System.out.println("This is menteeList before modification :" + menteeList.size()); // DEMO 
-		System.out.println("This is networkingList before modification :" + networkingList.size()); // DEMO
-
-		List<UserDto> mentorAndMenteeDtoList = ListUtils.union(mentorList, menteeList);
-		List<UserDto> networkingMentorAndMenteeDtoList = ListUtils.union(networkingList, mentorAndMenteeDtoList);
-
-		System.out.println("mentorAndMenteeList size: " + mentorAndMenteeDtoList.size());
-		System.out.println("networkingMentorAndMenteeList size: " + networkingMentorAndMenteeDtoList.size());
-
-		ArrayList<String> listOfAllIds = new ArrayList<String>();
-
-		for (UserDto userDto : networkingMentorAndMenteeDtoList) {
-			listOfAllIds.add(userDto.getLinkedInId());
-		}
-
-		System.out.println("listOfAllIds size: " + listOfAllIds.size());
-		System.out.println("converting to unique set...");
-
-		Set<String> hashList = new HashSet<String>(listOfAllIds);
-		ArrayList<String> uniqueListOfIds = new ArrayList<String>();
-
-		for (String value : hashList) {
-			uniqueListOfIds.add(value);
-			for (UserDto userDto : networkingMentorAndMenteeDtoList) {
-				if (value.equals(userDto.getLinkedInId())) {
-					uniqueMatchesList.add(userDto);
-					break;
-				}
-			}
-		}
-
-		System.out.println("uniqueListOfIds size: " + uniqueListOfIds.size());
-		System.out.println("uniqueMatchesList size: " + uniqueMatchesList.size());
-
-
-
-		//
-		// // Adds all the UserDto's from menteeList to allMatchesList
-		// for (UserDto userDto : mentorList) {
-		// uniqueMatchesList.add(userDto);
-		// }
-		// uniqueMatchesList.add(mentorList.get(0));
-		//
-		// System.out.println("This is unique matching before modification :" +
-		// uniqueMatchesList.size());
-		//
-		// for (int j = 0; j < menteeList.size(); j++) {
-		// for (int i = 0; i < uniqueMatchesList.size(); i++) {
-		// if (!(menteeList.get(j).getLinkedInId() ==
-		// (uniqueMatchesList.get(i).getLinkedInId()))) {
-		// uniqueMatchesList.add(menteeList.get(i));
-		// }
-		// }
-		// }
-
-		// System.out.println("This is unique matching after modification :" +
-		// uniqueMatchesList.size());
-
-		// Adds all the UserDto's from menteeList to allMatchesList
-		// for (UserDto userDto : menteeList) {
-		// if (!uniqueMatchesList.contains(userDto))
-		// uniqueMatchesList.add(userDto);
-		// }
-		//
-		// for (UserDto userDto : networkingList) {
-		// if (!uniqueMatchesList.contains(userDto))
-		// uniqueMatchesList.add(userDto);
-		// }
-		//
-		// System.out.println("Unique match count before modification :" +
-		// uniqueMatchesList.size());
-
-		UserDto ourUser = null;
-
-		for (UserDto userDto : uniqueMatchesList) {
-			if (userDto.getLinkedInId().contains(newUser.getLinkedInId())) {
-				ourUser = userDto;
-			}
-		}
-
-		uniqueMatchesList.remove(ourUser);
-
-		System.out.println("Unique match count after modification :" + uniqueMatchesList.size());
-		*/
+		/*
+		 * List<UserDto> menteeList = dao.findMentee(newUser); // find mentees based on
+		 * criteria List<UserDto> networkingList = dao.matchNetworking(newUser); // find
+		 * networking matches based on criteria
+		 * 
+		 * List<UserDto> uniqueMatchesList = new ArrayList<UserDto>();
+		 * 
+		 * System.out.println("This is mentorList before modification :" +
+		 * mentorList.size()); // Debugging
+		 * System.out.println("This is menteeList before modification :" +
+		 * menteeList.size()); // DEMO
+		 * System.out.println("This is networkingList before modification :" +
+		 * networkingList.size()); // DEMO
+		 * 
+		 * List<UserDto> mentorAndMenteeDtoList = ListUtils.union(mentorList,
+		 * menteeList); List<UserDto> networkingMentorAndMenteeDtoList =
+		 * ListUtils.union(networkingList, mentorAndMenteeDtoList);
+		 * 
+		 * System.out.println("mentorAndMenteeList size: " +
+		 * mentorAndMenteeDtoList.size());
+		 * System.out.println("networkingMentorAndMenteeList size: " +
+		 * networkingMentorAndMenteeDtoList.size());
+		 * 
+		 * ArrayList<String> listOfAllIds = new ArrayList<String>();
+		 * 
+		 * for (UserDto userDto : networkingMentorAndMenteeDtoList) {
+		 * listOfAllIds.add(userDto.getLinkedInId()); }
+		 * 
+		 * System.out.println("listOfAllIds size: " + listOfAllIds.size());
+		 * System.out.println("converting to unique set...");
+		 * 
+		 * Set<String> hashList = new HashSet<String>(listOfAllIds); ArrayList<String>
+		 * uniqueListOfIds = new ArrayList<String>();
+		 * 
+		 * for (String value : hashList) { uniqueListOfIds.add(value); for (UserDto
+		 * userDto : networkingMentorAndMenteeDtoList) { if
+		 * (value.equals(userDto.getLinkedInId())) { uniqueMatchesList.add(userDto);
+		 * break; } } }
+		 * 
+		 * System.out.println("uniqueListOfIds size: " + uniqueListOfIds.size());
+		 * System.out.println("uniqueMatchesList size: " + uniqueMatchesList.size());
+		 * 
+		 * 
+		 * 
+		 * // // // Adds all the UserDto's from menteeList to allMatchesList // for
+		 * (UserDto userDto : mentorList) { // uniqueMatchesList.add(userDto); // } //
+		 * uniqueMatchesList.add(mentorList.get(0)); // //
+		 * System.out.println("This is unique matching before modification :" + //
+		 * uniqueMatchesList.size()); // // for (int j = 0; j < menteeList.size(); j++)
+		 * { // for (int i = 0; i < uniqueMatchesList.size(); i++) { // if
+		 * (!(menteeList.get(j).getLinkedInId() == //
+		 * (uniqueMatchesList.get(i).getLinkedInId()))) { //
+		 * uniqueMatchesList.add(menteeList.get(i)); // } // } // }
+		 * 
+		 * // System.out.println("This is unique matching after modification :" + //
+		 * uniqueMatchesList.size());
+		 * 
+		 * // Adds all the UserDto's from menteeList to allMatchesList // for (UserDto
+		 * userDto : menteeList) { // if (!uniqueMatchesList.contains(userDto)) //
+		 * uniqueMatchesList.add(userDto); // } // // for (UserDto userDto :
+		 * networkingList) { // if (!uniqueMatchesList.contains(userDto)) //
+		 * uniqueMatchesList.add(userDto); // } // //
+		 * System.out.println("Unique match count before modification :" + //
+		 * uniqueMatchesList.size());
+		 * 
+		 * UserDto ourUser = null;
+		 * 
+		 * for (UserDto userDto : uniqueMatchesList) { if
+		 * (userDto.getLinkedInId().contains(newUser.getLinkedInId())) { ourUser =
+		 * userDto; } }
+		 * 
+		 * uniqueMatchesList.remove(ourUser);
+		 * 
+		 * System.out.println("Unique match count after modification :" +
+		 * uniqueMatchesList.size());
+		 */
 
 		// do work to display the list in order
+		System.out.println("Unique match list count BEFORE: " + uniqueMatchesList.size());
+		
+//		for (int i = 0; i < uniqueMatchesList.size(); i++) {// for each mentor, print matching skills
+//
+//			ChirpedIn.populateHaveSkills(uniqueMatchesList.get(i));
+//			ChirpedIn.populateNeedSkills(uniqueMatchesList.get(i));
+////			ChirpedIn.populateNetworkingSkills(uniqueMatchesList.get(i));
+//			ChirpedIn.setMatchingSkillCounts(uniqueMatchesList.get(i));
+//			ChirpedIn.populateAllMatchingSkills(newUser, uniqueMatchesList.get(i));
+//			ChirpedIn.setConnectionTypeFlags(uniqueMatchesList.get(i));
+//			ChirpedIn.calculateMatchPercentages(newUser, uniqueMatchesList.get(i));
+//			
+//			System.out.println("This is the DTO from the array: " + uniqueMatchesList.get(i));
+//			System.out.println("This is  the DTO haveSkillCount: " + uniqueMatchesList.get(i).getHaveSkillCount());
+//			System.out.println("This is  the DTO matching mentor skills: " + uniqueMatchesList.get(i).getMatchingMentorSkills());
+//			System.out.println("This is  the DTO needSkillCount: " + uniqueMatchesList.get(i).getNeedSkillCount());
+//
+//		}
 
-		for (int i = 0; i < uniqueMatchesList.size(); i++) {// for each mentor, print matching skills
+		for (UserDto userDto : uniqueMatchesList) {// for each mentor, print matching skills
 
-			ChirpedIn.populateHaveSkills(uniqueMatchesList.get(i));
-			ChirpedIn.populateNeedSkills(uniqueMatchesList.get(i));
-			ChirpedIn.populateNetworkingSkills(uniqueMatchesList.get(i));
-			ChirpedIn.populateAllMatchingSkills(newUser, uniqueMatchesList.get(i));
-			ChirpedIn.setMatchingSkillCounts(uniqueMatchesList.get(i));
-			ChirpedIn.calculateMatchPercentages(newUser, uniqueMatchesList.get(i));
-
-			//System.out.println("This is our request field DTO:\n" + newUser);
-
-			System.out.println(uniqueMatchesList.get(i));
+			ChirpedIn.populateHaveSkills(userDto);
+			ChirpedIn.populateNeedSkills(userDto);
+//			ChirpedIn.populateNetworkingSkills(uniqueMatchesList.get(i));
+//			ChirpedIn.setMatchingSkillCounts(userDto);
+			ChirpedIn.populateAllMatchingSkills(newUser, userDto);
+			
+			
+			
+			//Used to calculate haveSkills and needSkills length
+			String[] haveSkillArr = userDto.getHaveSkills().split(",");
+			userDto.setHaveSkillCount(haveSkillArr.length);
+			
+			String[] needSkillArr = userDto.getNeedSkills().split(",");
+			userDto.setNeedSkillCount(needSkillArr.length);
+			
+			// Used to calculate matchingMentor and matchingMentee
+			String[] matchingMentorArr = userDto.getMatchingMentorSkills().split(",");
+			userDto.setMatchingMentorSkillCount(matchingMentorArr.length);
+			
+			String[] matchingMenteeArr = userDto.getMatchingMenteeSkills().split(",");
+			userDto.setMatchingMenteeSkillCount(matchingMenteeArr.length);
+			
+			
+			ChirpedIn.setConnectionTypeFlags(userDto);
+			ChirpedIn.calculateMatchPercentages(newUser, userDto);
+			
+			
+			
+			double mentorMatchPercent = ((double) userDto.getMatchingMentorSkillCount() / (double) newUser.getNeedSkillCount()) * 100 ;
+			userDto.setMentorMatchPercent(Math.round(mentorMatchPercent));
+			
+//			double menteeMatchPercent = ((double) userDto.getMatchingMentorSkillCount() / (double) newUser.getHaveSkillCount()) * 100 ;
+//			userDto.setMenteeMatchPercent(menteeMatchPercent);
+			
+			System.out.println("This is the DTO from the array: " + userDto);
+			System.out.println("This is  the DTO matchingMenteeCount: " + userDto.getMatchingMenteeSkillCount());
+			System.out.println("This is  the DTO matching mentor skills: " + userDto.getMatchingMentorSkills());
+			System.out.println("This is  the DTO matchingMentorCount: " + userDto.getMatchingMentorSkillCount());
 
 		}
+		
+
+		List<UserDto> tempArray = new ArrayList<UserDto>();
+		
+		for (UserDto userDto : uniqueMatchesList) {
+			tempArray.add(userDto);
+		}
+		
+		
+
+//		for (UserDto userDto : tempArray) {
+//			if (userDto.getMentorMatchPercent() < 1) {
+//				System.out.println("PERCENT CHECK: Removing " + userDto.getLinkedInFirstName() + " with "
+//						+ userDto.getMentorMatchPercent());
+//				uniqueMatchesList.remove(userDto);
+//			}
+//
+//		}
+//
+		for (UserDto userDto : tempArray) {
+
+			if (userDto.getMatchingMentorSkills().isEmpty()) {
+				uniqueMatchesList.remove(userDto);
+			}
+
+		}
+//
+//		System.out.println("Unique match list count AFTER: " + uniqueMatchesList.size());
 
 		uniqueMatchesList.sort(new MentorListComparator());
 
-		// System.out.println(uniqueMatchesList);
+		System.out.println(uniqueMatchesList);
 
 		model.addAttribute("mentorresults", uniqueMatchesList); // send data to view
 
@@ -406,24 +467,76 @@ public class HomeController {
 		return null;
 
 	}
-	
-	@RequestMapping(value = "/chirp")
-	public String chirpUserButton(@RequestParam("fName") String firstName, @RequestParam("lName") String lastName, Model model, @ModelAttribute("newUserTest") UserDto newUser) {
-		
-		System.out.println("This works");
-		
-		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
-		
-		dao.chirp("manu.pelean@gmail.com", "ChirpedIn Chirp", "You've been chirped");
-		 model.addAttribute("test", firstName + " " + lastName);
 
-		 
-		 List<UserDto> uniqueMatchesList = dao.findMentor(newUser);
-		 model.addAttribute("mentorresults", uniqueMatchesList);
-		 
+	@RequestMapping(value = "/chirp")
+	public String chirpUserButton(@RequestParam("fName") String firstName, @RequestParam("lName") String lastName, @RequestParam("Email") String email,
+			Model model, @ModelAttribute("newUserTest") UserDto newUser) {
+
+		String userURL = newUser.getLinkedInPublicProfileUrl();
+		String name = newUser.getLinkedInFirstName() + " " + newUser.getLinkedInLastName();
+
+		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+
+		
+		String subject = "ChirpedIn Chirp Chirp";
+		String body = "You've been chirped by " + name + " who is currently seeking a mentor!\n" + 
+		"If interested in mentoring " + name + " please visit their LinkedIn profile at " + userURL
+		+ " and connect with them now!";
+
+		dao.chirp(email, subject, body);
+//		model.addAttribute("test", firstName + " " + lastName);
+
+		List<UserDto> uniqueMatchesList = dao.findMentor(newUser);
+		for (UserDto userDto : uniqueMatchesList) {// for each mentor, print matching skills
+
+			ChirpedIn.populateHaveSkills(userDto);
+			ChirpedIn.populateNeedSkills(userDto);
+//			ChirpedIn.populateNetworkingSkills(uniqueMatchesList.get(i));
+//			ChirpedIn.setMatchingSkillCounts(userDto);
+			ChirpedIn.populateAllMatchingSkills(newUser, userDto);
+			
+			//Used to calculate haveSkills and needSkills length
+			String[] haveSkillArr = userDto.getHaveSkills().split(",");
+			userDto.setHaveSkillCount(haveSkillArr.length);
+			
+			String[] needSkillArr = userDto.getNeedSkills().split(",");
+			userDto.setNeedSkillCount(needSkillArr.length);
+			
+			// Used to calculate matchingMentor and matchingMentee
+			String[] matchingMentorArr = userDto.getMatchingMentorSkills().split(",");
+			userDto.setMatchingMentorSkillCount(matchingMentorArr.length);
+			
+			String[] matchingMenteeArr = userDto.getMatchingMenteeSkills().split(",");
+			userDto.setMatchingMenteeSkillCount(matchingMenteeArr.length);
+			
+			ChirpedIn.setConnectionTypeFlags(userDto);
+			ChirpedIn.calculateMatchPercentages(newUser, userDto);
+			
+			double mentorMatchPercent = ((double) userDto.getMatchingMentorSkillCount() / (double) newUser.getNeedSkillCount()) * 100 ;
+			userDto.setMentorMatchPercent(mentorMatchPercent);
+
+		}
+		
+		List<UserDto> tempArray = new ArrayList<UserDto>();
+		
+		for (UserDto userDto : uniqueMatchesList) {
+			tempArray.add(userDto);
+		}
+		
+		for (UserDto userDto : tempArray) {
+
+			if (userDto.getMatchingMentorSkills().isEmpty()) {
+				uniqueMatchesList.remove(userDto);
+			}
+
+		}
+		
+		uniqueMatchesList.sort(new MentorListComparator());
+
+		model.addAttribute("mentorresults", uniqueMatchesList);
+
 		return "matches";
 
 	}
-
 
 }

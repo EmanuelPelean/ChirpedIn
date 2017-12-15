@@ -11,15 +11,6 @@ import java.util.ArrayList;
  */
 public class UserDto {
 
-	private double percentMatch;
-
-	
-	private String favorites = " ";
-	private String chirps = " ";
-	
-	private boolean isFavorited;
-	private boolean isChirped;
-	
 	
 	// temporary variables to be calculated with every search
 	private double totalMatchPercent;
@@ -119,71 +110,10 @@ public class UserDto {
 	private Boolean networkingSkillsHTML;
 	private Boolean networkingSkillsCSS;
 	
-
-
-	public String getFavorites() {     //added by Pratima
-		return favorites;
-	}
-
-	public void setFavorites(String favorites) {       //added by Pratima
-		this.favorites = favorites;
-	}
-
 	public UserDto() {
 		super();
 	}
 
-	public int getRank(UserDto need) {
-		// System.out.println("Entering getRank()...");
-
-		int skillsCount = 0;
-		int rank = 0;
-
-		ArrayList<String> skillsNeed = new ArrayList<String>();
-
-		if (need.mentorSkillsJava) {
-			skillsNeed.add("java");
-			// System.out.println("adding java skill");
-		}
-
-		if (need.mentorSkillsJsp) {
-			skillsNeed.add("jsp");
-			// System.out.println("adding jsp skill");
-		}
-
-		if (need.mentorSkillsCSS) {
-			skillsNeed.add("css");
-			// System.out.println("adding css skill");
-		}
-
-		ArrayList<String> skillsHave = new ArrayList<String>();
-
-		if (menteeSkillsJava) {
-			skillsHave.add("java");
-		}
-
-		if (menteeSkillsJsp) {
-			skillsHave.add("jsp");
-		}
-		if (menteeSkillsCSS) {
-			skillsHave.add("css");
-		}
-
-		for (String skill : skillsNeed) {
-
-			if (skillsHave.contains(skill)) {
-				skillsCount++;
-				this.matchingMentorSkills += " " + skill;
-			}
-
-		}
-
-		if (skillsNeed.size() > 1) {
-			rank = (skillsCount / skillsNeed.size()) * 100;
-		}
-
-		return rank;
-	}
 	
 	@Override
 	public String toString() {
@@ -196,7 +126,8 @@ public class UserDto {
 				+ "\n mentorMatch: " + mentorMatch + ", menteeMatch: " + menteeMatch + ", networkingMatch: "
 				+ networkingMatch + "\n haveSkillCount: " + haveSkillCount + ", needSkillCount: " + needSkillCount
 				+ ", networkingSkillCount: " + networkingSkillCount 
-				+ "\n linkedIn ID: " + linkedInId + "\n\n";
+				+ "\n linkedIn ID: " + linkedInId + "\n\n"
+				+ " matchingMentorCount: " + getMatchingMentorSkillCount() + ", matchingMenteeCount: " + getMatchingMenteeSkillCount() ;
 	}
 
 	public String getLinkedInFirstName() {
@@ -576,14 +507,6 @@ public class UserDto {
 		this.networkingSkillsCSS = networkingSkillsCSS;
 	}
 
-	public double getPercentMatch() {
-		return percentMatch;
-	}
-
-	public void setPercentMatch(double percentMatch) {
-		this.percentMatch = percentMatch;
-	}
-
 	public String getMatchingMentorSkills() {
 		return matchingMentorSkills;
 	}
@@ -742,30 +665,6 @@ public class UserDto {
 
 	public void setMatchingNetworkingSkillCount(int matchingNetworkingSkillCount) {
 		this.matchingNetworkingSkillCount = matchingNetworkingSkillCount;
-	}
-
-	public String getChirps() {
-		return chirps;
-	}
-
-	public void setChirps(String chirps) {
-		this.chirps = chirps;
-	}
-
-	public boolean isFavorited() {
-		return isFavorited;
-	}
-
-	public void setFavorited(boolean isFavorited) {
-		this.isFavorited = isFavorited;
-	}
-
-	public boolean isChirped() {
-		return isChirped;
-	}
-
-	public void setChirped(boolean isChirped) {
-		this.isChirped = isChirped;
 	}
 
 	/* (non-Javadoc)

@@ -10,15 +10,6 @@
 			<column name="user_id" sql-type="varchar(20)" length="20"></column>
 		</id>
 
-		<property name="favorites">
-			<column name="favorites" sql-type="mediumtext" length="65535"></column>
-		</property>
-
-		<property name="chirps">
-			<column name="chirps" sql-type="mediumtext" length="65535"></column>
-		</property>
-
-
 		<property name="linkedInFirstName">
 			<column name="first_name" sql-type="varchar(45)" length="45"></column>
 		</property>
