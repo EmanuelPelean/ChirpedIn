@@ -29,41 +29,58 @@
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
 <style>
-#success_message {
-	display: none;
+
+body{background:#59ABE3;
+	margin:0
 }
+#mydiv{content:'Hi';
+	bottom:-380px;
+	background:#50505a;
+	right: -200px;
+	color:#fff;
+	width:60%;
+	padding:16px 4px 16px 0;
+	border-radius:6px;
+	font-size:13px;
+	box-shadow:10px 10px 40px -14px #000}
+	
+}
+.Absolute-Center {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 15;
+  border: 3px solid #73AD21;
+}
+
 </style>
 <style>
 
-#chirplink {
-
-
+#chirplink, a:visited {
+	border-radius: 25px;
+    background-color: #F7DC6F;
+    color: white;
+    padding: 14px 25px;
+    text-align: center; 
+    text-decoration: none;
 }
 
-#content {
-	width: 80%;
-	margin: 0 auto;
+chirplink:hover, a:active {
+    background-color: #F4D03F;
 }
-</style>
-<style>
-body {
-	background: #76b852; /* fallback for old browsers */
-	background: -webkit-linear-gradient(right, #F7DC6F, #F4D03F);
-	background: -moz-linear-gradient(right, #F7DC6F, #F4D03F);
-	background: -o-linear-gradient(right, #F7DC6F, #F4D03F);
-	background: linear-gradient(to left, #F7DC6F, #F4D03F);
-	font-family: "Roboto", sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+
+
+
+
 }
 </style>
+
 </head>
 <body>
 
 
 	
 		
-<div id="content">
+<div id="mydiv" class="Absolute-Center">
 	<div class="container">
   <h2 >Browse through your top matches!</h2>
   <div id="myCarousel" style="width:50%;height:50%;" class="carousel slide" data-ride="carousel">
@@ -84,8 +101,8 @@ body {
 			<div class="carousel-caption d-none d-md-block">
 				<h3>Emanuel Pelean 100% Match!</h3>
 				<br>
-				<h6>Java Developer focused on increasing patient care by
-					decreasing virtual wait times.</h6>
+				<h5>Java Developer focused on increasing patient care by
+					decreasing virtual wait times.</h5>
 				<br>
 				<p>Mentor Match for: ALL!</p>
 			</div>
@@ -128,7 +145,7 @@ body {
 	</div>
 
 	</div>
-	<script>
+	</div>
 
 
 </body>
