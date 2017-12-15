@@ -13,4 +13,6 @@
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+<!--  <mvc:resources mapping="/images/**" location="/resources/" />
+	<mvc:annotation-driven /> -->	
 </beans>

@@ -102,7 +102,7 @@ span{margin:0 5px 0 15px}
 		<div id="mydiv2" class="Top-Left">
 		<div class="form-group form-inline justify-content-center">
 		<label for="email">ID :</label>
-		<form:input id="fancy-inputs" class="input form-control" type="text" name="linkedInId" path="linkedInId" value="${data.linkedInId }"></form:input><br/>
+		<form:input id="fancy-inputs" class="input form-control" type="hidden" name="linkedInId" path="linkedInId" value="${data.linkedInId }"></form:input><br/>
 		</div>
 		<div class="form-group form-inline justify-content-center">
 		<label for="email">First Name :</label>

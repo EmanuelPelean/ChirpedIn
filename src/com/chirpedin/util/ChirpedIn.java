@@ -143,8 +143,8 @@ public class ChirpedIn {
 	public static void calculateMatchPercentages(UserDto criteriaDto, UserDto userDto) {
 		double counter = 0.0;
 		
-		userDto.setMentorMatchPercent((calculatePercentMatch( userDto.getMatchingMenteeSkillCount(), criteriaDto.getNeedSkillCount() ) ) );
-		userDto.setMenteeMatchPercent((calculatePercentMatch( userDto.getMatchingMentorSkillCount(), criteriaDto.getHaveSkillCount() ) ));
+		userDto.setMentorMatchPercent(Math.round((calculatePercentMatch( userDto.getMatchingMenteeSkillCount(), criteriaDto.getNeedSkillCount() ) ) ) );
+		userDto.setMenteeMatchPercent(Math.round((calculatePercentMatch( userDto.getMatchingMentorSkillCount(), criteriaDto.getHaveSkillCount() ) ) ) );
 		
 		
 //		userDto.setMentorMatchPercent((calculatePercentMatch( userDto.getMatchingMenteeSkillCount(), criteriaDto.getNeedSkillCount() ) ) );

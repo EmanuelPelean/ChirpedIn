@@ -109,7 +109,7 @@ body{
       <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?random=1" type="video/webm">
     </video>
     <div class="box">
-    <img alt="ChirpedInLogo" height="50%" id="hplogo" src="https://files.slack.com/files-tmb/T04UPFZ31-F8F6YBURJ-8516b8475f/chirpedinfinal_360.png">
+    <img alt="ChirpedInLogo" height="50%" id="hplogo" src="https://i.imgur.com/aiH9Lj8.png">
       <h1>ChirpedIn</h1>
       <h2>Connect with your Grand Circus peers like never before.</h2>
       <button type="submit" onclick="relocate_home()">Login with LinkedIn!</button>
