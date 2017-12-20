@@ -51,9 +51,7 @@ import com.sun.xml.internal.ws.api.message.Header;
 public class HomeController {
 
 	/**
-	 * Home page mapping (you can use "/" if you want) 1)Redirect users to request
-	 * LinkedIn access (provide a value for the state and scopes you need) home page
-	 * has the hyperlink to do a get request to LinkedIN endpoit
+	 * This home page mapping redirects users to request LinkedIn access
 	 * 
 	 * @return
 	 */
@@ -64,10 +62,10 @@ public class HomeController {
 	}
 
 	/**
-	 * 3. Linked redirects back to this controller with a temporary code and
-	 * (returned state/once should match state passed in step 2) 4. Exchange
-	 * temporary code for an access token 5. Use access tokens to make calls to the
-	 * LinkedIn Api on behalf of the user
+	 * LinkedIn authenticates user and redirects them back to this controller with a
+	 * temporary code and returned state. This should match state passed in step 2.
+	 * ChirpedIn exchange the temporary code for an access token and authorizes the
+	 * ChirpedIn to make calls to the LinkedIn API on behalf of the user.
 	 * 
 	 * @param code
 	 *            - code from https://LinkedIn.com/login/oauth/authorize call
@@ -85,7 +83,7 @@ public class HomeController {
 		UserDto userDataDto = null;
 
 		try {
-			// 4. Exchange temporary code for an access token
+			// Exchange temporary code for an access token
 			URL url = new URL("https://www.linkedin.com/oauth/v2/accessToken?" + "grant_type=authorization_code&"
 					+ "code=" + code + "&" + "client_id=" + APICredentials.CLIENT_ID + "&"
 					+ "redirect_uri=http://localhost:8080/ChirpedIn/result&" + "client_secret="
@@ -93,24 +91,26 @@ public class HomeController {
 
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-			con.setDoOutput(true); // Must add
-			con.setRequestMethod("POST");
-			con.setFixedLengthStreamingMode(0); // Must add
-			con.setRequestProperty("Accept", "application/json");
+			con.setDoOutput(true);
+			con.setRequestMethod("POST"); // keeps data safe from prying eyes
+			con.setFixedLengthStreamingMode(0);
+			con.setRequestProperty("Accept", "application/json"); // tells format of the data we'll be receiving
 
-			BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream())); // receives data
+																										// from HTTP
+																										// connection
 
 			String currentLine = "";
 
-			while ((currentLine = reader.readLine()) != null) {
-				jsonString += currentLine;
+			while ((currentLine = reader.readLine()) != null) { // keeps reading until there is no more data to read
+				jsonString += currentLine; // stores data as jsonString
 			}
 
 			JSONObject jsonObj = new JSONObject(jsonString);
 			accessToken = jsonObj.getString("access_token");
 			con.disconnect();
 
-			// 5. Use access token to make calls to the LinkedIn Api on behalf of the user
+			// Use access token to make calls to the LinkedIn API on behalf of the user
 
 			url = new URL(
 					"https://api.linkedin.com/v1/people/~:(id,email-address,first-name,last-name,headline,location,summary,picture-url,picture-urls::(original),public-profile-url)?format=json&oauth2_access_token="
@@ -130,8 +130,10 @@ public class HomeController {
 			// Get the user data we want from the json string
 			System.out.println(jsonString);
 			jsonObj = new JSONObject(jsonString);
-			JSONObject jsonLocation = (JSONObject) jsonObj.get("location");
-			JSONObject jsonLargePic = (JSONObject) jsonObj.get("pictureUrls");
+			JSONObject jsonLocation = (JSONObject) jsonObj.get("location"); // special way of handling nested Json
+																			// Objects
+			JSONObject jsonLargePic = (JSONObject) jsonObj.get("pictureUrls"); // special way of handling nested Json
+																				// Objects
 
 			userDataDto = new UserDto();
 
@@ -153,30 +155,38 @@ public class HomeController {
 			e.printStackTrace();
 		}
 
-		/*
-		 * TODO Change to return the name and avatar image in the instead of the raw
-		 * json data the model
-		 */
+		// save the data collected from LinkedIn into the "data" expression language tag
 		model.addAttribute("data", userDataDto);
-		/*
-		 * we then go to the "signup.jsp" page and pass in a new UserDto this UserDto is
-		 * attached to the form on the signup.jsp page by "command"
-		 */
+
+		// create a new (blank) userDto that we can populate with information collected
+		// from the user
 		return new ModelAndView("signup", "command", new UserDto());
 	}
 
-	// this is called when the signup page is opened without going through the
+	// called when the signup page is opened without going through the
 	// "results" mapping
 	@RequestMapping({ "/signup" })
 	public ModelAndView signupPage(Model model) {
 		System.out.println("Regular Signup");
 
-		// binding form to pojo
+		// binding form to UserDto
 
 		return new ModelAndView("signup", "command", new UserDto());
 	}
 
-	// this is called when the user clicks to submit form data
+	/**
+	 * called when the user submits form data; attaches user-supplied info to the
+	 * UserDto which is then stored into SQL data base. It then calculates the
+	 * temporary parameters (matching criteria) that are not stored in the data
+	 * base. Then it searches for matches based on user criteria. Matches are
+	 * returned and their temporary variables (matching criteria) are populated and
+	 * pushed to the jsp page
+	 * 
+	 * @param newUser
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
 	public ModelAndView signupPost(@ModelAttribute("command") UserDto newUser, Model model, HttpSession session) {
 		System.out.println("Entering sign up method called by '/signup'");
@@ -187,13 +197,13 @@ public class HomeController {
 		// to the newUser DTO
 		ChirpedIn.populateHaveSkills(newUser);
 		ChirpedIn.populateNeedSkills(newUser);
-//		ChirpedIn.populateNetworkingSkills(newUser);
+		// ChirpedIn.populateNetworkingSkills(newUser);
 		ChirpedIn.setSkillCount(newUser);
 
 		System.out.println("This is the new user's info: " + newUser);
 		// Insert the newUser DTO into our MySQL database
 		dao.insertUser(newUser);
-		
+
 		session.setAttribute("newUserTest", newUser);
 		// List<UserDto> matches = dao.getMatches(newUser, model);
 		// System.out.println("Form Signup");
@@ -206,7 +216,7 @@ public class HomeController {
 		// criteria
 
 		List<UserDto> uniqueMatchesList = dao.findMentor(newUser); // find mentors based on criteria
-		
+
 		/*
 		 * List<UserDto> menteeList = dao.findMentee(newUser); // find mentees based on
 		 * criteria List<UserDto> networkingList = dao.matchNetworking(newUser); // find
@@ -286,85 +296,85 @@ public class HomeController {
 
 		// do work to display the list in order
 		System.out.println("Unique match list count BEFORE: " + uniqueMatchesList.size());
-		
-//		for (int i = 0; i < uniqueMatchesList.size(); i++) {// for each mentor, print matching skills
-//
-//			ChirpedIn.populateHaveSkills(uniqueMatchesList.get(i));
-//			ChirpedIn.populateNeedSkills(uniqueMatchesList.get(i));
-////			ChirpedIn.populateNetworkingSkills(uniqueMatchesList.get(i));
-//			ChirpedIn.setMatchingSkillCounts(uniqueMatchesList.get(i));
-//			ChirpedIn.populateAllMatchingSkills(newUser, uniqueMatchesList.get(i));
-//			ChirpedIn.setConnectionTypeFlags(uniqueMatchesList.get(i));
-//			ChirpedIn.calculateMatchPercentages(newUser, uniqueMatchesList.get(i));
-//			
-//			System.out.println("This is the DTO from the array: " + uniqueMatchesList.get(i));
-//			System.out.println("This is  the DTO haveSkillCount: " + uniqueMatchesList.get(i).getHaveSkillCount());
-//			System.out.println("This is  the DTO matching mentor skills: " + uniqueMatchesList.get(i).getMatchingMentorSkills());
-//			System.out.println("This is  the DTO needSkillCount: " + uniqueMatchesList.get(i).getNeedSkillCount());
-//
-//		}
+
+		// for (int i = 0; i < uniqueMatchesList.size(); i++) {// for each mentor, print
+		// matching skills
+		//
+		// ChirpedIn.populateHaveSkills(uniqueMatchesList.get(i));
+		// ChirpedIn.populateNeedSkills(uniqueMatchesList.get(i));
+		//// ChirpedIn.populateNetworkingSkills(uniqueMatchesList.get(i));
+		// ChirpedIn.setMatchingSkillCounts(uniqueMatchesList.get(i));
+		// ChirpedIn.populateAllMatchingSkills(newUser, uniqueMatchesList.get(i));
+		// ChirpedIn.setConnectionTypeFlags(uniqueMatchesList.get(i));
+		// ChirpedIn.calculateMatchPercentages(newUser, uniqueMatchesList.get(i));
+		//
+		// System.out.println("This is the DTO from the array: " +
+		// uniqueMatchesList.get(i));
+		// System.out.println("This is the DTO haveSkillCount: " +
+		// uniqueMatchesList.get(i).getHaveSkillCount());
+		// System.out.println("This is the DTO matching mentor skills: " +
+		// uniqueMatchesList.get(i).getMatchingMentorSkills());
+		// System.out.println("This is the DTO needSkillCount: " +
+		// uniqueMatchesList.get(i).getNeedSkillCount());
+		//
+		// }
 
 		for (UserDto userDto : uniqueMatchesList) {// for each mentor, print matching skills
 
 			ChirpedIn.populateHaveSkills(userDto);
 			ChirpedIn.populateNeedSkills(userDto);
-//			ChirpedIn.populateNetworkingSkills(uniqueMatchesList.get(i));
-//			ChirpedIn.setMatchingSkillCounts(userDto);
+			// ChirpedIn.populateNetworkingSkills(uniqueMatchesList.get(i));
+			// ChirpedIn.setMatchingSkillCounts(userDto);
 			ChirpedIn.populateAllMatchingSkills(newUser, userDto);
-			
-			
-			
-			//Used to calculate haveSkills and needSkills length
+
+			// Used to calculate haveSkills and needSkills length
 			String[] haveSkillArr = userDto.getHaveSkills().split(",");
 			userDto.setHaveSkillCount(haveSkillArr.length);
-			
+
 			String[] needSkillArr = userDto.getNeedSkills().split(",");
 			userDto.setNeedSkillCount(needSkillArr.length);
-			
+
 			// Used to calculate matchingMentor and matchingMentee
 			String[] matchingMentorArr = userDto.getMatchingMentorSkills().split(",");
 			userDto.setMatchingMentorSkillCount(matchingMentorArr.length);
-			
+
 			String[] matchingMenteeArr = userDto.getMatchingMenteeSkills().split(",");
 			userDto.setMatchingMenteeSkillCount(matchingMenteeArr.length);
-			
-			
+
 			ChirpedIn.setConnectionTypeFlags(userDto);
 			ChirpedIn.calculateMatchPercentages(newUser, userDto);
-			
-			
-			
-			double mentorMatchPercent = ((double) userDto.getMatchingMentorSkillCount() / (double) newUser.getNeedSkillCount()) * 100 ;
+
+			double mentorMatchPercent = ((double) userDto.getMatchingMentorSkillCount()
+					/ (double) newUser.getNeedSkillCount()) * 100;
 			userDto.setMentorMatchPercent(Math.round(mentorMatchPercent));
-			
-//			double menteeMatchPercent = ((double) userDto.getMatchingMentorSkillCount() / (double) newUser.getHaveSkillCount()) * 100 ;
-//			userDto.setMenteeMatchPercent(menteeMatchPercent);
-			
+
+			// double menteeMatchPercent = ((double) userDto.getMatchingMentorSkillCount() /
+			// (double) newUser.getHaveSkillCount()) * 100 ;
+			// userDto.setMenteeMatchPercent(menteeMatchPercent);
+
 			System.out.println("This is the DTO from the array: " + userDto);
 			System.out.println("This is  the DTO matchingMenteeCount: " + userDto.getMatchingMenteeSkillCount());
 			System.out.println("This is  the DTO matching mentor skills: " + userDto.getMatchingMentorSkills());
 			System.out.println("This is  the DTO matchingMentorCount: " + userDto.getMatchingMentorSkillCount());
 
 		}
-		
 
 		List<UserDto> tempArray = new ArrayList<UserDto>();
-		
+
 		for (UserDto userDto : uniqueMatchesList) {
 			tempArray.add(userDto);
 		}
-		
-		
 
-//		for (UserDto userDto : tempArray) {
-//			if (userDto.getMentorMatchPercent() < 1) {
-//				System.out.println("PERCENT CHECK: Removing " + userDto.getLinkedInFirstName() + " with "
-//						+ userDto.getMentorMatchPercent());
-//				uniqueMatchesList.remove(userDto);
-//			}
-//
-//		}
-//
+		// for (UserDto userDto : tempArray) {
+		// if (userDto.getMentorMatchPercent() < 1) {
+		// System.out.println("PERCENT CHECK: Removing " +
+		// userDto.getLinkedInFirstName() + " with "
+		// + userDto.getMentorMatchPercent());
+		// uniqueMatchesList.remove(userDto);
+		// }
+		//
+		// }
+		//
 		for (UserDto userDto : tempArray) {
 
 			if (userDto.getMatchingMentorSkills().isEmpty()) {
@@ -372,8 +382,9 @@ public class HomeController {
 			}
 
 		}
-//
-//		System.out.println("Unique match list count AFTER: " + uniqueMatchesList.size());
+		//
+		// System.out.println("Unique match list count AFTER: " +
+		// uniqueMatchesList.size());
 
 		uniqueMatchesList.sort(new MentorListComparator());
 
@@ -469,60 +480,60 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/chirp")
-	public String chirpUserButton(@RequestParam("fName") String firstName, @RequestParam("lName") String lastName, @RequestParam("Email") String email,
-			Model model, @ModelAttribute("newUserTest") UserDto newUser) {
+	public String chirpUserButton(@RequestParam("fName") String firstName, @RequestParam("lName") String lastName,
+			@RequestParam("Email") String email, Model model, @ModelAttribute("newUserTest") UserDto newUser) {
 
 		String userURL = newUser.getLinkedInPublicProfileUrl();
 		String name = newUser.getLinkedInFirstName() + " " + newUser.getLinkedInLastName();
 
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 
-		
 		String subject = "ChirpedIn Chirp Chirp";
-		String body = "You've been chirped by " + name + " who is currently seeking a mentor!\n" + 
-		"If interested in mentoring " + name + " please visit their LinkedIn profile at " + userURL
-		+ " and connect with them now!";
+		String body = "You've been chirped by " + name + " who is currently seeking a mentor!\n"
+				+ "If interested in mentoring " + name + " please visit their LinkedIn profile at " + userURL
+				+ " and connect with them now!";
 
 		dao.chirp(email, subject, body);
-//		model.addAttribute("test", firstName + " " + lastName);
+		// model.addAttribute("test", firstName + " " + lastName);
 
 		List<UserDto> uniqueMatchesList = dao.findMentor(newUser);
 		for (UserDto userDto : uniqueMatchesList) {// for each mentor, print matching skills
 
 			ChirpedIn.populateHaveSkills(userDto);
 			ChirpedIn.populateNeedSkills(userDto);
-//			ChirpedIn.populateNetworkingSkills(uniqueMatchesList.get(i));
-//			ChirpedIn.setMatchingSkillCounts(userDto);
+			// ChirpedIn.populateNetworkingSkills(uniqueMatchesList.get(i));
+			// ChirpedIn.setMatchingSkillCounts(userDto);
 			ChirpedIn.populateAllMatchingSkills(newUser, userDto);
-			
-			//Used to calculate haveSkills and needSkills length
+
+			// Used to calculate haveSkills and needSkills length
 			String[] haveSkillArr = userDto.getHaveSkills().split(",");
 			userDto.setHaveSkillCount(haveSkillArr.length);
-			
+
 			String[] needSkillArr = userDto.getNeedSkills().split(",");
 			userDto.setNeedSkillCount(needSkillArr.length);
-			
+
 			// Used to calculate matchingMentor and matchingMentee
 			String[] matchingMentorArr = userDto.getMatchingMentorSkills().split(",");
 			userDto.setMatchingMentorSkillCount(matchingMentorArr.length);
-			
+
 			String[] matchingMenteeArr = userDto.getMatchingMenteeSkills().split(",");
 			userDto.setMatchingMenteeSkillCount(matchingMenteeArr.length);
-			
+
 			ChirpedIn.setConnectionTypeFlags(userDto);
 			ChirpedIn.calculateMatchPercentages(newUser, userDto);
-			
-			double mentorMatchPercent = ((double) userDto.getMatchingMentorSkillCount() / (double) newUser.getNeedSkillCount()) * 100 ;
+
+			double mentorMatchPercent = ((double) userDto.getMatchingMentorSkillCount()
+					/ (double) newUser.getNeedSkillCount()) * 100;
 			userDto.setMentorMatchPercent(mentorMatchPercent);
 
 		}
-		
+
 		List<UserDto> tempArray = new ArrayList<UserDto>();
-		
+
 		for (UserDto userDto : uniqueMatchesList) {
 			tempArray.add(userDto);
 		}
-		
+
 		for (UserDto userDto : tempArray) {
 
 			if (userDto.getMatchingMentorSkills().isEmpty()) {
@@ -530,7 +541,7 @@ public class HomeController {
 			}
 
 		}
-		
+
 		uniqueMatchesList.sort(new MentorListComparator());
 
 		model.addAttribute("mentorresults", uniqueMatchesList);
