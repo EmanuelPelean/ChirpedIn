@@ -57,9 +57,10 @@ body{background:#59ABE3;
 
 #chirplink, a:visited {
 	border-radius: 25px;
-    background-color: #F7DC6F;
+    background-color: #4286f4;
     color: white;
     padding: 14px 25px;
+    font-size: 20px;
     text-align: center; 
     text-decoration: none;
 }
@@ -115,9 +116,11 @@ chirplink:hover, a:active {
 				<div class="item">
 					<img src="${matchedDto.linkedInLargePictureUrl}" style="width: 100%; height: 100%;" alt= "No ImageFound">
 					<div class="carousel-caption d-none d-md-block">
-						<h3>${matchedDto.linkedInFirstName} ${matchedDto.linkedInLastName} ${matchedDto.mentorMatchPercent}% Match!</h3><br>
+						<h3>${matchedDto.linkedInFirstName} ${matchedDto.linkedInLastName} ${matchedDto.totalMatchPercentForDisplay}% Match!</h3><br>
 						<h6>${matchedDto.linkedInHeadline}</h6><br>
-						<p>Mentor Match for: ${matchedDto.matchingMentorSkills}</p>
+						<p>Mentor: ${matchedDto.matchingMentorSkills}</p>
+						<p>Mentee: ${matchedDto.matchingMenteeSkills}</p>
+						<p>Networking: ${matchedDto.matchingNetworkingSkills}</p>
 						<a id="chirplink" href="chirp?fName=${matchedDto.linkedInFirstName}&lName= ${matchedDto.linkedInLastName}&Email= ${matchedDto.linkedInEmail}">Chirp</a>
 					</div>
 				</div>
@@ -136,7 +139,7 @@ chirplink:hover, a:active {
 	</div>
 	<div>
 		<button type="button" class="btn btn-primary">
-			<span class="glyphicon glyphicon-plus-sign"></span>Add Favorite
+			<span class="glyphicon glyphicon-plus-sign"></span> Add Favorite
 		</button>
 		<button type="button" class="btn btn-primary">
 			<span class="glyphicon glyphicon-envelope"></span> Chirp

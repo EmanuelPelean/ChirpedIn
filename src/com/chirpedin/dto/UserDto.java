@@ -14,6 +14,8 @@ public class UserDto {
 	
 	// temporary variables to be calculated with every search
 	private double totalMatchPercent;
+	private int totalMatchPercentForDisplay;
+	
 	private double mentorMatchPercent;
 	private double menteeMatchPercent;
 	private double networkingMatchPercent;
@@ -25,6 +27,10 @@ public class UserDto {
 	private int matchingMentorSkillCount = 0;
 	private int matchingMenteeSkillCount = 0;
 	private int matchingNetworkingSkillCount = 0;
+	
+	private int totalSkillCount = 0;
+	private int totalMatchingSkillCount = 0;
+	
 
 	// these could be permanent but would need to add to database and plus we run
 	// the risk that it there may be a disconnect between updating and adjusting
@@ -117,17 +123,23 @@ public class UserDto {
 	
 	@Override
 	public String toString() {
-		return "UserDto: " + linkedInFirstName + " " + linkedInLastName 
+		return "UserDto: " + linkedInFirstName + " " + linkedInLastName + " linkedIn ID: " + linkedInId
 				+ "\n Total Match: " + String.format("%3.3f", totalMatchPercent)
-				+ "\n  percentMentorMatch: " + String.format("%3.3f", mentorMatchPercent) + " percentMenteeMatch: " + String.format("%3.3f", menteeMatchPercent) + " percentNetworkingMatch: " + String.format("%3.3f", networkingMatchPercent)
-				+ "\n matchingMentorSkills: " + matchingMentorSkills + "\n matchingMenteeSkills: "
-				+ matchingMenteeSkills + "\n matchingNetworkingSkills: " + matchingNetworkingSkills + "\n haveSkills: "
-				+ haveSkills + "\n needSkills: " + needSkills + "\n networkingSkills: " + networkingSkills
-				+ "\n mentorMatch: " + mentorMatch + ", menteeMatch: " + menteeMatch + ", networkingMatch: "
-				+ networkingMatch + "\n haveSkillCount: " + haveSkillCount + ", needSkillCount: " + needSkillCount
-				+ ", networkingSkillCount: " + networkingSkillCount 
-				+ "\n linkedIn ID: " + linkedInId + "\n\n"
-				+ " matchingMentorCount: " + getMatchingMentorSkillCount() + ", matchingMenteeCount: " + getMatchingMenteeSkillCount() ;
+				+ "\n percentMentorMatch: " + String.format("%3.3f", mentorMatchPercent) + " percentMenteeMatch: " + String.format("%3.3f", menteeMatchPercent) + " percentNetworkingMatch: " + String.format("%3.3f", networkingMatchPercent)
+				+ "\n\n haveSkills: " + haveSkills 
+				+ "\n needSkills: " + needSkills 
+				+ "\n networkingSkills: " + networkingSkills
+				+ "\n haveSkillCount: " + haveSkillCount + ", needSkillCount: " + needSkillCount + ", networkingSkillCount: " + networkingSkillCount 
+				+ "\n totalSkillCount: " + totalSkillCount
+				
+				+ "\n\n matchingMentorSkills: " + matchingMentorSkills 
+				+ "\n matchingMenteeSkills: " + matchingMenteeSkills 
+				+ "\n matchingNetworkingSkills: " + matchingNetworkingSkills 
+				+ "\n matchingMentorCount: " + getMatchingMentorSkillCount() + ", matchingMenteeCount: " + getMatchingMenteeSkillCount()  + ", matchingNetworkingCount: " + getMatchingNetworkingSkillCount()
+				+ "\n totalMatchingSkillCount: " + totalMatchingSkillCount
+				
+				+ "\n\n mentorMatch: " + mentorMatch + ", menteeMatch: " + menteeMatch + ", networkingMatch: " + networkingMatch 
+				+ "\n\n\n";
 	}
 
 	public String getLinkedInFirstName() {
@@ -696,6 +708,36 @@ public class UserDto {
 		} else if (!linkedInId.equals(other.linkedInId))
 			return false;
 		return true;
+	}
+
+
+	public int getTotalSkillCount() {
+		return totalSkillCount;
+	}
+
+
+	public void setTotalSkillCount(int totalSkillCount) {
+		this.totalSkillCount = totalSkillCount;
+	}
+
+
+	public int getTotalMatchingSkillCount() {
+		return totalMatchingSkillCount;
+	}
+
+
+	public void setTotalMatchingSkillCount(int totalMatchingSkillCount) {
+		this.totalMatchingSkillCount = totalMatchingSkillCount;
+	}
+
+
+	public int getTotalMatchPercentForDisplay() {
+		return totalMatchPercentForDisplay;
+	}
+
+
+	public void setTotalMatchPercentForDisplay(int totalMatchPercentForDisplay) {
+		this.totalMatchPercentForDisplay = totalMatchPercentForDisplay;
 	}
 	
 	/*
