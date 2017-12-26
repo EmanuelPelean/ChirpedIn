@@ -55,7 +55,7 @@ body{background:#59ABE3;
 </style>
 <style>
 
-#chirplink, a:visited {
+#chirplink, #favoritelink, a:visited {
 	border-radius: 25px;
     background-color: #4286f4;
     color: white;
@@ -122,6 +122,7 @@ chirplink:hover, a:active {
 						<p>Mentee: ${matchedDto.matchingMenteeSkills}</p>
 						<p>Networking: ${matchedDto.matchingNetworkingSkills}</p>
 						<a id="chirplink" href="chirp?fName=${matchedDto.linkedInFirstName}&lName= ${matchedDto.linkedInLastName}&Email= ${matchedDto.linkedInEmail}">Chirp</a>
+						<a id="favoritelink" href="addFavorites?userLinkedInId=${matchedDto.linkedInFirstName}&matchedLinkedInId= ${matchedDto.linkedInLastName}&Email= ${matchedDto.linkedInEmail}">Add Favorite</a>
 					</div>
 				</div>
 			</tr>
