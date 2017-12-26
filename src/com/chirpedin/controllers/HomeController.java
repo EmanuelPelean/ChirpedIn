@@ -163,7 +163,8 @@ public class HomeController {
 		return new ModelAndView("signup", "command", new UserDto());
 	}
 
-	// called when the signup page is opened without going through the "results" mapping
+	// called when the signup page is opened without going through the "results"
+	// mapping
 	@RequestMapping({ "/signup" })
 	public ModelAndView signupPage(Model model) {
 		System.out.println("Regular Signup");
@@ -174,10 +175,9 @@ public class HomeController {
 	}
 
 	/**
-	 * called when the user submits form data on the startup page; does three things: 
-	 * 1) sends user-supplied info to the database 
-	 * 2) finds matches in the database
-	 * 3) returns matches to the jsp page
+	 * called when the user submits form data on the startup page; does three
+	 * things: 1) sends user-supplied info to the database 2) finds matches in the
+	 * database 3) returns matches to the jsp page
 	 * 
 	 * @param newUser
 	 * @param model
@@ -198,7 +198,7 @@ public class HomeController {
 		ChirpedIn.setUserSkillCount(newUser);
 
 		System.out.println("This is the new user's info: " + newUser);
-		
+
 		// Insert the newUser DTO into our MySQL database
 		dao.insertUser(newUser);
 
@@ -215,7 +215,6 @@ public class HomeController {
 
 		List<UserDto> uniqueMatchesList = dao.findMentor(newUser); // find mentors based on criteria
 
-	
 		System.out.println("Unique match list count BEFORE: " + uniqueMatchesList.size());
 
 		for (UserDto userDto : uniqueMatchesList) {// for each mentor, print matching skills
@@ -224,15 +223,15 @@ public class HomeController {
 			ChirpedIn.setNeedSkills(userDto);
 			ChirpedIn.setNetworkingSkills(userDto);
 			ChirpedIn.setUserSkillCount(userDto);
-			
+
 			ChirpedIn.setAllMatchingSkills(newUser, userDto);
 			ChirpedIn.setMatchingSkillCounts(userDto);
 
-			ChirpedIn.setConnectionTypeFlags(userDto);			
+			ChirpedIn.setConnectionTypeFlags(userDto);
 			ChirpedIn.calculateMatchPercentages(newUser, userDto);
 
 			System.out.println(userDto);
-	
+
 		}
 
 		List<UserDto> tempArray = new ArrayList<UserDto>();
@@ -248,9 +247,8 @@ public class HomeController {
 			}
 
 		}
-		
-		uniqueMatchesList.sort(new MentorListComparator());
 
+		uniqueMatchesList.sort(new MentorListComparator());
 
 		model.addAttribute("mentorresults", uniqueMatchesList); // send data to view
 
@@ -311,8 +309,8 @@ public class HomeController {
 	// }
 
 	@RequestMapping(value = { "/addFavorites" }, method = RequestMethod.POST)
-	public ModelAndView favorites(@RequestParam("linkedInId") String matchedDto,
-			@RequestParam("newUserlinkedInId") String userDto) {
+	public ModelAndView favorites(@RequestParam("linkedInId") String matchedDtoLinkedInId,
+			@RequestParam("newUserlinkedInId") String userDtoLinkedInId) {
 
 		// UserDto user1 = new UserDto();
 		// user1.setLinkedInId("dani");
@@ -321,7 +319,7 @@ public class HomeController {
 		// user2.setLinkedInId("format");
 
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
-		dao.addFavorites(userDto, matchedDto);
+		dao.addFavorites(userDtoLinkedInId, matchedDtoLinkedInId);
 
 		return null;
 
@@ -345,49 +343,38 @@ public class HomeController {
 	public String chirpUserButton(@RequestParam("fName") String firstName, @RequestParam("lName") String lastName,
 			@RequestParam("Email") String email, Model model, @ModelAttribute("newUserTest") UserDto newUser) {
 
-		String userURL = newUser.getLinkedInPublicProfileUrl();
-		String name = newUser.getLinkedInFirstName() + " " + newUser.getLinkedInLastName();
-
+		boolean sendActualEmal = false; // (dis)/(e)nable for testing
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 
-		String subject = "ChirpedIn Chirp Chirp";
-		String body = "You've been chirped by " + name + " who is currently seeking a mentor!\n"
-				+ "If interested in mentoring " + name + " please visit their LinkedIn profile at " + userURL
-				+ " and connect with them now!";
+		if (sendActualEmal) {
+			String userURL = newUser.getLinkedInPublicProfileUrl();
+			String name = newUser.getLinkedInFirstName() + " " + newUser.getLinkedInLastName();
 
-		dao.chirp(email, subject, body);
-		// model.addAttribute("test", firstName + " " + lastName);
+			String subject = "ChirpedIn Chirp Chirp";
+			String body = "You've been chirped by " + name + " who is currently seeking a mentor!\n"
+					+ "If interested in mentoring " + name + " please visit their LinkedIn profile at " + userURL
+					+ " and connect with them now!";
 
+			dao.chirp(email, subject, body);
+			// model.addAttribute("test", firstName + " " + lastName);
+		}
+
+		// print out matches again
 		List<UserDto> uniqueMatchesList = dao.findMentor(newUser);
 		for (UserDto userDto : uniqueMatchesList) {// for each mentor, print matching skills
 
 			ChirpedIn.setHaveSkills(userDto);
 			ChirpedIn.setNeedSkills(userDto);
-			// ChirpedIn.populateNetworkingSkills(uniqueMatchesList.get(i));
-			// ChirpedIn.setMatchingSkillCounts(userDto);
+			ChirpedIn.setNetworkingSkills(userDto);
+			ChirpedIn.setUserSkillCount(userDto);
+
 			ChirpedIn.setAllMatchingSkills(newUser, userDto);
-
-			// Used to calculate haveSkills and needSkills length
-			String[] haveSkillArr = userDto.getHaveSkills().split(",");
-			userDto.setHaveSkillCount(haveSkillArr.length);
-
-			String[] needSkillArr = userDto.getNeedSkills().split(",");
-			userDto.setNeedSkillCount(needSkillArr.length);
-
-			// Used to calculate matchingMentor and matchingMentee
-			String[] matchingMentorArr = userDto.getMatchingMentorSkills().split(",");
-			userDto.setMatchingMentorSkillCount(matchingMentorArr.length);
-
-			String[] matchingMenteeArr = userDto.getMatchingMenteeSkills().split(",");
-			userDto.setMatchingMenteeSkillCount(matchingMenteeArr.length);
+			ChirpedIn.setMatchingSkillCounts(userDto);
 
 			ChirpedIn.setConnectionTypeFlags(userDto);
 			ChirpedIn.calculateMatchPercentages(newUser, userDto);
 
-			double mentorMatchPercent = ((double) userDto.getMatchingMentorSkillCount()
-					/ (double) newUser.getNeedSkillCount()) * 100;
-			userDto.setMentorMatchPercent(mentorMatchPercent);
-
+			System.out.println(userDto);
 		}
 
 		List<UserDto> tempArray = new ArrayList<UserDto>();
