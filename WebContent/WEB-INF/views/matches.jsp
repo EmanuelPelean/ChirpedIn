@@ -121,8 +121,8 @@ chirplink:hover, a:active {
 						<p>Mentor: ${matchedDto.matchingMentorSkills}</p>
 						<p>Mentee: ${matchedDto.matchingMenteeSkills}</p>
 						<p>Networking: ${matchedDto.matchingNetworkingSkills}</p>
-						<a id="chirplink" href="chirp?fName=${matchedDto.linkedInFirstName}&lName= ${matchedDto.linkedInLastName}&Email= ${matchedDto.linkedInEmail}">Chirp</a>
 						<a id="favoritelink" href="addFavorites?userLinkedInId=${matchedDto.linkedInFirstName}&matchedLinkedInId= ${matchedDto.linkedInLastName}&Email= ${matchedDto.linkedInEmail}">Add Favorite</a>
+						<a id="chirplink" href="chirp?fName=${matchedDto.linkedInFirstName}&lName= ${matchedDto.linkedInLastName}&Email= ${matchedDto.linkedInEmail}">    Chirp   </a>
 					</div>
 				</div>
 			</tr>

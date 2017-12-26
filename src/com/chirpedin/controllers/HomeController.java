@@ -204,18 +204,15 @@ public class HomeController {
 
 		session.setAttribute("newUserTest", newUser);
 		// List<UserDto> matches = dao.getMatches(newUser, model);
-		// System.out.println("Form Signup");
 
-		/**
-		 * removed for DEMO day
-		 */
-
+		// TODO create separate pulls for each match type
+		// TODO create unique users list from all the matches (i.e. erase duplicates)
 		// List<UserDto> mentorList = dao.findMentor(newUser); // find mentors based on
 		// criteria
 
 		List<UserDto> uniqueMatchesList = dao.findMentor(newUser); // find mentors based on criteria
 
-		System.out.println("Unique match list count BEFORE: " + uniqueMatchesList.size());
+		// System.out.println("Unique match list count BEFORE: " + uniqueMatchesList.size());
 
 		for (UserDto userDto : uniqueMatchesList) {// for each mentor, print matching skills
 
@@ -236,7 +233,7 @@ public class HomeController {
 
 		List<UserDto> tempArray = new ArrayList<UserDto>();
 
-		for (UserDto userDto : uniqueMatchesList) {
+/*		for (UserDto userDto : uniqueMatchesList) {
 			tempArray.add(userDto);
 		}
 
@@ -246,7 +243,7 @@ public class HomeController {
 				uniqueMatchesList.remove(userDto);
 			}
 
-		}
+		}*/
 
 		uniqueMatchesList.sort(new MentorListComparator());
 
