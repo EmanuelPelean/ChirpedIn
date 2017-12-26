@@ -20,68 +20,36 @@ import com.chirpedin.dto.UserDto;
  */
 public class SandBox {
 	public static void main(String[] args) {
-		UserDto sandboxUser = new UserDto();
-		//String  skills = " skill1, skill2, skill3, ";
-		String  skills = " , ";
-					
-		sandboxUser.setHaveSkills(skills.trim());
+		UserDto criteriaDto = new UserDto();
+		UserDto matchedDto = new UserDto();
 		
-		ChirpedIn.setUserSkillCount(sandboxUser);
 		
-		System.out.println("Have skill count: " + sandboxUser.getHaveSkillCount());
+		criteriaDto.setLinkedInFirstName("Criteria");
+		matchedDto.setLinkedInFirstName("Matched");
+		
+		criteriaDto.setHaveSkills("html css java");
+		matchedDto.setHaveSkills("html css java");
+		
+		criteriaDto.setNeedSkills("spring OOD something else");
+		matchedDto.setNeedSkills("spring OOD something else");
+		
+		criteriaDto.setNetworkingSkills("networking skill is criteria");
+		matchedDto.setNetworkingSkills(" ");
+		
+		/*ChirpedIn.setHaveSkills(matchedDto);
+		ChirpedIn.setNeedSkills(matchedDto);
+		ChirpedIn.setNetworkingSkills(matchedDto);
+		*/ChirpedIn.setUserSkillCount(matchedDto);
 
+		ChirpedIn.setAllMatchingSkills(criteriaDto, matchedDto);
+		ChirpedIn.setMatchingSkillCounts(matchedDto);
+
+		ChirpedIn.setConnectionTypeFlags(matchedDto);
+		ChirpedIn.calculateMatchPercentages(criteriaDto, matchedDto);
+
+		
+		
+		System.out.println(criteriaDto + "\n" + matchedDto);
+		
 	}
-
-	private static ArrayList<UserDto> fillDtoArrayList(ArrayList<UserDto> dtoList1, int overlap) {
-
-		for (int i = 0; i < 6; i++) {
-
-			dtoList1.add(new UserDto());
-			dtoList1.get(i).setLinkedInId("linkedInID_" + (i + overlap));
-			// System.out.println(dtoList1.get(i));
-		}
-
-		return dtoList1;
-	}
-	// TODO Auto-generated method stub
-
-	private static String createListOfCommonWordsInTwoStrings(String firstString, String secondString) {
-		String commonElementsString = "";
-
-		String[] firstArr = firstString.split(" ");
-		String[] secondArr = secondString.split(" ");
-
-		for (String word : firstArr) {
-			for (int i = 0; i < secondArr.length; i++) {
-				if (secondArr[i].equals(word))
-					commonElementsString += word + " ";
-			}
-		}
-		return commonElementsString;
-	}
-
-	/*
-	 * String firstString = "jsp dog cat HTML jss"; String secondString =
-	 * "jsp HTML jss";
-	 * 
-	 * System.out.println(createListOfCommonWordsInTwoStrings(firstString,
-	 * secondString)); System.out.println(firstString.split(" ").length);
-	 * System.out.println(secondString.split(" ").length);
-	 */
-
-	/*
-	 * for (int i = 0; i < 6; i++) {
-	 * 
-	 * dtoList2.add(new UserDto()); dtoList2.get(i).setLinkedInId("linkedInID_" + (i
-	 * + 3)); System.out.println(dtoList2.get(i)); }
-	 */
-
-	/*
-	 * ArrayList<String> joinedList = new ArrayList<String>();
-	 * System.out.println("joinedList size: " + joinedList.size());
-	 * 
-	 * for (UserDto userDto : dtoList2) { joinedList.add(userDto.getLinkedInId()); }
-	 * 
-	 * for (UserDto userDto : dtoList1) { joinedList.add(userDto.getLinkedInId()); }
-	 */
 }
