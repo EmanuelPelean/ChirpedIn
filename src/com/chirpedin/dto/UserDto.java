@@ -125,7 +125,7 @@ public class UserDto {
 	public String toString() {
 		return "UserDto: " + linkedInFirstName + " " + linkedInLastName + " linkedIn ID: " + linkedInId
 				+ "\n Total Match: " + String.format("%3.3f", totalMatchPercent)
-				+ "\n percentMentorMatch: " + String.format("%3.3f", mentorMatchPercent) + " percentMenteeMatch: " + String.format("%3.3f", menteeMatchPercent) + " percentNetworkingMatch: " + String.format("%3.3f", networkingMatchPercent)
+				+ "\n percentMentorMatch: " + String.format("%3.3f", mentorMatchPercent) + ", percentMenteeMatch: " + String.format("%3.3f", menteeMatchPercent) + ", percentNetworkingMatch: " + String.format("%3.3f", networkingMatchPercent)
 				+ "\n\n haveSkills: " + haveSkills 
 				+ "\n needSkills: " + needSkills 
 				+ "\n networkingSkills: " + networkingSkills
@@ -135,7 +135,7 @@ public class UserDto {
 				+ "\n\n matchingMentorSkills: " + matchingMentorSkills 
 				+ "\n matchingMenteeSkills: " + matchingMenteeSkills 
 				+ "\n matchingNetworkingSkills: " + matchingNetworkingSkills 
-				+ "\n matchingMentorCount: " + getMatchingMentorSkillCount() + ", matchingMenteeCount: " + getMatchingMenteeSkillCount()  + ", matchingNetworkingCount: " + getMatchingNetworkingSkillCount()
+				+ "\n matchingMentorCount: " + matchingMentorSkillCount + ", matchingMenteeCount: " + matchingMenteeSkillCount  + ", matchingNetworkingCount: " + matchingNetworkingSkillCount
 				+ "\n totalMatchingSkillCount: " + totalMatchingSkillCount
 				
 				+ "\n\n mentorMatch: " + mentorMatch + ", menteeMatch: " + menteeMatch + ", networkingMatch: " + networkingMatch 
@@ -535,14 +535,6 @@ public class UserDto {
 		this.matchingMenteeSkills = matchingMenteeSkills;
 	}
 
-	/*public String getMatchingNetworkingSkills() {
-		return matchingNetworkingSkills;
-	}
-
-	public void setMatchingNetworkginSkills(String matchingNetworkginSkills) {
-		this.matchingNetworkingSkills = matchingNetworkginSkills;
-	}
-*/
 	public boolean isMentorMatch() {
 		return mentorMatch;
 	}
