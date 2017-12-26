@@ -40,12 +40,14 @@ body{background:#59ABE3;
 	box-sizing:border-box;
 	font-family:'Montserrat',sans-serif;
 	position:relative}
+
 .title{margin:10px 0;
 	padding-bottom:10px;
 	width:180px;color:#78788c;
 	left: 60px;
 	border-bottom:3px solid #78788c}
-input{width:100%;
+
+input{width:30%;
 	padding:10px;
 	box-sizing:border-box;
 	background:none;
@@ -54,8 +56,10 @@ input{width:100%;
 	border:0;
 	font-family:'Montserrat',sans-serif;
 	transition:all .3s;
-	border-bottom:2px solid #bebed2}
+	border-bottom:2px solid #bebed2;}
+
 input:focus{border-bottom:2px solid #78788c}
+
 #mydiv{content:'Hi';
 	bottom:-380px;
 	background:#50505a;
@@ -66,6 +70,7 @@ input:focus{border-bottom:2px solid #78788c}
 	border-radius:6px;
 	font-size:13px;
 	box-shadow:10px 10px 40px -14px #000}
+
 #mydiv2{content:'Hi';
 	bottom:-380px;
 	right: -400px;
@@ -76,7 +81,9 @@ input:focus{border-bottom:2px solid #78788c}
 	border-radius:6px;
 	font-size:13px;
 	box-shadow:10px 10px 40px -14px #000}
+
 span{margin:0 5px 0 15px}
+
 .Absolute-Center {
   margin: auto;
   position: absolute;
@@ -146,6 +153,7 @@ span{margin:0 5px 0 15px}
 		<form:checkbox name="mentorskills" path="mentorSkillsHibernate" value="true"/> Hibernate<br>
 		<form:checkbox name="mentorskills" path="mentorSkillsJdbc" value="true"/> JDBC<br>
 		</div>
+
 	<!-- <input type="button" onclick="saveSkills(mentorskills, 'mentor')"
 			value="Save Mentee Data"> <br>
 		<br> <input type="text" id="mentorSkillsSummary" size="50">
