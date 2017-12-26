@@ -72,7 +72,7 @@ public class ChirpedIn {
 			userDto.setMatchingMenteeSkillCount(matchingMenteeSkillCountArr.length);
 		}
 
-		if (userDto.getNetworkingSkills().isEmpty()) {
+		if (userDto.getMatchingNetworkingSkills().isEmpty()) {
 			userDto.setNetworkingSkillCount(0);
 		} else {
 			userDto.setMatchingNetworkingSkillCount(matchingNetworkingSkillCountArr.length);
