@@ -60,20 +60,20 @@ public class ChirpedIn {
 		String[] matchingMenteeSkillCountArr = userDto.getMatchingMenteeSkills().trim().split(" ");
 		String[] matchingNetworkingSkillCountArr = userDto.getMatchingNetworkingSkills().trim().split(" ");
 
-		if (userDto.getMatchingMentorSkills().isEmpty()) {
+		if (userDto.getMatchingMentorSkills().trim().isEmpty()) {
 			userDto.setMatchingMentorSkillCount(0);
 		} else {
 			userDto.setMatchingMentorSkillCount(matchingMentorSkillCountArr.length);
 		}
 
-		if (userDto.getMatchingMenteeSkills().isEmpty()) {
+		if (userDto.getMatchingMenteeSkills().trim().isEmpty()) {
 			userDto.setMatchingMenteeSkillCount(0);
 		} else {
 			userDto.setMatchingMenteeSkillCount(matchingMenteeSkillCountArr.length);
 		}
 
-		if (userDto.getMatchingNetworkingSkills().isEmpty()) {
-			userDto.setNetworkingSkillCount(0);
+		if (userDto.getMatchingNetworkingSkills().trim().isEmpty() ) {
+			userDto.setMatchingNetworkingSkillCount(0);
 		} else {
 			userDto.setMatchingNetworkingSkillCount(matchingNetworkingSkillCountArr.length);
 		}
@@ -91,19 +91,19 @@ public class ChirpedIn {
 		String[] needSkillArr = userDto.getNeedSkills().trim().split(" ");
 		String[] networkingSkillArr = userDto.getNetworkingSkills().trim().split(" ");
 
-		if (userDto.getHaveSkills().isEmpty()) {
+		if (userDto.getHaveSkills().trim().isEmpty()) {
 			userDto.setHaveSkillCount(0);
 		} else {
 			userDto.setHaveSkillCount(haveSkillArr.length);
 		}
 
-		if (userDto.getNeedSkills().isEmpty()) {
+		if (userDto.getNeedSkills().trim().isEmpty()) {
 			userDto.setNeedSkillCount(0);
 		} else {
 			userDto.setNeedSkillCount(needSkillArr.length);
 		}
 
-		if (userDto.getNetworkingSkills().isEmpty()) {
+		if (userDto.getNetworkingSkills().trim().isEmpty()) {
 			userDto.setNetworkingSkillCount(0);
 		} else {
 			userDto.setNetworkingSkillCount(networkingSkillArr.length);
@@ -178,7 +178,7 @@ public class ChirpedIn {
 
 	}
 
-	private static String createStringOfCommonWordsInTwoStrings(String firstString, String secondString) {
+	public static String createStringOfCommonWordsInTwoStrings(String firstString, String secondString) {
 		String commonElementsString = "";
 		String[] firstArr = firstString.trim().split(" ");
 		String[] secondArr = secondString.trim().split(" ");
