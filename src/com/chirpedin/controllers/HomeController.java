@@ -47,7 +47,7 @@ import com.sun.xml.internal.ws.api.message.Header;
  *
  */
 @Controller
-@SessionAttributes("newUserTest")
+@SessionAttributes("user")
 public class HomeController {
 
 	/**
@@ -179,38 +179,38 @@ public class HomeController {
 	 * things: 1) sends user-supplied info to the database 2) finds matches in the
 	 * database 3) returns matches to the jsp page
 	 * 
-	 * @param newUser
+	 * @param user
 	 * @param model
 	 * @param session
 	 * @return
 	 */
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
-	public ModelAndView signupPost(@ModelAttribute("command") UserDto newUser, Model model, HttpSession session) {
+	public ModelAndView signupPost(@ModelAttribute("command") UserDto user, Model model, HttpSession session) {
 		System.out.println("Entering sign up method called by '/signup'");
 
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 
 		// Create strings for HaveSkills, NeedSkills, and Networking Skills and add them
-		// to the newUser DTO
-		ChirpedIn.setHaveSkills(newUser);
-		ChirpedIn.setNeedSkills(newUser);
-		ChirpedIn.setNetworkingSkills(newUser);
-		ChirpedIn.setUserSkillCount(newUser);
+		// to the user DTO
+		ChirpedIn.setHaveSkills(user);
+		ChirpedIn.setNeedSkills(user);
+		ChirpedIn.setNetworkingSkills(user);
+		ChirpedIn.setUserSkillCount(user);
 
-		System.out.println("This is the new user's info: " + newUser);
+		System.out.println("This is the new user's info: " + user);
 
-		// Insert the newUser DTO into our MySQL database
-		dao.insertUser(newUser);
+		// Insert the user DTO into our MySQL database
+		dao.insertUser(user);
 
-		session.setAttribute("newUserTest", newUser);
-		// List<UserDto> matches = dao.getMatches(newUser, model);
+		session.setAttribute("user", user);
+		// List<UserDto> matches = dao.getMatches(user, model);
 
 		// TODO create separate pulls for each match type
 		// TODO create unique users list from all the matches (i.e. erase duplicates)
-		// List<UserDto> mentorList = dao.findMentor(newUser); // find mentors based on
+		// List<UserDto> mentorList = dao.findMentor(user); // find mentors based on
 		// criteria
 
-		List<UserDto> uniqueMatchesList = dao.findMentor(newUser); // find mentors based on criteria
+		List<UserDto> uniqueMatchesList = dao.findMentor(user); // find mentors based on criteria
 
 		// System.out.println("Unique match list count BEFORE: " + uniqueMatchesList.size());
 
@@ -221,11 +221,11 @@ public class HomeController {
 			ChirpedIn.setNetworkingSkills(userDto);
 			ChirpedIn.setUserSkillCount(userDto);
 
-			ChirpedIn.setAllMatchingSkills(newUser, userDto);
+			ChirpedIn.setAllMatchingSkills(user, userDto);
 			ChirpedIn.setMatchingSkillCounts(userDto);
 
 			ChirpedIn.setConnectionTypeFlags(userDto);
-			ChirpedIn.calculateMatchPercentages(newUser, userDto);
+			ChirpedIn.calculateMatchPercentages(user, userDto);
 
 			System.out.println(userDto);
 
@@ -249,7 +249,7 @@ public class HomeController {
 
 		model.addAttribute("mentorresults", uniqueMatchesList); // send data to view
 
-		model.addAttribute("newUser", newUser);
+		model.addAttribute("user", user);
 
 		return new ModelAndView("matches", "command", new UserDto());
 
@@ -257,6 +257,7 @@ public class HomeController {
 
 	@RequestMapping("/matches")
 	public String showMatches(Model model) {
+
 
 		return "matches";
 	}
@@ -304,10 +305,11 @@ public class HomeController {
 	// return new ModelAndView("matches", "command", new UserDto());
 	//
 	// }
-
-	@RequestMapping(value = { "/addFavorites" }, method = RequestMethod.POST)
-	public ModelAndView favorites(@RequestParam("linkedInId") String matchedDtoLinkedInId,
-			@RequestParam("newUserlinkedInId") String userDtoLinkedInId) {
+/*
+ * @RequestMapping(value = "/chirp")
+ */
+	@RequestMapping(value = "/addFavorites")
+	public String favoriteButton(@RequestParam("favoriteLinkedInId") String favoriteLinkedInId, @ModelAttribute("user") UserDto user, Model model) {
 
 		// UserDto user1 = new UserDto();
 		// user1.setLinkedInId("dani");
@@ -316,9 +318,45 @@ public class HomeController {
 		// user2.setLinkedInId("format");
 
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
-		dao.addFavorites(userDtoLinkedInId, matchedDtoLinkedInId);
+		dao.addFavorites(favoriteLinkedInId, user.getLinkedInId());
 
-		return null;
+		// print out matches again
+		List<UserDto> uniqueMatchesList = dao.findMentor(user);
+		for (UserDto userDto : uniqueMatchesList) {// for each mentor, print matching skills
+
+			ChirpedIn.setHaveSkills(userDto);
+			ChirpedIn.setNeedSkills(userDto);
+			ChirpedIn.setNetworkingSkills(userDto);
+			ChirpedIn.setUserSkillCount(userDto);
+
+			ChirpedIn.setAllMatchingSkills(user, userDto);
+			ChirpedIn.setMatchingSkillCounts(userDto);
+
+			ChirpedIn.setConnectionTypeFlags(userDto);
+			ChirpedIn.calculateMatchPercentages(user, userDto);
+
+			System.out.println(userDto);
+		}
+
+		List<UserDto> tempArray = new ArrayList<UserDto>();
+
+		for (UserDto userDto : uniqueMatchesList) {
+			tempArray.add(userDto);
+		}
+
+		for (UserDto userDto : tempArray) {
+
+			if (userDto.getMatchingMentorSkills().isEmpty()) {
+				uniqueMatchesList.remove(userDto);
+			}
+
+		}
+
+		uniqueMatchesList.sort(new MentorListComparator());
+
+		model.addAttribute("mentorresults", uniqueMatchesList);
+
+		return "matches";
 
 	}
 
@@ -338,14 +376,14 @@ public class HomeController {
 
 	@RequestMapping(value = "/chirp")
 	public String chirpUserButton(@RequestParam("fName") String firstName, @RequestParam("lName") String lastName,
-			@RequestParam("Email") String email, Model model, @ModelAttribute("newUserTest") UserDto newUser) {
+			@RequestParam("Email") String email, Model model, @ModelAttribute("user") UserDto user) {
 
-		boolean sendActualEmal = false; // (dis)/(e)nable for testing
+		boolean sendActualEmail = false; // (dis)/(e)nable for testing
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 
-		if (sendActualEmal) {
-			String userURL = newUser.getLinkedInPublicProfileUrl();
-			String name = newUser.getLinkedInFirstName() + " " + newUser.getLinkedInLastName();
+		if (sendActualEmail) {
+			String userURL = user.getLinkedInPublicProfileUrl();
+			String name = user.getLinkedInFirstName() + " " + user.getLinkedInLastName();
 
 			String subject = "ChirpedIn Chirp Chirp";
 			String body = "You've been chirped by " + name + " who is currently seeking a mentor!\n"
@@ -357,7 +395,7 @@ public class HomeController {
 		}
 
 		// print out matches again
-		List<UserDto> uniqueMatchesList = dao.findMentor(newUser);
+		List<UserDto> uniqueMatchesList = dao.findMentor(user);
 		for (UserDto userDto : uniqueMatchesList) {// for each mentor, print matching skills
 
 			ChirpedIn.setHaveSkills(userDto);
@@ -365,11 +403,11 @@ public class HomeController {
 			ChirpedIn.setNetworkingSkills(userDto);
 			ChirpedIn.setUserSkillCount(userDto);
 
-			ChirpedIn.setAllMatchingSkills(newUser, userDto);
+			ChirpedIn.setAllMatchingSkills(user, userDto);
 			ChirpedIn.setMatchingSkillCounts(userDto);
 
 			ChirpedIn.setConnectionTypeFlags(userDto);
-			ChirpedIn.calculateMatchPercentages(newUser, userDto);
+			ChirpedIn.calculateMatchPercentages(user, userDto);
 
 			System.out.println(userDto);
 		}
