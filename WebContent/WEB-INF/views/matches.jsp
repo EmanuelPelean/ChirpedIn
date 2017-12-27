@@ -38,7 +38,7 @@ body{background:#59ABE3;
 	background:#50505a;
 	right: -200px;
 	color:#fff;
-	width:60%;
+	width:35%;
 	padding:16px 4px 16px 0;
 	border-radius:6px;
 	font-size:13px;
@@ -59,7 +59,7 @@ body{background:#59ABE3;
 	border-radius: 25px;
     background-color: #4286f4;
     color: white;
-    padding: 14px 25px;
+    padding: 7px 13px;
     font-size: 20px;
     text-align: center; 
     text-decoration: none;
@@ -84,7 +84,7 @@ chirplink:hover, a:active {
 <div id="mydiv" class="Absolute-Center">
 	<div class="container">
   <h2 >Browse through your top matches!</h2>
-  <div id="myCarousel" style="width:50%;height:50%;" class="carousel slide" data-ride="carousel">
+  <div id="myCarousel" style="width:35%;height:100%;" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
 	<ol class="carousel-indicators">
 		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -98,7 +98,7 @@ chirplink:hover, a:active {
 
           <div class="item active">
 			<img src="https://media.licdn.com/mpr/mprx/0_p4PFpjnimxqDjJ9cKB5bfl338v1QjOGVr-5wAqKi8JQWjMGUSAboGjNT8xQWjg_HSAFZG4N2tM8Xlr3jut-gi4nKtM8blKh4ut-r_UnptMQXljviK-bbtlnFiri8Tp1gd6Qa"
-				style="width: 100%; height: 100%;" alt= "NoUser">
+				style="width: 400px; height: 400px;" alt= "NoUser">
 			<div class="carousel-caption d-none d-md-block">
 				<h3>Emanuel Pelean 100% Match!</h3>
 				<br>
@@ -114,15 +114,15 @@ chirplink:hover, a:active {
 		<c:forEach var="matchedDto" items="${mentorresults}">
 			<tr>
 				<div class="item">
-					<img src="${matchedDto.linkedInLargePictureUrl}" style="width: 100%; height: 100%;" alt= "No ImageFound">
+					<img src="${matchedDto.linkedInLargePictureUrl}"  onError="this.onerror=null;this.src='https://i.imgur.com/27CDISy.jpg';" style="width: 400px; height: 400px;" alt= "No ImageFound">
 					<div class="carousel-caption d-none d-md-block">
 						<h3>${matchedDto.linkedInFirstName} ${matchedDto.linkedInLastName} ${matchedDto.totalMatchPercentForDisplay}% Match!</h3><br>
 						<h6>${matchedDto.linkedInHeadline}</h6><br>
 						<p>Mentor: ${matchedDto.matchingMentorSkills}</p>
 						<p>Mentee: ${matchedDto.matchingMenteeSkills}</p>
 						<p>Networking: ${matchedDto.matchingNetworkingSkills}</p>
-						<a id="favoritelink" href="addFavorites?userLinkedInId=${matchedDto.linkedInFirstName}&matchedLinkedInId= ${matchedDto.linkedInLastName}&Email= ${matchedDto.linkedInEmail}">Add Favorite</a>
-						<a id="chirplink" href="chirp?fName=${matchedDto.linkedInFirstName}&lName= ${matchedDto.linkedInLastName}&Email= ${matchedDto.linkedInEmail}">    Chirp   </a>
+						<a id="favoritelink" href="addFavorites?favoriteLinkedInId=${matchedDto.linkedInId}"> Add Favorite </a>
+						<a id="chirplink" href="chirp?fName=${matchedDto.linkedInFirstName}&lName= ${matchedDto.linkedInLastName}&Email= ${matchedDto.linkedInEmail}"> Chirp </a>
 					</div>
 				</div>
 			</tr>
@@ -138,14 +138,14 @@ chirplink:hover, a:active {
 			class="sr-only">Next</span>
 		</a>
 	</div>
-	<div>
+	<!-- div>
 		<button type="button" class="btn btn-primary">
 			<span class="glyphicon glyphicon-plus-sign"></span> Add Favorite
 		</button>
 		<button type="button" class="btn btn-primary">
 			<span class="glyphicon glyphicon-envelope"></span> Chirp
 		</button>
-	</div>
+	</div -->
 	</div>
 
 	</div>
