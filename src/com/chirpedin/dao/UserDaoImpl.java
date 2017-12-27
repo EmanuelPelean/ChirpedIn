@@ -281,15 +281,15 @@ public class UserDaoImpl implements UsersDao {
 	}
 	
 	@Override
-	public void addFavorites(String userID, String selectedID) {
+	public void addFavorites(String favoriteId, String userId) {
 		Configuration config = new Configuration().configure("hibernate.cfg.xml");
 		SessionFactory sessionFactory = config.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		
 		NativeQuery query = session.createSQLQuery(ADDFAV_SQL);
-		query.setString("user_id", userID);
-		query.setString("fav_id", selectedID);
+		query.setString("user_id", userId);
+		query.setString("fav_id", favoriteId);
 		query.executeUpdate();
 		
 		tx.commit();
