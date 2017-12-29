@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.ui.Model;
 
+import com.chirpedin.dto.FavoriteDto;
 import com.chirpedin.dto.UserDto;
 
 /**
@@ -54,6 +55,6 @@ public interface UsersDao {
 	void chirp(String receiverEmailID, String subject, String body);
 	
 	void addFavorites(UserDto userDto, UserDto selectedDTO);
-	List<UserDto> getFavorites(UserDto user1);
+	List<FavoriteDto> getFavorites(UserDto user1);
 	void addFavorites(String userDto, String selectedDTO);
 }
