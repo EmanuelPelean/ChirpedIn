@@ -19,6 +19,7 @@ import org.hibernate.query.NativeQuery;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.chirpedin.dto.FavoriteDto;
 import com.chirpedin.dto.UserDto;
 import com.chirpedin.util.SendEmail;
 
@@ -300,7 +301,7 @@ public class UserDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public List<UserDto> getFavorites(UserDto user1) {
+	public List<FavoriteDto> getFavorites(UserDto user1) {
 		
 
 		Configuration config = new Configuration().configure("hibernate.cfg.xml");
@@ -311,7 +312,7 @@ public class UserDaoImpl implements UsersDao {
 		NativeQuery query = session.createSQLQuery(GETFAV_SQL);
 		query.setString("user_id", user1.getLinkedInId());
 		
-		List<UserDto> list = query.list();
+		List<FavoriteDto> list = query.list();
 		
 		tx.commit();
 		session.close();
