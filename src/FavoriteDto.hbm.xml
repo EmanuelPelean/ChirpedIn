@@ -4,19 +4,24 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="com.chirpedin.dto.FavoriteDto" table="favorites" schema="chirpedin">
 
-		<id name="linkedInId">
-			<column name="userlinkedin_id" sql-type="varchar(20)" length="20"></column>
-		</id>
+	<class name="com.chirpedin.dto.FavoriteDto" table="favorites" schema="chirpedin" >
 
-		<id name="favoriteLinkedInId">
-			<column name="fav_id" sql-type="varchar(20)" length="20"></column>
+		<id name="primaryKey">
+			<column name="id" sql-type="int(11)" length="11"></column>
 		</id>
 		
-		<id name="dateTimeStamp">
-			<column name="date_time" sql-type="datetime"></column>
-		</id>
+		<property name="linkedInId">
+			<column name="userlinkedin_id" sql-type="varchar(20)" length="20"></column>
+		</property>
+
+		<property name="favoriteLinkedInId">
+			<column name="fav_id" sql-type="varchar(20)" length="20"></column>
+		</property>
+		
+		<property name="dateTimeStamp">
+			<column name="date_time" sql-type="datetime" length="20"></column>
+		</property>
  
 
 
