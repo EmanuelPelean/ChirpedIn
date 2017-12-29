@@ -12,7 +12,10 @@ import java.util.Set;
 
 import org.apache.commons.collections4.ListUtils;
 
+import com.chirpedin.dao.UsersDao;
+import com.chirpedin.dto.FavoriteDto;
 import com.chirpedin.dto.UserDto;
+import com.chirpedin.factory.DaoFactory;
 
 /**
  * @author timjohnson
@@ -20,36 +23,23 @@ import com.chirpedin.dto.UserDto;
  */
 public class SandBox {
 	public static void main(String[] args) {
-		UserDto criteriaDto = new UserDto();
-		UserDto matchedDto = new UserDto();
-		
-		
-		criteriaDto.setLinkedInFirstName("Criteria");
-		matchedDto.setLinkedInFirstName("Matched");
-		
-		criteriaDto.setHaveSkills("html css java");
-		matchedDto.setHaveSkills("html css java");
-		
-		criteriaDto.setNeedSkills("spring OOD something else");
-		matchedDto.setNeedSkills("spring OOD something else");
-		
-		criteriaDto.setNetworkingSkills("networking skill is criteria");
-		matchedDto.setNetworkingSkills(" ");
-		
-		/*ChirpedIn.setHaveSkills(matchedDto);
-		ChirpedIn.setNeedSkills(matchedDto);
-		ChirpedIn.setNetworkingSkills(matchedDto);
-		*/ChirpedIn.setUserSkillCount(matchedDto);
+	
+		UserDto user1 = new UserDto();
+		user1.setLinkedInId("27_0934");
 
-		ChirpedIn.setAllMatchingSkills(criteriaDto, matchedDto);
-		ChirpedIn.setMatchingSkillCounts(matchedDto);
-
-		ChirpedIn.setConnectionTypeFlags(matchedDto);
-		ChirpedIn.calculateMatchPercentages(criteriaDto, matchedDto);
-
+		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+		List<FavoriteDto> favorites = dao.getFavorites(user1);
+		System.out.println(favorites.size());
+		
+		user1.setLinkedInId("26_1750");
+		
+		favorites = dao.getFavorites(user1);
+		System.out.println(favorites.size());
 		
 		
-		System.out.println(criteriaDto + "\n" + matchedDto);
+		for(FavoriteDto dto: favorites) {
+			System.out.println(dto);
+		}
 		
 	}
 }
