@@ -252,8 +252,8 @@ public class HomeController {
 
 		model.addAttribute("user", user);
 
-		//return new ModelAndView("matches", "command", new UserDto());
-		return new ModelAndView("dashboard", "command", new UserDto());
+		return new ModelAndView("matches", "command", new UserDto());
+		//return new ModelAndView("dashboard", "command", new UserDto());
 
 	}
 
@@ -278,15 +278,17 @@ public class HomeController {
 	@RequestMapping(value = "/addFavorites")
 	public String favoriteButton(@RequestParam("favoriteLinkedInId") String favoriteLinkedInId, @ModelAttribute("user") UserDto user, Model model) {
 
-		// UserDto user1 = new UserDto();
-		// user1.setLinkedInId("dani");
-		//
-		// UserDto user2 = new UserDto();
-		// user2.setLinkedInId("format");
-
+		FavoriteDto newFavorite = new FavoriteDto();
+		
+		newFavorite.setLinkedInId(user.getLinkedInId());
+		newFavorite.setFavoriteLinkedInId(favoriteLinkedInId);
+		
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+		dao.addFavorites(newFavorite);
+		
+		//for testing delete
 		dao.addFavorites(favoriteLinkedInId, user.getLinkedInId());
-
+		
 		// print out matches again
 		List<UserDto> uniqueMatchesList = dao.findMentor(user);
 		for (UserDto userDto : uniqueMatchesList) {// for each mentor, print matching skills
