@@ -5,14 +5,15 @@ package com.chirpedin.dto;
 
 import java.util.ArrayList;
 
+import javax.persistence.GenerationType;
+
 /**
  * @author
  *
  */
 public class FavoriteDto {
-
+	private Long primaryKey;
 	
-	// temporary variables to be calculated with every search
 	private String linkedInId;
 	private String favoriteLinkedInId;
 	private String dateTimeStamp;
@@ -27,29 +28,45 @@ public class FavoriteDto {
 	public String getLinkedInId() {
 		return linkedInId;
 	}
+	
 	public void setLinkedInId(String linkedInId) {
 		this.linkedInId = linkedInId;
 	}
+	
 	public String getFavoriteLinkedInId() {
 		return favoriteLinkedInId;
 	}
+	
 	public void setFavoriteLinkedInId(String favoriteLinkedInId) {
 		this.favoriteLinkedInId = favoriteLinkedInId;
 	}
+	
 	public String getDateTimeStamp() {
 		return dateTimeStamp;
 	}
+
 	public void setDateTimeStamp(String dateTimeStamp) {
 		this.dateTimeStamp = dateTimeStamp;
 	}
 
 
+	public Long getPrimaryKey() {
+		return primaryKey;
+	}
+
+
+	public void setPrimaryKey(Long primaryKey) {
+		this.primaryKey = primaryKey;
+	}
+
+
 	@Override
 	public String toString() {
-		return "User linkedInId:" + linkedInId + ", favoriteLinkedInId:" + favoriteLinkedInId
-				+ ", dateTimeStamp:" + dateTimeStamp + "]";
+		return "FavoriteDto [primaryKey=" + primaryKey + ", linkedInId=" + linkedInId + ", favoriteLinkedInId="
+				+ favoriteLinkedInId + ", dateTimeStamp=" + dateTimeStamp + "]";
 	}
-	
+
+
 	
 	
 	
