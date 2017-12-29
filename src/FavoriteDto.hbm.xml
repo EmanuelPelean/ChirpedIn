@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.chirpedin.dto.FavoriteDto" table="favorites" schema="chirpedin">
+
+		<id name="linkedInId">
+			<column name="userlinkedin_id" sql-type="varchar(20)" length="20"></column>
+		</id>
+
+		<id name="favoriteLinkedInId">
+			<column name="fav_id" sql-type="varchar(20)" length="20"></column>
+		</id>
+		
+		<id name="dateTimeStamp">
+			<column name="date_time" sql-type="datetime"></column>
+		</id>
+ 
+
+
+	</class>
+</hibernate-mapping>
