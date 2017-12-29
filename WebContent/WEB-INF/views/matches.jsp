@@ -29,49 +29,48 @@
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
 <style>
-
-body{background:#59ABE3;
-	margin:0
+body {
+	background: #59ABE3;
+	margin: 0
 }
-#mydiv{content:'Hi';
-	bottom:-380px;
-	background:#50505a;
+
+#mydiv {
+	content: 'Hi';
+	background: #50505a;
 	right: -200px;
-	color:#fff;
-	width:35%;
-	padding:16px 4px 16px 0;
-	border-radius:6px;
-	font-size:13px;
-	box-shadow:10px 10px 40px -14px #000}
-	
+	color: #fff;
+	width: 37%;
+	padding: 16px 4px 16px 0;
+	border-radius: 6px;
+	font-size: 13px;
+	box-shadow: 10px 10px 40px -14px #000
+}
+
 }
 .Absolute-Center {
-  margin: auto;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 15;
-  border: 3px solid #73AD21;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 15;
+	border: 3px solid #73AD21;
 }
-
 </style>
 <style>
-
 #chirplink, #favoritelink, a:visited {
 	border-radius: 25px;
-    background-color: #4286f4;
-    color: white;
-    padding: 7px 13px;
-    font-size: 20px;
-    text-align: center; 
-    text-decoration: none;
+	background-color: #4286f4;
+	color: white;
+	padding: 7px 13px;
+	font-size: 20px;
+	text-align: center;
+	text-decoration: none;
 }
 
 chirplink:hover, a:active {
-    background-color: #F4D03F;
+	background-color: #F4D03F;
 }
-
-
-
-
 }
 </style>
 
@@ -79,66 +78,78 @@ chirplink:hover, a:active {
 <body>
 
 
-	
-		
-<div id="mydiv" class="Absolute-Center">
-	<div class="container">
-  <h2 >Browse through your top matches!</h2>
-  <div id="myCarousel" style="width:35%;height:100%;" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-	<ol class="carousel-indicators">
-		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-		<li data-target="#myCarousel" data-slide-to="1"></li>
-		<li data-target="#myCarousel" data-slide-to="2"></li>
-	</ol>
-
-	<!-- Wrapper for slides -->
-	<div class="carousel-inner">
 
 
-          <div class="item active">
-			<img src="https://media.licdn.com/mpr/mprx/0_p4PFpjnimxqDjJ9cKB5bfl338v1QjOGVr-5wAqKi8JQWjMGUSAboGjNT8xQWjg_HSAFZG4N2tM8Xlr3jut-gi4nKtM8blKh4ut-r_UnptMQXljviK-bbtlnFiri8Tp1gd6Qa"
-				style="width: 400px; height: 400px;" alt= "NoUser">
-			<div class="carousel-caption d-none d-md-block">
-				<h3>Emanuel Pelean 100% Match!</h3>
-				<br>
-				<h5>Java Developer focused on increasing patient care by
-					decreasing virtual wait times.</h5>
-				<br>
-				<p>Mentor Match for: ALL!</p>
-			</div>
-		</div>
-		
-		
-		
-		<c:forEach var="matchedDto" items="${mentorresults}">
-			<tr>
-				<div class="item">
-					<img src="${matchedDto.linkedInLargePictureUrl}"  onError="this.onerror=null;this.src='https://i.imgur.com/27CDISy.jpg';" style="width: 400px; height: 400px;" alt= "No ImageFound">
-					<div class="carousel-caption d-none d-md-block">
-						<h3>${matchedDto.linkedInFirstName} ${matchedDto.linkedInLastName} ${matchedDto.totalMatchPercentForDisplay}% Match!</h3><br>
-						<h6>${matchedDto.linkedInHeadline}</h6><br>
-						<p>Mentor: ${matchedDto.matchingMentorSkills}</p>
-						<p>Mentee: ${matchedDto.matchingMenteeSkills}</p>
-						<p>Networking: ${matchedDto.matchingNetworkingSkills}</p>
-						<a id="favoritelink" href="addFavorites?favoriteLinkedInId=${matchedDto.linkedInId}"> Add Favorite </a>
-						<a id="chirplink" href="chirp?fName=${matchedDto.linkedInFirstName}&lName= ${matchedDto.linkedInLastName}&Email= ${matchedDto.linkedInEmail}"> Chirp </a>
+	<div id="mydiv" class="Absolute-Center">
+		<div class="container">
+			<h2>Browse through your top matches!</h2>
+			<div id="myCarousel" style="width: 35%; height: 100%;"
+				class="carousel slide" data-ride="carousel">
+				<!-- Indicators -->
+				<ol class="carousel-indicators">
+					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel" data-slide-to="1"></li>
+					<li data-target="#myCarousel" data-slide-to="2"></li>
+				</ol>
+
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner">
+
+
+					<div class="item active">
+						<img
+							src="https://media.licdn.com/mpr/mprx/0_p4PFpjnimxqDjJ9cKB5bfl338v1QjOGVr-5wAqKi8JQWjMGUSAboGjNT8xQWjg_HSAFZG4N2tM8Xlr3jut-gi4nKtM8blKh4ut-r_UnptMQXljviK-bbtlnFiri8Tp1gd6Qa"
+							style="width: 400px; height: 400px;" alt="NoUser">
+						<div class="carousel-caption d-none d-md-block">
+							<h3>Emanuel Pelean 100% Match!</h3>
+							<br>
+							<h5>Java Developer focused on increasing patient care by
+								decreasing virtual wait times.</h5>
+							<br>
+							<p>Mentor Match for: ALL!</p>
+						</div>
 					</div>
+
+
+
+					<c:forEach var="matchedDto" items="${mentorresults}">
+						<tr>
+							<div class="item">
+								<img src="${matchedDto.linkedInLargePictureUrl}"
+									onError="this.onerror=null;this.src='https://i.imgur.com/27CDISy.jpg';"
+									style="width: 400px; height: 400px;" alt="No ImageFound">
+								<div class="carousel-caption d-none d-md-block">
+									<h3>${matchedDto.linkedInFirstName}
+										${matchedDto.linkedInLastName}<br>
+										${matchedDto.totalMatchPercentForDisplay}% Match!</h3>
+									<br>
+									<p>${matchedDto.linkedInHeadline}</p>
+									<br>
+									<p>Mentor: ${matchedDto.matchingMentorSkills}<br>
+									Mentee: ${matchedDto.matchingMenteeSkills}<br>
+									Networking: ${matchedDto.matchingNetworkingSkills}</p>
+									<a id="favoritelink"
+										href="addFavorites?favoriteLinkedInId=${matchedDto.linkedInId}">
+										Add Favorite </a> <a id="chirplink"
+										href="chirp?fName=${matchedDto.linkedInFirstName}&lName= ${matchedDto.linkedInLastName}&Email= ${matchedDto.linkedInEmail}">
+										Chirp </a>
+								</div>
+							</div>
+						</tr>
+
+					</c:forEach>
+
+					<a class="left carousel-control" href="#myCarousel"
+						data-slide="prev"> <span
+						class="glyphicon glyphicon-chevron-left"></span> <span
+						class="sr-only">Previous</span>
+					</a> <a class="right carousel-control" href="#myCarousel"
+						data-slide="next"> <span
+						class="glyphicon glyphicon-chevron-right"></span> <span
+						class="sr-only">Next</span>
+					</a>
 				</div>
-			</tr>
-			
-		</c:forEach>
-		
-		<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-			<span class="glyphicon glyphicon-chevron-left"></span> <span
-			class="sr-only">Previous</span>
-		</a> <a class="right carousel-control" href="#myCarousel"
-			data-slide="next"> <span
-			class="glyphicon glyphicon-chevron-right"></span> <span
-			class="sr-only">Next</span>
-		</a>
-	</div>
-	<!-- div>
+				<!-- div>
 		<button type="button" class="btn btn-primary">
 			<span class="glyphicon glyphicon-plus-sign"></span> Add Favorite
 		</button>
@@ -146,9 +157,9 @@ chirplink:hover, a:active {
 			<span class="glyphicon glyphicon-envelope"></span> Chirp
 		</button>
 	</div -->
-	</div>
+			</div>
 
-	</div>
+		</div>
 	</div>
 
 
