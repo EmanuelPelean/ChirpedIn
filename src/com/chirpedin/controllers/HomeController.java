@@ -32,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.chirpedin.dao.UserDaoImpl;
 import com.chirpedin.dao.UsersDao;
+import com.chirpedin.dto.FavoriteDto;
 import com.chirpedin.dto.UserDto;
 import com.chirpedin.factory.DaoFactory;
 import com.chirpedin.util.APICredentials;
@@ -251,7 +252,8 @@ public class HomeController {
 
 		model.addAttribute("user", user);
 
-		return new ModelAndView("matches", "command", new UserDto());
+		//return new ModelAndView("matches", "command", new UserDto());
+		return new ModelAndView("dashboard", "command", new UserDto());
 
 	}
 
@@ -271,43 +273,8 @@ public class HomeController {
 		return new ModelAndView("dashboard", "", "");
 	}
 
-	// @RequestMapping(value = { "/faved" }, method = RequestMethod.POST)
-	// public ModelAndView faved(@ModelAttribute("command") UserDto selectedDto,
-	// UserDto userDto, Model model) {
-	//
-	// System.out.println("This is the userDto fav before: " +
-	// userDto.getFavorites());
-	//
-	// System.out.println("This is the userDtoLinkedInID: " +
-	// userDto.getLinkedInId());
-	// System.out.println("This is the selectedDto LinkedInID: " +
-	// selectedDto.getLinkedInId());
-	//
-	// System.out.println("This is the userDto: ");
-	// System.out.println(userDto);
-	//
-	// System.out.println("This is the selectedDto: ");
-	// System.out.println(selectedDto);
-	//
-	// userDto.setFavorites(userDto.getFavorites() + " " +
-	// selectedDto.getLinkedInId());
-	//
-	// System.out.println("This is fav after fav field update: " +
-	// userDto.getFavorites());
-	//
-	// // UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
-	//
-	// // dao.updateUser(userDto);
-	//
-	// System.out.println("This is fav after dao update: " +
-	// userDto.getFavorites());
-	//
-	// return new ModelAndView("matches", "command", new UserDto());
-	//
-	// }
-/*
- * @RequestMapping(value = "/chirp")
- */
+	
+	
 	@RequestMapping(value = "/addFavorites")
 	public String favoriteButton(@RequestParam("favoriteLinkedInId") String favoriteLinkedInId, @ModelAttribute("user") UserDto user, Model model) {
 
@@ -361,13 +328,10 @@ public class HomeController {
 	}
 
 	@RequestMapping("/getFavorites")
-	public ModelAndView getFavorites() {
-
-		UserDto user1 = new UserDto();
-		user1.setLinkedInId("dani");
+	public ModelAndView getFavorites(@ModelAttribute("user") UserDto user) {
 
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
-		List<UserDto> favorites = dao.getFavorites(user1);
+		List<FavoriteDto> favorites = dao.getFavorites(user);
 		System.out.println(favorites);
 
 		return null;
