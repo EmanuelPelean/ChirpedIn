@@ -276,10 +276,10 @@ public class UserDaoImpl implements UsersDao {
 		
 		tx.commit();
 		session.close();
-
-	
-		
 	}
+	
+	
+	
 	
 	@Override
 	public void addFavorites(String favoriteId, String userId) {
@@ -295,24 +295,42 @@ public class UserDaoImpl implements UsersDao {
 		
 		tx.commit();
 		session.close();
-
-	
 		
 	}
-
+	
 	@Override
-	public List<FavoriteDto> getFavorites(UserDto user1) {
-		
-
+	public void addFavorites(FavoriteDto newFavorite) {
 		Configuration config = new Configuration().configure("hibernate.cfg.xml");
 		SessionFactory sessionFactory = config.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		
-		NativeQuery query = session.createSQLQuery(GETFAV_SQL);
-		query.setString("user_id", user1.getLinkedInId());
+		session.save(newFavorite);
 		
-		List<FavoriteDto> list = query.list();
+		tx.commit();
+		session.close();
+		
+	}
+	
+	
+	
+
+	@Override
+	public List<FavoriteDto> getFavorites(UserDto user1) {
+
+		Configuration config = new Configuration().configure("hibernate.cfg.xml");
+		SessionFactory sessionFactory = config.buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		Criteria crit = session.createCriteria(FavoriteDto.class);
+
+		
+		Criterion userId = Restrictions.eq("linkedInId", user1.getLinkedInId());
+		crit.add(userId);
+		
+		
+		ArrayList<FavoriteDto> list = (ArrayList<FavoriteDto>) crit.list();
 		
 		tx.commit();
 		session.close();
