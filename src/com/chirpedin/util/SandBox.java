@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections4.ListUtils;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 import com.chirpedin.dao.UsersDao;
 import com.chirpedin.dto.FavoriteDto;
@@ -37,11 +39,10 @@ public class SandBox {
 		}
 		
 		
-		user1.setLinkedInId("26_1750");
-	    System.out.println("User ID: " + user1.getLinkedInId());
-		favorites = dao.getFavorites(user1);
-		System.out.println("Results: " + favorites.size());		
-		for(FavoriteDto dto: favorites) {
+		List<UserDto> favoriteDtoList = dao.convertListOfFavDtosToListOfUserDtos(favorites);
+		
+		
+		for(UserDto dto: favoriteDtoList) {
 			System.out.println(dto);
 		}
 		
