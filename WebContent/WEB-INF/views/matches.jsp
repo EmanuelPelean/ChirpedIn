@@ -99,7 +99,7 @@ chirplink:hover, a:active {
 					<div class="item active">
 						<img
 							src="https://media.licdn.com/mpr/mprx/0_p4PFpjnimxqDjJ9cKB5bfl338v1QjOGVr-5wAqKi8JQWjMGUSAboGjNT8xQWjg_HSAFZG4N2tM8Xlr3jut-gi4nKtM8blKh4ut-r_UnptMQXljviK-bbtlnFiri8Tp1gd6Qa"
-							style="width: 400px; height: 400px;" alt="NoUser">
+							style="width: 400px; height: 400px;" alt="NoUser" border-radius: 50%;>
 						<div class="carousel-caption d-none d-md-block">
 							<h3>Emanuel Pelean 100% Match!</h3>
 							<br>
@@ -117,7 +117,7 @@ chirplink:hover, a:active {
 							<div class="item">
 								<img src="${matchedDto.linkedInLargePictureUrl}"
 									onError="this.onerror=null;this.src='https://i.imgur.com/27CDISy.jpg';"
-									style="width: 400px; height: 400px;" alt="No ImageFound">
+									style="width: 400px; height: 400px;" alt="No ImageFound" border-radius: 50%;>
 								<div class="carousel-caption d-none d-md-block">
 									<h3>${matchedDto.linkedInFirstName}
 										${matchedDto.linkedInLastName}<br>
