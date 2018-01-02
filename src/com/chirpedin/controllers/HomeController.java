@@ -269,6 +269,10 @@ public class HomeController {
 	public ModelAndView userDashboard(Model model) {
 
 		// binding form to pojo
+		
+		// pull recent matches
+		// pull favorites
+		// populate favorites with pic, name, and percent match
 
 		return new ModelAndView("dashboard", "", "");
 	}
