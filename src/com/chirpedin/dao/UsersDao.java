@@ -52,6 +52,9 @@ public interface UsersDao {
 	List<UserDto> getFavs(UserDto NewUser);
 	List<FavoriteDto> getFavorites(UserDto user);
 	
+	// convert list of LinkedIds into an array list of Dtos
+	List<UserDto> convertListOfFavDtosToListOfUserDtos(List<FavoriteDto> listOfFavoriteDtos);
+	
 	// delete 
 	String deleteFav(String userID);
 

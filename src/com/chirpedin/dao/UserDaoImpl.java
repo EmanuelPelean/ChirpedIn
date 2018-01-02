@@ -305,6 +305,8 @@ public class UserDaoImpl implements UsersDao {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		
+		System.out.println(newFavorite);
+		
 		session.save(newFavorite);
 		
 		tx.commit();
@@ -335,6 +337,36 @@ public class UserDaoImpl implements UsersDao {
 		tx.commit();
 		session.close();
 		return list;
+	}
+
+	@Override
+	public List<UserDto> convertListOfFavDtosToListOfUserDtos(List<FavoriteDto> listOfFavoriteDtos) {
+		// TODO Auto-generated method stub
+		Configuration config = new Configuration().configure("hibernate.cfg.xml");
+		SessionFactory sessionFactory = config.buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		Criteria crit = session.createCriteria(UserDto.class);
+		
+		ArrayList<String> listOfFavoriteLinkedInIds= new ArrayList<String>();
+		
+		for (FavoriteDto dto : listOfFavoriteDtos) {
+			listOfFavoriteLinkedInIds.add(dto.getFavoriteLinkedInId());
+		}
+
+		
+		Criterion userId = Restrictions.in("linkedInId", listOfFavoriteLinkedInIds);
+		crit.add(userId);
+		
+		
+		ArrayList<UserDto> list = (ArrayList<UserDto>) crit.list();
+		
+		tx.commit();
+		session.close();
+		
+		return list;
+		
 	}
 
 }
