@@ -3,15 +3,24 @@
  */
 package com.chirpedin.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 /**
  * @author
  *
  */
-public class FavoriteDto {
+
+@Entity
+@Table(name="favorites")
+
+public class FavoriteDto implements Serializable{
+	
+	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long primaryKey;
 	
 	private String linkedInId;
