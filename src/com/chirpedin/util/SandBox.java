@@ -35,6 +35,7 @@ public class SandBox {
 		List<FavoriteDto> favorites = dao.getFavorites(user1);
 		System.out.println("Results: " + favorites.size());
 		for(FavoriteDto dto: favorites) {
+			
 			System.out.println(dto);
 		}
 		
@@ -42,8 +43,15 @@ public class SandBox {
 		List<UserDto> favoriteDtoList = dao.convertListOfFavDtosToListOfUserDtos(favorites);
 		
 		
-		for(UserDto dto: favoriteDtoList) {
-			System.out.println(dto);
+		for(UserDto userDto: favoriteDtoList) {
+			ChirpedIn.setHaveSkills(userDto);
+			ChirpedIn.setNeedSkills(userDto);
+			ChirpedIn.setNetworkingSkills(userDto);
+			ChirpedIn.setUserSkillCount(userDto);
+
+			ChirpedIn.setConnectionTypeFlags(userDto);
+			//ChirpedIn.calculateMatchPercentages(user, userDto);
+			System.out.println(userDto);
 		}
 		
 	}
