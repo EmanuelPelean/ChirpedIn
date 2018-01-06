@@ -19,8 +19,8 @@ import javax.persistence.*;
 public class FavoriteDto implements Serializable{
 	
 	@Id
-	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+//	@Column(name="id")
+//	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long primaryKey;
 	
 	private String linkedInId;
