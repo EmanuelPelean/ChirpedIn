@@ -191,12 +191,8 @@ public class HomeController {
 
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 
-		// Create strings for HaveSkills, NeedSkills, and Networking Skills and add them
-		// to the user DTO
-		ChirpedIn.setHaveSkills(user);
-		ChirpedIn.setNeedSkills(user);
-		ChirpedIn.setNetworkingSkills(user);
-		ChirpedIn.setUserSkillCount(user);
+		// populate user DTO skills
+		ChirpedIn.setPersonalFields(user);
 
 		System.out.println("This is the new user's info: " + user);
 
@@ -208,91 +204,72 @@ public class HomeController {
 
 		// TODO create separate pulls for each match type
 		// TODO create unique users list from all the matches (i.e. erase duplicates)
-		// List<UserDto> mentorList = dao.findMentor(user); // find mentors based on
-		// criteria
+		// List<UserDto> mentorList = dao.findMentor(user); 
+		// find mentors based on criteria
 
 		List<UserDto> uniqueMatchesList = dao.findMentor(user); // find mentors based on criteria
 
-		// System.out.println("Unique match list count BEFORE: " + uniqueMatchesList.size());
+		for (UserDto userDto : uniqueMatchesList) {// for each mentor, set personal and matching fields
 
-		for (UserDto userDto : uniqueMatchesList) {// for each mentor, print matching skills
-
-			ChirpedIn.setHaveSkills(userDto);
-			ChirpedIn.setNeedSkills(userDto);
-			ChirpedIn.setNetworkingSkills(userDto);
-			ChirpedIn.setUserSkillCount(userDto);
-
-			ChirpedIn.setAllMatchingSkills(user, userDto);
-			ChirpedIn.setMatchingSkillCounts(userDto);
-
-			ChirpedIn.setConnectionTypeFlags(userDto);
-			ChirpedIn.calculateMatchPercentages(user, userDto);
+			ChirpedIn.setPersonalFields(userDto);
+			ChirpedIn.setMatchFields(user, userDto);
 
 			System.out.println(userDto);
 
 		}
 
-		List<UserDto> tempArray = new ArrayList<UserDto>();
-
-/*		for (UserDto userDto : uniqueMatchesList) {
-			tempArray.add(userDto);
-		}
-
-		for (UserDto userDto : tempArray) {
-
-			if (userDto.getMatchingMentorSkills().isEmpty()) {
-				uniqueMatchesList.remove(userDto);
-			}
-
-		}*/
-
 		uniqueMatchesList.sort(new MentorListComparator());
 
-		model.addAttribute("mentorresults", uniqueMatchesList); // send data to view
+		model.addAttribute("matchresults", uniqueMatchesList); // send data to view
 
 		model.addAttribute("user", user);
 
 		return new ModelAndView("matches", "command", new UserDto());
-		//return new ModelAndView("dashboard", "command", new UserDto());
+		// return new ModelAndView("dashboard", "command", new UserDto());
 
 	}
 
 	@RequestMapping("/matches")
 	public String showMatches(Model model) {
 
-
 		return "matches";
 	}
 
 	// this is called when the dashboard.jsp page is first opened
-	@RequestMapping({ "/dashboard" })
-	public ModelAndView userDashboard(Model model) {
-
+	@RequestMapping( value = "/dashboard")
+	public String userDashboard(@RequestParam("matchResults") List<UserDto> matchList, @ModelAttribute("user") UserDto user, Model model) {
 		// binding form to pojo
 		
-		// pull recent matches
-		// pull favorites
+		// send recent matches to view
+		model.addAttribute("matchresults", matchList);
+		
+		// send favorites to view
 		// populate favorites with pic, name, and percent match
+		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+		List<FavoriteDto> favorites = dao.getFavorites(user);
+		model.addAttribute("favorites", favorites);
 
-		return new ModelAndView("dashboard", "", "");
+		return  "dashboard";
 	}
 
-	
-	
 	@RequestMapping(value = "/addFavorites")
-	public String favoriteButton(@RequestParam("favoriteLinkedInId") String favoriteLinkedInId, @ModelAttribute("user") UserDto user, Model model) {
+	public String favoriteButton(@RequestParam("favoriteLinkedInId") String favoriteLinkedInId,
+			@ModelAttribute("user") UserDto user, Model model) {
 
 		FavoriteDto newFavorite = new FavoriteDto();
-		
+
 		newFavorite.setLinkedInId(user.getLinkedInId());
 		newFavorite.setFavoriteLinkedInId(favoriteLinkedInId);
-		
+
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
-		dao.addFavorites(newFavorite);
-		
-		//for testing delete
+		// TODO fix IdentifierGenerationException: ids for this class must be
+		// manually assigned beforeQuery calling save(): com.chirpedin.dto.FavoriteDto
+		//
+		// dao.addFavorites(newFavorite);
+
+		// for testing delete
 		dao.addFavorites(favoriteLinkedInId, user.getLinkedInId());
-		
+
 		// print out matches again
 		List<UserDto> uniqueMatchesList = dao.findMentor(user);
 		for (UserDto userDto : uniqueMatchesList) {// for each mentor, print matching skills
@@ -302,7 +279,7 @@ public class HomeController {
 			ChirpedIn.setNetworkingSkills(userDto);
 			ChirpedIn.setUserSkillCount(userDto);
 
-			ChirpedIn.setAllMatchingSkills(user, userDto);
+			ChirpedIn.setMatchingSkills(user, userDto);
 			ChirpedIn.setMatchingSkillCounts(userDto);
 
 			ChirpedIn.setConnectionTypeFlags(userDto);
@@ -373,7 +350,7 @@ public class HomeController {
 			ChirpedIn.setNetworkingSkills(userDto);
 			ChirpedIn.setUserSkillCount(userDto);
 
-			ChirpedIn.setAllMatchingSkills(user, userDto);
+			ChirpedIn.setMatchingSkills(user, userDto);
 			ChirpedIn.setMatchingSkillCounts(userDto);
 
 			ChirpedIn.setConnectionTypeFlags(userDto);

@@ -113,26 +113,27 @@ public class ChirpedIn {
 	}	
 
 	/***
-	 * populates all three skill strings at all at once
+	 * populates the personal skills and set the skill count for a userDto
 	 * 
 	 * @param userDto
 	 */
-	public static void setAllSkills(UserDto userDto) {
+	public static void setPersonalFields(UserDto userDto) {
 		setHaveSkills(userDto);
 		setNeedSkills(userDto);
 		setNetworkingSkills(userDto);
+		setUserSkillCount(userDto);
 	}
 
 	/***
 	 * takes criteriaUserDto and compares its haveSkills, needsSkills, and
-	 * networkingSkills against another UserDto
+	 * networkingSkills against another UserDto and populates the strings in the matching fields
 	 * 
 	 * @param criteriaUserDto
 	 * @param userDto
 	 * @return
 	 * 
 	 */
-	public static void setAllMatchingSkills(UserDto criteriaUserDto, UserDto userDto) {
+	public static void setMatchingSkills(UserDto criteriaUserDto, UserDto userDto) {
 
 		userDto.setMatchingMenteeSkills(
 				createStringOfCommonWordsInTwoStrings(criteriaUserDto.getHaveSkills(), userDto.getNeedSkills()));
@@ -144,7 +145,23 @@ public class ChirpedIn {
 				userDto.getNetworkingSkills()));
 
 	}
+	
+	/***
+	 * takes a criteriaUserDto and set all the matching fields (skills, skill counts, connection types, % match) for a userDto
+	 * @param criteriaUserDto
+	 * @param userDto
+	 */
+	public static void setMatchFields(UserDto criteriaUserDto, UserDto userDto) {
+	
+		setMatchingSkills(criteriaUserDto, userDto);
+		
+		ChirpedIn.setMatchingSkillCounts(userDto);
+		ChirpedIn.setConnectionTypeFlags(userDto);
+		
+		ChirpedIn.calculateMatchPercentages(criteriaUserDto, userDto);
 
+		
+	}
 	/***
 	 * takes a numerator and denominator and returns a percent
 	 * 
