@@ -28,51 +28,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
-<style>
-body {
-	background: #59ABE3;
-	margin: 0
-}
-
-#mydiv {
-	content: 'Hi';
-	background: #50505a;
-	right: -200px;
-	color: #fff;
-	width: 37%;
-	padding: 16px 4px 16px 0;
-	border-radius: 6px;
-	font-size: 13px;
-	box-shadow: 10px 10px 40px -14px #000
-}
-
-}
-.Absolute-Center {
-	margin: auto;
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 15;
-	border: 3px solid #73AD21;
-}
-
-#chirplink, #favoritelink, a:visited {
-	border-radius: 25px;
-	background-color: #4286f4;
-	color: white;
-	padding: 7px 13px;
-	font-size: 20px;
-	text-align: center;
-	text-decoration: none;
-	margin-left: 5px;
-}
-
-chirplink:hover, a:active {
-	background-color: #F4D03F;
-}
-}
-</style>
+<link href="resources/matchesstyle.css" type="text/css" rel="stylesheet">
 
 </head>
 <body>
