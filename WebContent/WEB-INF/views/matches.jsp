@@ -56,8 +56,7 @@ body {
 	right: 15;
 	border: 3px solid #73AD21;
 }
-</style>
-<style>
+
 #chirplink, #favoritelink, a:visited {
 	border-radius: 25px;
 	background-color: #4286f4;
@@ -66,6 +65,7 @@ body {
 	font-size: 20px;
 	text-align: center;
 	text-decoration: none;
+	margin-left: 5px;
 }
 
 chirplink:hover, a:active {
@@ -86,11 +86,11 @@ chirplink:hover, a:active {
 			<div id="myCarousel" style="width: 35%; height: 100%;"
 				class="carousel slide" data-ride="carousel">
 				<!-- Indicators -->
-				<ol class="carousel-indicators">
+				<!-- ol class="carousel-indicators">
 					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 					<li data-target="#myCarousel" data-slide-to="1"></li>
 					<li data-target="#myCarousel" data-slide-to="2"></li>
-				</ol>
+				</ol-->
 
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner">
@@ -99,7 +99,7 @@ chirplink:hover, a:active {
 					<div class="item active">
 						<img
 							src="https://media.licdn.com/mpr/mprx/0_p4PFpjnimxqDjJ9cKB5bfl338v1QjOGVr-5wAqKi8JQWjMGUSAboGjNT8xQWjg_HSAFZG4N2tM8Xlr3jut-gi4nKtM8blKh4ut-r_UnptMQXljviK-bbtlnFiri8Tp1gd6Qa"
-							style="width: 400px; height: 400px;" alt="NoUser" border-radius: 50%;>
+							style="width: 400px; height: 400px;" alt="NoUser" border-radius: 50%; >
 						<div class="carousel-caption d-none d-md-block">
 							<h3>Emanuel Pelean 100% Match!</h3>
 							<br>
