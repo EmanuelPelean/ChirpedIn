@@ -28,18 +28,19 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
+
 <link href="resources/matchesstyle.css" type="text/css" rel="stylesheet">
 
 </head>
 <body>
-
+<a id="dashboard" href="dashboard?matchResults=${matchresults}">Dashboard</a> 
 
 
 
 	<div id="mydiv" class="Absolute-Center">
 		<div class="container">
 			<h2>Browse through your top matches!</h2>
-			<div id="myCarousel" style="width: 35%; height: 100%;"
+			<div id="myCarousel" 
 				class="carousel slide" data-ride="carousel">
 				<!-- Indicators -->
 				<!-- ol class="carousel-indicators">
@@ -68,7 +69,7 @@
 
 
 
-					<c:forEach var="matchedDto" items="${mentorresults}">
+					<c:forEach var="matchedDto" items="${matchresults}">
 						<tr>
 							<div class="item">
 								<img src="${matchedDto.linkedInLargePictureUrl}"

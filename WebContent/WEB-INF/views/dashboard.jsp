@@ -25,7 +25,7 @@
 	<div class="main">
 		<div class="item-1">
 			<h3>Latest Matches!</h3>
-			<c:forEach var="matchedDto" items="${mentorresults}">
+			<c:forEach var="matchedDto" items="${matchresults}">
 				<tr>
 					<div class="item">
 						<p>

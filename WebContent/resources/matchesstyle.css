@@ -15,6 +15,12 @@ body {
 	box-shadow: 10px 10px 40px -14px #000
 }
 
+#myCarousel {
+	width: 35%; 
+	height: 100%;
+}
+
+
 }
 .Absolute-Center {
 	margin: auto;
@@ -34,7 +40,9 @@ body {
 	font-size: 20px;
 	text-align: center;
 	text-decoration: none;
+	margin-left: 10px;
 }
+
 
 chirplink:hover, a:active {
 	background-color: #F4D03F;
