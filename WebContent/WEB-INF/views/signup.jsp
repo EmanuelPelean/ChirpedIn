@@ -26,7 +26,7 @@
 		<h2>Signup Now!</h2>
 		</div>
 	
-		<form:form action="signup" method="post" modelAttribute="command">
+		<form:form action="signup" method="post" modelAttribute="newUserDto">
 		<div id="mydiv2" class="Top-Left">
 		<div class="form-group form-inline justify-content-center">
 		<label for="email">ID :</label>
