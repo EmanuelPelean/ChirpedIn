@@ -33,15 +33,23 @@
 
 </head>
 <body>
-<a id="dashboard" href="dashboard?matchResults=${matchresults}">Dashboard</a> 
+
+<form:form action="dashboardclick" method="post" modelAttribute="newUserDto">
+<form:input type="hidden" name="matchResults" path="matchResults" value="${matchresults}"></form:input><br/>
+<input type="submit" value="Dashboard Original form" class="btn btn-primary">
+			
+	</form:form>
+
+	<a id="dashboard" href="dashboardclick?matchResults=${matchresults}">Dashboard
+		Original</a>
+	<a class="btn" id="dashboard2" href="/dashboard">Dashboard Webpage</a>
 
 
 
 	<div id="mydiv" class="Absolute-Center">
 		<div class="container">
 			<h2>Browse through your top matches!</h2>
-			<div id="myCarousel" 
-				class="carousel slide" data-ride="carousel">
+			<div id="myCarousel" class="carousel slide" data-ride="carousel">
 				<!-- Indicators -->
 				<!-- ol class="carousel-indicators">
 					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -74,17 +82,20 @@
 							<div class="item">
 								<img src="${matchedDto.linkedInLargePictureUrl}"
 									onError="this.onerror=null;this.src='https://i.imgur.com/27CDISy.jpg';"
-									style="width: 400px; height: 400px;" alt="No ImageFound" border-radius: 50%;>
+									style="width: 400px; height: 400px;" alt="No ImageFound"border-radius: 50%;>
 								<div class="carousel-caption d-none d-md-block">
 									<h3>${matchedDto.linkedInFirstName}
 										${matchedDto.linkedInLastName}<br>
-										${matchedDto.totalMatchPercentForDisplay}% Match!</h3>
+										${matchedDto.totalMatchPercentForDisplay}% Match!
+									</h3>
 									<br>
 									<p>${matchedDto.linkedInHeadline}</p>
 									<br>
-									<p>Mentor: ${matchedDto.matchingMentorSkills}<br>
-									Mentee: ${matchedDto.matchingMenteeSkills}<br>
-									Networking: ${matchedDto.matchingNetworkingSkills}</p>
+									<p>
+										Mentor: ${matchedDto.matchingMentorSkills}<br> Mentee:
+										${matchedDto.matchingMenteeSkills}<br> Networking:
+										${matchedDto.matchingNetworkingSkills}
+									</p>
 									<a id="favoritelink"
 										href="addFavorites?favoriteLinkedInId=${matchedDto.linkedInId}">
 										Add Favorite </a> <a id="chirplink"
