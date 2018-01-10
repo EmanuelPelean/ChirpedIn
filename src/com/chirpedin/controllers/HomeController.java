@@ -161,7 +161,7 @@ public class HomeController {
 
 		// create a new (blank) userDto that we can populate with information collected
 		// from the user
-		return new ModelAndView("signup", "command", new UserDto());
+		return new ModelAndView("signup", "newUserDto", new UserDto());
 	}
 
 	// called when the signup page is opened without going through the "results"
@@ -172,7 +172,7 @@ public class HomeController {
 
 		// binding form to UserDto
 
-		return new ModelAndView("signup", "command", new UserDto());
+		return new ModelAndView("signup", "newUserDto", new UserDto());
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
-	public ModelAndView signupPost(@ModelAttribute("command") UserDto user, Model model, HttpSession session) {
+	public ModelAndView signupPost(@ModelAttribute("newUserDto") UserDto user, Model model, HttpSession session) {
 		System.out.println("Entering sign up method called by '/signup'");
 
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
@@ -204,7 +204,7 @@ public class HomeController {
 
 		// TODO create separate pulls for each match type
 		// TODO create unique users list from all the matches (i.e. erase duplicates)
-		// List<UserDto> mentorList = dao.findMentor(user); 
+		// List<UserDto> mentorList = dao.findMentor(user);
 		// find mentors based on criteria
 
 		List<UserDto> uniqueMatchesList = dao.findMentor(user); // find mentors based on criteria
@@ -224,8 +224,8 @@ public class HomeController {
 
 		model.addAttribute("user", user);
 
-		return new ModelAndView("matches", "command", new UserDto());
-		// return new ModelAndView("dashboard", "command", new UserDto());
+		//return new ModelAndView("matches", "newUserDto", new UserDto());
+		return new ModelAndView("dashboard", "newUserDto", new UserDto());
 
 	}
 
@@ -235,21 +235,29 @@ public class HomeController {
 		return "matches";
 	}
 
-	// this is called when the dashboard.jsp page is first opened
-	@RequestMapping( value = "/dashboard")
-	public String userDashboard(@RequestParam("matchResults") List<UserDto> matchList, @ModelAttribute("user") UserDto user, Model model) {
-		// binding form to pojo
-		
+	// called when the dashboard.jsp page is opened without parameters
+	@RequestMapping({ "/dashboard" })
+	public String dashboardPage(Model model) {
+		System.out.println("Plain Dashboard");
+
+		return "dashboard";
+	}
+
+	// called when the dashboard is opened via a link
+	@RequestMapping(value = { "/dashboardclick" },  method = RequestMethod.POST)
+	public String userDashboard(@RequestParam("matchResults") String matchList,
+			@ModelAttribute("user") UserDto user, Model model) {
+
 		// send recent matches to view
 		model.addAttribute("matchresults", matchList);
-		
+
 		// send favorites to view
 		// populate favorites with pic, name, and percent match
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 		List<FavoriteDto> favorites = dao.getFavorites(user);
 		model.addAttribute("favorites", favorites);
 
-		return  "dashboard";
+		return "dashboard";
 	}
 
 	@RequestMapping(value = "/addFavorites")
