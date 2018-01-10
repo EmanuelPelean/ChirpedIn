@@ -4,6 +4,7 @@
 package com.chirpedin.dto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author
@@ -30,6 +31,8 @@ public class UserDto {
 	
 	private int totalSkillCount = 0;
 	private int totalMatchingSkillCount = 0;
+	
+	private List<UserDto> matchResults;
 	
 
 	// these could be permanent but would need to add to database and plus we run
@@ -730,6 +733,16 @@ public class UserDto {
 
 	public void setTotalMatchPercentForDisplay(int totalMatchPercentForDisplay) {
 		this.totalMatchPercentForDisplay = totalMatchPercentForDisplay;
+	}
+
+
+	public List<UserDto> getMatchResults() {
+		return matchResults;
+	}
+
+
+	public void setMatchResults(List<UserDto> matchResults) {
+		this.matchResults = matchResults;
 	}
 	
 	/*
