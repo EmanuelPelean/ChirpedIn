@@ -209,14 +209,7 @@ public class HomeController {
 
 		List<UserDto> uniqueMatchesList = dao.findMentor(user); // find mentors based on criteria
 
-		for (UserDto userDto : uniqueMatchesList) {// for each mentor, set personal and matching fields
-
-			ChirpedIn.setPersonalFields(userDto);
-			ChirpedIn.setMatchFields(user, userDto);
-
-			System.out.println(userDto);
-
-		}
+		ChirpedIn.setPersonalAndMatchFields(user, uniqueMatchesList);
 
 		uniqueMatchesList.sort(new MentorListComparator());
 
@@ -229,18 +222,14 @@ public class HomeController {
 
 	}
 
+
 	@RequestMapping("/matches")
 	public String showMatches(@ModelAttribute("user") UserDto user,Model model) {
 		
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 		List<UserDto> uniqueMatchesList = dao.findMentor(user); // find mentors based on criteria
 		
-		for (UserDto userDto : uniqueMatchesList) { // for each mentor, set personal and matching fields
-			ChirpedIn.setPersonalFields(userDto);
-			ChirpedIn.setMatchFields(user, userDto);
-
-			System.out.println(userDto);
-		}
+		ChirpedIn.setPersonalAndMatchFields(user, uniqueMatchesList);
 		
 		uniqueMatchesList.sort(new MentorListComparator());
 
@@ -263,6 +252,8 @@ public class HomeController {
 		
 		List<UserDto> matchList = dao.findMentor(user);
 		
+		ChirpedIn.setPersonalAndMatchFields(user, matchList);
+		
 		// sort to get the highest ranking matches
 		matchList.sort(new MentorListComparator());
 		
@@ -272,9 +263,13 @@ public class HomeController {
 			topMatchList.add(matchList.get(i));
 		}
 
+		
 		// pull the favorites
 		List<FavoriteDto> favorites = dao.getFavorites(user);
 		List<UserDto> favoriteDtoList = dao.convertListOfFavDtosToListOfUserDtos(favorites);
+		
+		ChirpedIn.setPersonalAndMatchFields(user, favoriteDtoList);
+		
 		
 		model.addAttribute("matchresults", topMatchList);
 		model.addAttribute("favorites", favoriteDtoList);
@@ -321,35 +316,7 @@ public class HomeController {
 
 		// print out matches again
 		List<UserDto> uniqueMatchesList = dao.findMentor(user);
-		for (UserDto userDto : uniqueMatchesList) {// for each mentor, print matching skills
-
-			ChirpedIn.setHaveSkills(userDto);
-			ChirpedIn.setNeedSkills(userDto);
-			ChirpedIn.setNetworkingSkills(userDto);
-			ChirpedIn.setUserSkillCount(userDto);
-
-			ChirpedIn.setMatchingSkills(user, userDto);
-			ChirpedIn.setMatchingSkillCounts(userDto);
-
-			ChirpedIn.setConnectionTypeFlags(userDto);
-			ChirpedIn.calculateMatchPercentages(user, userDto);
-
-			System.out.println(userDto);
-		}
-
-		List<UserDto> tempArray = new ArrayList<UserDto>();
-
-		for (UserDto userDto : uniqueMatchesList) {
-			tempArray.add(userDto);
-		}
-
-		for (UserDto userDto : tempArray) {
-
-			if (userDto.getMatchingMentorSkills().isEmpty()) {
-				uniqueMatchesList.remove(userDto);
-			}
-
-		}
+		ChirpedIn.setPersonalAndMatchFields(user, uniqueMatchesList);
 
 		uniqueMatchesList.sort(new MentorListComparator());
 
@@ -392,21 +359,7 @@ public class HomeController {
 
 		// print out matches again
 		List<UserDto> uniqueMatchesList = dao.findMentor(user);
-		for (UserDto userDto : uniqueMatchesList) {// for each mentor, print matching skills
-
-			ChirpedIn.setHaveSkills(userDto);
-			ChirpedIn.setNeedSkills(userDto);
-			ChirpedIn.setNetworkingSkills(userDto);
-			ChirpedIn.setUserSkillCount(userDto);
-
-			ChirpedIn.setMatchingSkills(user, userDto);
-			ChirpedIn.setMatchingSkillCounts(userDto);
-
-			ChirpedIn.setConnectionTypeFlags(userDto);
-			ChirpedIn.calculateMatchPercentages(user, userDto);
-
-			System.out.println(userDto);
-		}
+		ChirpedIn.setPersonalAndMatchFields(user, uniqueMatchesList);
 
 		List<UserDto> tempArray = new ArrayList<UserDto>();
 

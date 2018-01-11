@@ -1,6 +1,7 @@
 package com.chirpedin.util;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.chirpedin.dto.UserDto;
 
@@ -9,6 +10,24 @@ import com.chirpedin.dto.UserDto;
  */
 public class ChirpedIn {
 
+	/**
+	 * for a list of UserDtos, set their personal and matching fields
+	 * 
+	 * @param user
+	 * @param uniqueMatchesList
+	 */
+	public static void setPersonalAndMatchFields(UserDto user, List<UserDto> uniqueMatchesList) {
+		for (UserDto userDto : uniqueMatchesList) {
+
+			ChirpedIn.setPersonalFields(userDto);
+			ChirpedIn.setMatchFields(user, userDto);
+
+			System.out.println(userDto);
+
+		}
+	}
+
+	
 	/**
 	 * appends a string to a string and ArrayList
 	 * 
