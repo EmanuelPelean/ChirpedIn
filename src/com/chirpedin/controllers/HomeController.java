@@ -224,38 +224,79 @@ public class HomeController {
 
 		model.addAttribute("user", user);
 
-		//return new ModelAndView("matches", "newUserDto", new UserDto());
-		return new ModelAndView("dashboard", "newUserDto", new UserDto());
+		return new ModelAndView("matches", "newUserDto", new UserDto());
+		//return new ModelAndView("dashboard", "newUserDto", new UserDto());
 
 	}
 
 	@RequestMapping("/matches")
-	public String showMatches(Model model) {
+	public String showMatches(@ModelAttribute("user") UserDto user,Model model) {
+		
+		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+		List<UserDto> uniqueMatchesList = dao.findMentor(user); // find mentors based on criteria
+		
+		for (UserDto userDto : uniqueMatchesList) { // for each mentor, set personal and matching fields
+			ChirpedIn.setPersonalFields(userDto);
+			ChirpedIn.setMatchFields(user, userDto);
 
+			System.out.println(userDto);
+		}
+		
+		uniqueMatchesList.sort(new MentorListComparator());
+
+		model.addAttribute("matchresults", uniqueMatchesList); // send data to view
+		
+		
 		return "matches";
 	}
 
 	// called when the dashboard.jsp page is opened without parameters
 	@RequestMapping({ "/dashboard" })
-	public String dashboardPage(Model model) {
-		System.out.println("Plain Dashboard");
+	public String dashboardPage(@ModelAttribute("user") UserDto user, Model model) {
+		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+		
+	
+		int maxResults = 12; 
+		int size;
+		ArrayList<UserDto> topMatchList = new ArrayList<UserDto>(); 
+		
+		
+		List<UserDto> matchList = dao.findMentor(user);
+		
+		// sort to get the highest ranking matches
+		matchList.sort(new MentorListComparator());
+		
+		size = Integer.min(maxResults, matchList.size()); 
+		
+		for(int i = size; i > 0; i--) {
+			topMatchList.add(matchList.get(i));
+		}
 
+		// pull the favorites
+		List<FavoriteDto> favorites = dao.getFavorites(user);
+		List<UserDto> favoriteDtoList = dao.convertListOfFavDtosToListOfUserDtos(favorites);
+		
+		model.addAttribute("matchresults", topMatchList);
+		model.addAttribute("favorites", favoriteDtoList);
+		
+	
 		return "dashboard";
 	}
 
 	// called when the dashboard is opened via a link
 	@RequestMapping(value = { "/dashboardclick" },  method = RequestMethod.POST)
-	public String userDashboard(@RequestParam("matchResults") String matchList,
-			@ModelAttribute("user") UserDto user, Model model) {
+	public String userDashboard(@ModelAttribute("user") UserDto user, Model model) {
 
 		// send recent matches to view
-		model.addAttribute("matchresults", matchList);
+		// model.addAttribute("matchresults", matchList);
 
 		// send favorites to view
 		// populate favorites with pic, name, and percent match
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 		List<FavoriteDto> favorites = dao.getFavorites(user);
-		model.addAttribute("favorites", favorites);
+		List<UserDto> favoriteDtoList = dao.convertListOfFavDtosToListOfUserDtos(favorites);
+		
+		model.addAttribute("favorites", favoriteDtoList);
 
 		return "dashboard";
 	}
@@ -312,7 +353,7 @@ public class HomeController {
 
 		uniqueMatchesList.sort(new MentorListComparator());
 
-		model.addAttribute("mentorresults", uniqueMatchesList);
+		model.addAttribute("matchresults", uniqueMatchesList);
 
 		return "matches";
 
