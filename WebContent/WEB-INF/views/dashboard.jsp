@@ -7,10 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Dashboard</title>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet">
 <link href="resources/dashboardstyle.css" type="text/css" rel="stylesheet">
 
 </head>
 <body>
+
+<a class="btn btn-primary" id="matches" href="matches">Matches</a>
 
 	<div class="header">
 		<h1>Welcome User!</h1>
@@ -31,8 +34,7 @@
 						<p>
 							<img src="${matchedDto.linkedInLargePictureUrl}"
 								onError="this.onerror=null;this.src='https://i.imgur.com/27CDISy.jpg';"
-								style="width: 30px; height: 30px;" alt="No ImageFound"
-								align=center> ${matchedDto.linkedInFirstName}
+								style="width: 30px; height: 30px;" alt="No ImageFound" > ${matchedDto.linkedInFirstName}
 							${matchedDto.linkedInLastName},
 							${matchedDto.totalMatchPercentForDisplay}% Match!
 						</p>
@@ -44,12 +46,26 @@
 
 		</div>
 		<div class="item-2">
-			<h3>Favorited</h3>
+			<h3>Favorites</h3>
+			<c:forEach var="favorite" items="${favorites}">
+				<tr>
+					<div class="item">
+						<p>
+							<img src="${favorite.linkedInLargePictureUrl}"
+								onError="this.onerror=null;this.src='https://i.imgur.com/27CDISy.jpg';"
+								style="width: 30px; height: 30px;" alt="No ImageFound"> ${favorite.linkedInFirstName}
+							${favorite.linkedInLastName},
+							${favorite.totalMatchPercentForDisplay}% Match!
+						</p>
+					</div>
+				</tr>
+
+			</c:forEach>
 			<br>
 
 		</div>
 		<div class="item-3">
-			<h3>Chirped</h3>
+			<h3>Chirps</h3>
 			<br>
 
 		</div>
