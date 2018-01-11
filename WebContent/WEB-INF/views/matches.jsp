@@ -34,15 +34,7 @@
 </head>
 <body>
 
-<form:form action="dashboardclick" method="post" modelAttribute="newUserDto">
-<form:input type="hidden" name="matchResults" path="matchResults" value="${matchresults}"></form:input><br/>
-<input type="submit" value="Dashboard Original form" class="btn btn-primary">
-			
-	</form:form>
-
-	<a id="dashboard" href="dashboardclick?matchResults=${matchresults}">Dashboard
-		Original</a>
-	<a class="btn" id="dashboard2" href="/dashboard">Dashboard Webpage</a>
+	<a class="btn btn-primary" id="dashboard" href="dashboard">Dashboard Webpage</a>
 
 
 
