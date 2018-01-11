@@ -34,25 +34,17 @@
 </head>
 <body>
 
-	<a class="btn btn-primary" id="dashboard" href="dashboard">Dashboard Webpage</a>
+	<a class="btn btn-primary btn-dashboard" id="dashboard" href="dashboard">Dashboard</a>
 
 
 
 	<div id="mydiv" class="Absolute-Center">
 		<div class="container">
 			<h2>Browse through your top matches!</h2>
+			
 			<div id="myCarousel" class="carousel slide" data-ride="carousel">
-				<!-- Indicators -->
-				<!-- ol class="carousel-indicators">
-					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					<li data-target="#myCarousel" data-slide-to="1"></li>
-					<li data-target="#myCarousel" data-slide-to="2"></li>
-				</ol-->
-
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner">
-
-
 					<div class="item active">
 						<img
 							src="https://media.licdn.com/mpr/mprx/0_p4PFpjnimxqDjJ9cKB5bfl338v1QjOGVr-5wAqKi8JQWjMGUSAboGjNT8xQWjg_HSAFZG4N2tM8Xlr3jut-gi4nKtM8blKh4ut-r_UnptMQXljviK-bbtlnFiri8Tp1gd6Qa"
@@ -89,7 +81,7 @@
 										${matchedDto.matchingNetworkingSkills}
 									</p>
 									<a id="favoritelink"
-										href="addFavorites?favoriteLinkedInId=${matchedDto.linkedInId}">
+										href="addFavorites?favoriteLinkedInId=${matchedDto.linkedInId}"> <span class="glyphicon glyphicon-plus-sign"></span>
 										Add Favorite </a> <a id="chirplink"
 										href="chirp?fName=${matchedDto.linkedInFirstName}&lName= ${matchedDto.linkedInLastName}&Email= ${matchedDto.linkedInEmail}">
 										Chirp </a>

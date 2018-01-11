@@ -6,7 +6,7 @@ body {
 #mydiv {
 	content: 'Hi';
 	background: #50505a;
-	right: -200px;
+	/*right: -200px;*/
 	color: #fff;
 	width: 37%;
 	padding: 16px 4px 16px 0;
@@ -46,4 +46,8 @@ body {
 
 chirplink:hover, a:active {
 	background-color: #F4D03F;
+}
+
+.btn-dashboard{
+	margin-bottom: 15px;
 }
