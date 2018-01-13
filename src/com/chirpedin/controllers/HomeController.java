@@ -238,6 +238,12 @@ public class HomeController {
 		
 		return "matches";
 	}
+	
+	@RequestMapping("/matches2")
+	public String showMatches(Model model) {		
+		
+		return "matches2";
+	}
 
 	// called when the dashboard.jsp page is opened without parameters
 	@RequestMapping({ "/dashboard" })
