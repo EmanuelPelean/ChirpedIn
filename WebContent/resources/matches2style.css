@@ -10,9 +10,9 @@
 }
 
 
-body{
-background: #59ABE3;
-/	margin: 0;    
+body, #myCarousel{
+	background: #59ABE3;
+	margin: 0;    
     
 }
 
@@ -46,9 +46,13 @@ img{
 
 .slide{
     width: 20%;
-    /height: 10%;
+    height: 10%;
     
 }
+
+/*------------------------*/ 
+/*  HEADINGS   */
+/*------------------------*/ 
 
 h1{
     font-size: 200%;
@@ -58,14 +62,14 @@ h1{
 }
 
 h2{
-    text-transform: uppercase;
+	text-transform: uppercase;
     font-size: 150%;
-    font-weight: 100;
+    font-weight: bold;
     letter-spacing: 3px;
     text-align: center;
     color: white;
     margin: 0;
-    padding: 5px
+    padding: 5px;
 
 }
 
@@ -78,9 +82,27 @@ h3{
     margin-top: 0px;
 }
 
+.h4class {
+	font-size: 100%;
+    font-weight: 100;
+    text-align: center;
+    color: white;
+    margin: 0;
+    padding: 5px;
+	font-style: italic;
+}
+
 p{
     font-size: 100%;
     color: white;
     width: 80%;
     margin-left: 10%;
+}
+
+/*------------------------*/ 
+/*  BUTTONS   */
+/*------------------------*/ 
+
+#favoritelink, #chirplink{
+    background-color: #aaa;
 }
