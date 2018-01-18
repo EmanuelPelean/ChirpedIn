@@ -217,7 +217,8 @@ public class HomeController {
 
 		model.addAttribute("user", user);
 
-		return new ModelAndView("matches", "newUserDto", new UserDto());
+		return new ModelAndView("matches2", "newUserDto", new UserDto());
+		//return new ModelAndView("matches", "newUserDto", new UserDto());
 		//return new ModelAndView("dashboard", "newUserDto", new UserDto());
 
 	}
@@ -246,7 +247,7 @@ public class HomeController {
 	}
 
 	// called when the dashboard.jsp page is opened without parameters
-	@RequestMapping({ "/dashboard" })
+	@RequestMapping({ "/dashboard2" })
 	public String dashboardPage(@ModelAttribute("user") UserDto user, Model model) {
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 		
@@ -281,7 +282,7 @@ public class HomeController {
 		model.addAttribute("favorites", favoriteDtoList);
 		
 	
-		return "dashboard";
+		return "dashboard2";
 	}
 
 	// called when the dashboard is opened via a link
@@ -299,7 +300,7 @@ public class HomeController {
 		
 		model.addAttribute("favorites", favoriteDtoList);
 
-		return "dashboard";
+		return "dashboard2";
 	}
 
 	@RequestMapping(value = "/addFavorites")
@@ -328,7 +329,7 @@ public class HomeController {
 
 		model.addAttribute("matchresults", uniqueMatchesList);
 
-		return "matches";
+		return "matches2";
 
 	}
 
@@ -385,7 +386,7 @@ public class HomeController {
 
 		model.addAttribute("mentorresults", uniqueMatchesList);
 
-		return "matches";
+		return "matches2";
 
 	}
 
