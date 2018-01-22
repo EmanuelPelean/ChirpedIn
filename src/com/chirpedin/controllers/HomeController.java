@@ -161,7 +161,7 @@ public class HomeController {
 
 		// create a new (blank) userDto that we can populate with information collected
 		// from the user
-		return new ModelAndView("signup", "newUserDto", new UserDto());
+		return new ModelAndView("signup2", "newUserDto", new UserDto());
 	}
 
 	// called when the signup page is opened without going through the "results"
@@ -223,6 +223,68 @@ public class HomeController {
 
 	}
 
+	
+	// called when the signup page is opened without going through the "results"
+	// mapping
+	@RequestMapping({ "/signup2" })
+	public ModelAndView signupPage2(Model model) {
+		System.out.println("Regular Signup");
+
+		// binding form to UserDto
+
+		return new ModelAndView("signup", "newUserDto", new UserDto());
+	}
+
+	/**
+	 * called when the user submits form data on the startup page; does three
+	 * things: 1) sends user-supplied info to the database 2) finds matches in the
+	 * database 3) returns matches to the jsp page
+	 * 
+	 * @param user
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = { "/signup2" }, method = RequestMethod.POST)
+	public ModelAndView signupPost2(@ModelAttribute("newUserDto") UserDto user, Model model, HttpSession session) {
+		System.out.println("Entering sign up method called by '/signup'");
+
+		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+
+		// populate user DTO skills
+		ChirpedIn.setPersonalFields(user);
+
+		System.out.println("This is the new user's info: " + user);
+
+		// Insert the user DTO into our MySQL database
+		dao.insertUser(user);
+
+		session.setAttribute("user", user);
+		// List<UserDto> matches = dao.getMatches(user, model);
+
+		// TODO create separate pulls for each match type
+		// TODO create unique users list from all the matches (i.e. erase duplicates)
+		// List<UserDto> mentorList = dao.findMentor(user);
+		// find mentors based on criteria
+
+		List<UserDto> uniqueMatchesList = dao.findMentor(user); // find mentors based on criteria
+
+		ChirpedIn.setPersonalAndMatchFields(user, uniqueMatchesList);
+
+		uniqueMatchesList.sort(new MentorListComparator());
+
+		model.addAttribute("matchresults", uniqueMatchesList); // send data to view
+
+		model.addAttribute("user", user);
+
+		return new ModelAndView("matches2", "newUserDto", new UserDto());
+		//return new ModelAndView("matches", "newUserDto", new UserDto());
+		//return new ModelAndView("dashboard", "newUserDto", new UserDto());
+
+	}
+	
+	
+	
 
 	@RequestMapping("/matches")
 	public String showMatches(@ModelAttribute("user") UserDto user,Model model) {
