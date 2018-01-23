@@ -196,10 +196,32 @@
 	    			<form:checkbox path="networkingSkillsJdbc" name="networkingSkillsJdbc" value="true"/>
 	    			<label for="networkingSkillsJdbc">JDBC</label>
 	   			</div>
+	   	</div>		
+	   	<div class="skills">
+	   			<h3>Extracurricular</h3>
+	   				<div>
+						<form:checkbox path="networkingFoodie" name="networkingskills" value="true"/>
+						<label for="networkingSkillsFoodie">Foodie</label>
+					</div>
+					<div>
+						<form:checkbox path="networkingGaming" name="networkingskills" value="true"/>
+						<label for="networkingSkillsGaming">Gamer</label>
+					</div>
+					<div>
+						<form:checkbox path="networkingSports" name="networkingskills" value="true"/>
+						<label for="networkingSkillsSports">Sportsball</label>
+					</div>
+					<div>
+						<form:checkbox path="networkingAnime" name="networkingskills" value="true"/>
+						<label for="networkingSkillsAnime">Anime</label>
+					</div>
+					<div>
+						<form:checkbox path="networkingFun" name="networkingskills" value="true"/>
+						<label for="networkingSkillsFun">Fun</label>
+					</div>
 		</div>
-	</div>
-
-</div>
+		</div>
+		</div>
 </form:form>
 </body>
 </html>
