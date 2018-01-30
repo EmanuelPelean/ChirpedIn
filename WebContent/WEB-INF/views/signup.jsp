@@ -87,7 +87,7 @@
 						<h2>FIND a Mentor</h2>
 						<p>For which skills?</p>
 						<h3>Front End</h3>
-						<form:checkbox path="mentorSkillsPhp" value="true" />
+						<form:checkbox path="mentorSkillsPhp" value="true" checked = "checked" />
 						PHP <br>
 						<form:checkbox path="mentorSkillsJavaScript" value="true" />
 						JavaScript<br>
