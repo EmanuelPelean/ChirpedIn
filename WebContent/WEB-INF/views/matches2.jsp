@@ -24,7 +24,18 @@
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<a class="btn btn-primary btn-dashboard" id="dashboard" href="dashboard2">Dashboard</a>
 			<h1>Browse top matches!</h1>
-
+			<div class="container row filter">
+				<form method="post" action="#" class="match-filter">
+					<label> Filter matches
+					</label>
+					<select name="match-filter" id="match-filter">
+					<option value="overall" select>Overall</option>
+					<option value="mentors" select>Mentors</option>
+					<option value="mentees" select>Mentees</option>
+					<option value="networking" select>Networking</option>	
+					</select>
+				</form>
+			</div>
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
 				<div class="item active">
