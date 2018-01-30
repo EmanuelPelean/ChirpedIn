@@ -161,7 +161,8 @@ public class HomeController {
 
 		// create a new (blank) userDto that we can populate with information collected
 		// from the user
-		return new ModelAndView("signup2", "newUserDto", new UserDto());
+		// return new ModelAndView("signup2", "newUserDto", new UserDto());
+		return new ModelAndView("signup", "newUserDto", new UserDto());
 	}
 
 	// called when the signup page is opened without going through the "results"
