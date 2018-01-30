@@ -10,12 +10,6 @@
 }
 
 
-body, #myCarousel{
-	background: #59ABE3;
-	margin: 0;    
-    
-}
-
 .container{
     width: 100%; 
     height: 100%;
@@ -24,10 +18,39 @@ body, #myCarousel{
 
 }
 
+/*------------------------*/ 
+/*  FILTER   */
+/*------------------------*/ 
+
+.match-filter {
+	margin: 30px 0;
+	letter-spacing: 1px;
+}
+
+
+/*------------------------*/ 
+/*  CAROUSEL   */
+/*------------------------*/ 
+
+
+body, #myCarousel{
+	background: #59ABE3;
+	margin: 0;    
+    
+}
+
+
 .carousel{
     width: 50%; 
     height: 100%;  
     background-color: #248dd4;
+}
+
+
+.slide{
+    width: 20%;
+    height: 10%;
+    
 }
 
 img{
@@ -44,12 +67,6 @@ img{
 
 }
 
-.slide{
-    width: 20%;
-    height: 10%;
-    
-}
-
 /*------------------------*/ 
 /*  HEADINGS   */
 /*------------------------*/ 
@@ -57,8 +74,9 @@ img{
 h1{
     font-size: 200%;
     font-weight: 400;
-    margin: 0;
+    margin: 20px 0;;
     text-transform: capitalize;
+    text-align: center;
 }
 
 h2{
@@ -104,5 +122,20 @@ p{
 /*------------------------*/ 
 
 #favoritelink, #chirplink{
-    background-color: #aaa;
+	text-decoration: none;
+	display: inline-block;
+
+    background-color: #59ABE3;
+    
+    color: black;
+    text-align: center;
+
+    height: 30px;
+    border: 1px solid;
+    border-radius: 10px;
+    width: auto;
+	vertical-align: middle;
+	
+	padding: 5px 10px;
+	margin-left: 10px;
 }
