@@ -338,8 +338,9 @@ public class HomeController {
 		List<FavoriteDto> favorites = dao.getFavorites(user);
 		List<UserDto> favoriteDtoList = dao.convertListOfFavDtosToListOfUserDtos(favorites);
 		
+		//if(!(favoriteDtoList.isEmpty())){
 		ChirpedIn.setPersonalAndMatchFields(user, favoriteDtoList);
-		
+		//}
 		
 		model.addAttribute("matchresults", topMatchList);
 		model.addAttribute("favorites", favoriteDtoList);
