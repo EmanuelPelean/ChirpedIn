@@ -350,22 +350,34 @@ public class UserDaoImpl implements UsersDao {
 		Criteria crit = session.createCriteria(UserDto.class);
 		
 		ArrayList<String> listOfFavoriteLinkedInIds= new ArrayList<String>();
+		ArrayList<UserDto> list;
 		
 		for (FavoriteDto dto : listOfFavoriteDtos) {
 			listOfFavoriteLinkedInIds.add(dto.getFavoriteLinkedInId());
 		}
 
+		if(!listOfFavoriteLinkedInIds.isEmpty() ) {
+			Criterion userId = Restrictions.in("linkedInId", listOfFavoriteLinkedInIds);
+			crit.add(userId);
+			
+			tx.commit();
+			session.close();
+			
+			 return list = (ArrayList<UserDto>) crit.list();
+		} else {
+
+			tx.commit();
+			session.close();
+			/*list = new ArrayList<UserDto>();
+			list.add(new UserDto("No Favs Yet!"));*/
+			return null;
+		}
 		
-		Criterion userId = Restrictions.in("linkedInId", listOfFavoriteLinkedInIds);
-		crit.add(userId);
 		
+		// tx.commit();
+		// session.close();
 		
-		ArrayList<UserDto> list = (ArrayList<UserDto>) crit.list();
-		
-		tx.commit();
-		session.close();
-		
-		return list;
+		//return list;
 		
 	}
 
