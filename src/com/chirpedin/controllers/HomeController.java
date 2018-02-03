@@ -336,16 +336,22 @@ public class HomeController {
 		
 		// pull the favorites
 		List<FavoriteDto> favorites = dao.getFavorites(user);
+			System.out.println("method: dashboardPage \n favorites has size of: " + favorites.size() +"\n is empty? "+ favorites.isEmpty());
+		
+		
+		if(!favorites.isEmpty()) {
 		List<UserDto> favoriteDtoList = dao.convertListOfFavDtosToListOfUserDtos(favorites);
 		
 		//if(!(favoriteDtoList.isEmpty())){
+		System.out.println("method: dashboardPage \n favoriteDtoList has size of: " + favoriteDtoList.size() +"\n is empty? "+ favoriteDtoList.isEmpty());
 		ChirpedIn.setPersonalAndMatchFields(user, favoriteDtoList);
 		//}
 		
-		model.addAttribute("matchresults", topMatchList);
 		model.addAttribute("favorites", favoriteDtoList);
+		}
 		
-	
+		model.addAttribute("matchresults", topMatchList);
+		
 		return "dashboard2";
 	}
 
