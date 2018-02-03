@@ -122,6 +122,12 @@ public class UserDto {
 	public UserDto() {
 		super();
 	}
+	
+	public UserDto(String name) {
+		super();
+		this.linkedInFirstName = name;
+		this.linkedInLargePictureUrl = "https://i.imgur.com/27CDISy.jpg";
+	}
 
 	
 	@Override
