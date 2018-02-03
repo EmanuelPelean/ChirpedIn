@@ -233,7 +233,7 @@ public class HomeController {
 
 		// binding form to UserDto
 
-		return new ModelAndView("signup", "newUserDto", new UserDto());
+		return new ModelAndView("signup2", "newUserDto", new UserDto());
 	}
 
 	/**
@@ -341,12 +341,7 @@ public class HomeController {
 		
 		if(!favorites.isEmpty()) {
 		List<UserDto> favoriteDtoList = dao.convertListOfFavDtosToListOfUserDtos(favorites);
-		
-		//if(!(favoriteDtoList.isEmpty())){
-		System.out.println("method: dashboardPage \n favoriteDtoList has size of: " + favoriteDtoList.size() +"\n is empty? "+ favoriteDtoList.isEmpty());
 		ChirpedIn.setPersonalAndMatchFields(user, favoriteDtoList);
-		//}
-		
 		model.addAttribute("favorites", favoriteDtoList);
 		}
 		
@@ -403,6 +398,9 @@ public class HomeController {
 
 	}
 
+
+	
+	
 	@RequestMapping("/getFavorites")
 	public ModelAndView getFavorites(@ModelAttribute("user") UserDto user) {
 
@@ -414,6 +412,16 @@ public class HomeController {
 
 	}
 
+	/***
+	 * sends email to selected user expressing an interest in connecting
+	 * 
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param model
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping(value = "/chirp")
 	public String chirpUserButton(@RequestParam("fName") String firstName, @RequestParam("lName") String lastName,
 			@RequestParam("Email") String email, Model model, @ModelAttribute("user") UserDto user) {
@@ -459,5 +467,126 @@ public class HomeController {
 		return "matches2";
 
 	}
+	
+	/***
+	 * called when updateuserinfo page is opened directly
+	 * takes the Session user, displays a page very similar to the sign up page
+	 * that is pre-populated with the users current selections 
+	 */
+		@RequestMapping({ "/searchcriteria" })
+		public ModelAndView searchCriteria(@ModelAttribute("user") UserDto user, Model model) {
+			System.out.println("calling Update User Info Page");
+			
+			// TODO print out long list of selections and send the info to the view
+	
+			model.addAttribute("data", user);
+			
+			// MENTOR FRONTEND skills		
+			if(user.getMentorSkillsCSS()) {
+				model.addAttribute("mentorSkillsCSS", "true");
+			}
+			if(user.getMentorSkillsHTML()) {
+				model.addAttribute("mentorSkillsHTML", "true");
+			}
+			if(user.getMentorSkillsJavaScript()) {
+				model.addAttribute("mentorSkillsJavaScript", "true");
+			}
+			if(user.getMentorSkillsPhp()) {
+				model.addAttribute("mentorSkillsPhp", "true");
+			}
+			
+			// MENTOR BACKEND skills			
+			if(user.getMentorSkillsHibernate()) {
+				model.addAttribute("mentorSkillsHibernate", "true");
+			}
+			if(user.getMentorSkillsJava()) {
+				model.addAttribute("mentorSkillsJava", "true");
+			}
+			if(user.getMentorSkillsJdbc()) {
+				model.addAttribute("mentorSkillsJdbc", "true");
+			}
+			if(user.getMentorSkillsJsp()) {
+				model.addAttribute("mentorSkillsJsp", "true");
+			}
+			if(user.getMentorSkillsJstl()) {
+				model.addAttribute("mentorSkillsJstl", "true");
+			}
+			if(user.getMentorSkillsSpringMVC()) {
+				model.addAttribute("mentorSkillsSpringMVC", "true");
+			}
+			if(user.getMentorSkillsSql()) {
+				model.addAttribute("mentorSkillsSql", "true");
+			}
+			
+			// MENTEE FRONTEND skills		
+			if(user.getMenteeSkillsCSS()) {
+				model.addAttribute("menteeSkillsCSS", "true");
+			}
+			if(user.getMentorSkillsHTML()) {
+				model.addAttribute("menteeSkillsHTML", "true");
+			}
+			if(user.getMentorSkillsJavaScript()) {
+				model.addAttribute("menteeJavaScript", "true");
+			}
+			if(user.getMentorSkillsPhp()) {
+				model.addAttribute("menteeSkillsPhp", "true");
+			}
+			
+			// MENTEE BACKEND skills			
+			if(user.getMenteeSkillsHibernate()) {
+				model.addAttribute("menteeSkillsHibernate", "true");
+			}
+			if(user.getMenteeSkillsJava()) {
+				model.addAttribute("menteeSkillsJava", "true");
+			}
+			if(user.getMenteeSkillsJdbc()) {
+				model.addAttribute("menteeSkillsJdbc", "true");
+			}
+			if(user.getMenteeSkillsJsp()) {
+				model.addAttribute("menteeSkillsJsp", "true");
+			}
+			if(user.getMenteeSkillsJstl()) {
+				model.addAttribute("menteeSkillsJstl", "true");
+			}
+			if(user.getMenteeSkillsSpringMVC()) {
+				model.addAttribute("menteeSkillsSpringMVC", "true");
+			}
+			if(user.getMenteeSkillsSql()) {
+				model.addAttribute("menteeSkillsSql", "true");
+			}
+
+
+
+			// binding form to UserDto
+
+			return new ModelAndView("searchcriteria", "newUserDto", new UserDto());
+		}
+
+		/**
+		 * called when the user submits form data on the startup page; does three
+		 * things: 1) sends user-supplied info to the database 2) finds matches in the
+		 * database 3) returns matches to the jsp page
+		 * 
+		 * @param user
+		 * @param model
+		 * @param session
+		 * @return
+		 */
+		@RequestMapping(value = { "/updatesearchcriteria" }, method = RequestMethod.POST)
+		public ModelAndView updateSearchCriteria(@ModelAttribute("newUserDto") UserDto user, Model model, HttpSession session) {
+			System.out.println("Entering userUpdateCriteria method");
+			
+			UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
+
+			// populate user DTO skills
+			ChirpedIn.setPersonalFields(user);
+			System.out.println("This is the new user's info: " + user);
+
+			// Insert the user DTO into our MySQL database
+			dao.updateUser(user);
+
+			
+			return new ModelAndView("searchcriteria", "newUserDto", new UserDto());
+		}
 
 }
