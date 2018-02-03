@@ -145,7 +145,7 @@
 	</div>
     
     <div class="networking">
-		<h2>Network<br>(no mentoring)</h2>
+		<h2>Network<br>&nbsp;</h2>
 		<p>For which interests?</p>
 		<div class="skills">
 			<h3>Front-End</h3>

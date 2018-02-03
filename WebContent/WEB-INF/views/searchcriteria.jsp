@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Sign Up</title>
+<title>Search Criteria</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
@@ -27,10 +27,10 @@
 </head>
 <body>
 	<div class="title">
-		<h2 class="h2">Signup Now!</h2>
+		<h2 class="h2">Update Search Criteria</h2>
 	</div>
 
-	<form:form action="signup" method="post" modelAttribute="newUserDto">
+	<form:form action="searchcriteria" method="post" modelAttribute="newUserDto">
 		<div id="mydiv2" class="Top-Left">
 			<div class="form-group form-inline justify-content-left">
 				<label for="email">ID :</label>
@@ -87,38 +87,38 @@
 						<h2>FIND a Mentor</h2>
 						<p>For which skills?</p>
 						<h3>Front End</h3>
-						<form:checkbox path="mentorSkillsPhp" value="true"/>
+						<form:checkbox path="mentorSkillsPhp" value="true" checked = "checked"/>
 						PHP <br>
-						<form:checkbox path="mentorSkillsJavaScript" value="true" />
+						<form:checkbox path="mentorSkillsJavaScript" value="true" checked = "${mentorSkillsJavaScript}" />
 						JavaScript<br>
 						<form:checkbox name="mentorskills" path="mentorSkillsHTML"
-							value="true" />
+							value="true" checked = "${mentorSkillsHTML}"/>
 						HTML<br>
 						<form:checkbox name="mentorskills" path="mentorSkillsCSS"
-							value="true" />
+							value="true" checked = "${mentorSkillsCSS}"/>
 						CSS<br>
 
 						<h3>Back End</h3>
 						<form:checkbox name="mentorskills" path="mentorSkillsJava"
-							value="true" />
+							value="true" checked = "${mentorSkillsJava}"/>
 						Java<br>
 						<form:checkbox name="mentorskills" path="mentorSkillsJsp"
-							value="true" />
+							value="true" checked = "${mentorSkillsJsp}"/>
 						JSP<br>
 						<form:checkbox name="mentorskills" path="mentorSkillsJstl"
-							value="true" />
+							value="true" checked = "${mentorSkillsJstl}"/>
 						JSTL<br>
 						<form:checkbox name="mentorskills" path="mentorSkillsSql"
-							value="true" />
+							value="true" checked = "${mentorSkillsSql}"/>
 						SQL<br>
 						<form:checkbox name="mentorskills" path="mentorSkillsSpringMVC"
-							value="true" />
+							value="true" checked = "${mentorSkillsSpringMVC}"/>
 						Spring MVC<br>
 						<form:checkbox name="mentorskills" path="mentorSkillsHibernate"
-							value="true" />
+							value="true" checked = "${mentorSkillsHibernate}"/>
 						Hibernate<br>
 						<form:checkbox name="mentorskills" path="mentorSkillsJdbc"
-							value="true" />
+							value="true" checked = "${mentorSkillsJdbc}"/>
 						JDBC<br>
 					</div>
 
@@ -129,39 +129,39 @@
 						<p>For which skills?</p>
 						<h3>Front End</h3>
 						<form:checkbox name="menteeskills" path="menteeSkillsPhp"
-							value="true" />
+							value="true" checked = "${menteeSkillsPhp}"/>
 						PHP<br>
 						<form:checkbox name="menteeskills" path="menteeSkillsJavaScript"
-							value="true" />
+							value="true" checked = "${menteeSkillsJavaScript}"/>
 						JavaScript<br>
 						<form:checkbox name="menteeskills" path="menteeSkillsHTML"
-							value="true" />
+							value="true" checked = "${menteeSkillsHTML}"/>
 						HTML<br>
 						<form:checkbox name="menteeskills" path="menteeSkillsCSS"
-							value="true" />
+							value="true" checked = "${menteeSkillsCSS}"/>
 						CSS<br>
 
 						<h3>Back End</h3>
 						<form:checkbox name="menteeskills" path="menteeSkillsJava"
-							value="true" />
+							value="true" checked = "${menteeSkillsJava}"/>
 						Java<br>
 						<form:checkbox name="menteeskills" path="menteeSkillsJsp"
-							value="true" />
+							value="true" checked = "${menteeSkillsJsp}"/>
 						JSP<br>
 						<form:checkbox name="menteeskills" path="menteeSkillsJstl"
-							value="true" />
+							value="true" checked = "${menteeSkillsJstl}"/>
 						JSTL<br>
 						<form:checkbox name="menteeskills" path="menteeSkillsSql"
-							value="true" />
+							value="true" checked = "${menteeSkillsSql}"/>
 						SQL<br>
 						<form:checkbox name="menteeskills" path="menteeSkillsSpringMVC"
-							value="true" />
+							value="true" checked = "${menteeSkillsSpringMVC}"/>
 						Spring MVC<br>
 						<form:checkbox name="menteeskills" path="menteeSkillsHibernate"
-							value="true" />
+							value="true" checked = "${menteeSkillsHibernate}"/>
 						Hibernate<br>
 						<form:checkbox name="menteeskills" path="menteeSkillsJdbc"
-							value="true" />
+							value="true" checked = "${menteeSkillsJdbc}"/>
 						JDBC<br>
 					</div>
 
@@ -221,7 +221,7 @@
 			</div>
 		</div>
 
-		<input type="submit" value="Submit" class="btn btn-primary">
+		<input type="submit" value="Update" class="btn btn-primary">
 		</div>
 
 
