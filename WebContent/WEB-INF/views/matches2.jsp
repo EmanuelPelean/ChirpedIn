@@ -23,6 +23,7 @@
 	<div class="container row">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<a class="btn btn-primary btn-dashboard" id="dashboard" href="dashboard2">Dashboard</a>
+			<a class="btn btn-primary btn-searchcriteria" id="searchcriteria" href="searchcriteria">Search Criteria</a>
 			<h1>Browse top matches!</h1>
 			<div class="container row filter">
 				<form method="post" action="#" class="match-filter">
