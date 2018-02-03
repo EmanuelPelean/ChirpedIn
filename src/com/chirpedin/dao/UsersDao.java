@@ -27,17 +27,17 @@ public interface UsersDao {
 	List<UserDto> getMatches(UserDto newUser, Model model);
 
 	
-	// returns array of matching mentors
+	// get matching mentors
 	List<UserDto> matchMentor(UserDto newUser);
 	List<UserDto> matchMentor(UserDto newUser, Model model);
 	List<UserDto> findMentor(UserDto userCriteriaDto);
 
 	
-	// returns array of matching mentees
+	// get matching mentees
 	List<UserDto> matchMentee(UserDto newUser);
 	List<UserDto> findMentee(UserDto userCriteriaDto);
 	
-	// returns array of matching networkers
+	// get matching networkers
 	List<UserDto> matchNetworking(UserDto newUser);
 
 	List<UserDto> getChirped(UserDto newUser);
