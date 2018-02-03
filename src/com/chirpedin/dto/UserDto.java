@@ -68,56 +68,61 @@ public class UserDto {
 
 	// ChirpedIn Data
 
-	// MENTOR BACKEND skills you want a mentor to have
+	// MENTOR FRONTEND skills you need (want a mentor to have)
+	private Boolean mentorSkillsCSS;
+	private Boolean mentorSkillsHTML;
+	private Boolean mentorSkillsJavaScript;
+	private Boolean mentorSkillsPhp;
+	
+	// MENTOR BACKEND 
+	private Boolean mentorSkillsHibernate;
 	private Boolean mentorSkillsJava;
+	private Boolean mentorSkillsJdbc;
 	private Boolean mentorSkillsJsp;
 	private Boolean mentorSkillsJstl;
-	private Boolean mentorSkillsSql;
-	private Boolean mentorSkillsJdbc;
 	private Boolean mentorSkillsSpringMVC;
-	private Boolean mentorSkillsHibernate;
-
-	// MENTOR FRONTEND
-	private Boolean mentorSkillsPhp;
-	private Boolean mentorSkillsJavaScript;
-	private Boolean mentorSkillsHTML;
-	private Boolean mentorSkillsCSS;
-
-	// MENTEE BACKEND skills you are qualified to mentor in
-	private Boolean menteeSkillsJava;
-	private Boolean menteeSkillsJsp;
-	private Boolean menteeSkillsJstl;
-	private Boolean menteeSkillsSql;
-	private Boolean menteeSkillsJdbc;
-	private Boolean menteeSkillsSpringMVC;
-	private Boolean menteeSkillsHibernate;
-
-	// MENTEE FRONTEND
+	private Boolean mentorSkillsSql;
+	
+	
+	// MENTEE FRONTEND skills you are have (are qualified to mentor in)
 	private Boolean menteeSkillsPhp;
 	private Boolean menteeSkillsJavaScript;
 	private Boolean menteeSkillsHTML;
-	private Boolean menteeSkillsCSS;
+	private Boolean menteeSkillsCSS;	
+	
+	// MENTEE BACKEND 
+	private Boolean menteeSkillsHibernate;
+	private Boolean menteeSkillsJava;
+	private Boolean menteeSkillsJdbc;
+	private Boolean menteeSkillsJsp;
+	private Boolean menteeSkillsJstl;
+	private Boolean menteeSkillsSpringMVC;
+	private Boolean menteeSkillsSql;
 
-	// NETWORKING
+	
+	// NETWORKING SOCIAL
+	private Boolean networkingAnime;
 	private Boolean networkingFoodie;
+	private Boolean networkingFun;
 	private Boolean networkingGaming;
 	private Boolean networkingSports;
-	private Boolean networkingAnime;
-	private Boolean networkingFun;
 
-	private Boolean networkingSkillsJava;
-	private Boolean networkingSkillsJsp;
-	private Boolean networkingSkillsJstl;
-	private Boolean networkingSkillsSql;
-	private Boolean networkingSkillsJdbc;
-	private Boolean networkingSkillsSpringMVC;
-	private Boolean networkingSkillsHibernate;
-
-	// networking FRONTEND
+	// NETWORKING FRONTEND
 	private Boolean networkingSkillsPhp;
 	private Boolean networkingSkillsJavaScript;
 	private Boolean networkingSkillsHTML;
 	private Boolean networkingSkillsCSS;
+	
+	// NETWORKING BACKEND
+	private Boolean networkingSkillsHibernate;
+	private Boolean networkingSkillsJava;
+	private Boolean networkingSkillsJdbc;
+	private Boolean networkingSkillsJsp;
+	private Boolean networkingSkillsJstl;
+	private Boolean networkingSkillsSpringMVC;
+	private Boolean networkingSkillsSql;
+
+
 	
 	public UserDto() {
 		super();
