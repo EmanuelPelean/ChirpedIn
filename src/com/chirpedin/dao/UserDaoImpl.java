@@ -43,14 +43,16 @@ public class UserDaoImpl implements UsersDao {
 		SessionFactory sessionFactory = config.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
+		
 		session.save(newUser);
+		
 		tx.commit();
 		session.close();
 	}
 
 	/*****
 	 *
-	 * needed to create updateUser for updating UserDto.favorites as a String)
+	 * needed to create updateUser for updating UserDto.favorites as a String
 	 *
 	 **********/
 
@@ -60,7 +62,9 @@ public class UserDaoImpl implements UsersDao {
 		SessionFactory sessionFactory = config.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
+		
 		session.update(updatedUser);
+		
 		tx.commit();
 		session.close();
 	}
