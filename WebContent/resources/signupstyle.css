@@ -43,7 +43,7 @@ body{
 	border-bottom:3px solid #78788c}
 
 input{
-	width:30%;
+	width:10%;
 	padding:10px;
 	box-sizing:border-box;
 	background:none;
@@ -94,7 +94,8 @@ span{margin:0 5px 0 15px}
     border: 3px solid #73AD21;
   }
  
- /*----- HEADINGS -----*/
+
+/*----- HEADINGS -----*/
 h2{
  font-size: 200%;
  color: white;
@@ -103,5 +104,9 @@ h2{
 label{
 	margn-left: 10px;
 	width: 20%;
+}
+
+.btn-primary{
+	width: 10%;
 }
  
