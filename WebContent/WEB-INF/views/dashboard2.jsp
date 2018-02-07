@@ -14,9 +14,9 @@
 </head>
 <body><body>
 <nav>
-		<div>
-			<button type="button">Matches Page</button>
-			<button type="button">SignUp Page</button>
+		<div>			
+			<a href="matches2"><button type="button">Matches</button></a>
+			<a href="searchcriteria"><button type="button">Search Criteria</button></a>
 		</div>
 		<div>	
 			<i class="material-icons">&#xE851;</i>
