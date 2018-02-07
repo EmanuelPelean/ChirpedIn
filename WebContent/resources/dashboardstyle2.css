@@ -12,9 +12,13 @@ nav {
 	align-items: center;
 	margin-right: -10px;
 	margin-left: -10px;
-	margin-top: 30px;
-    
+	margin-top: 30px; 
 }
+
+
+/*---------------------------------*/
+/* HEADERS */
+/*---------------------------------*/
 
 h1 {
 	background-color:#1c70a9;
@@ -32,6 +36,11 @@ h3{
 
 }
 
+
+/*---------------------------------*/
+/* BUTTONS */
+/*---------------------------------*/
+
 button {
 	background-color:#1c70a9;
 	border-radius: 30px;
@@ -47,6 +56,8 @@ button:hover {
 	border-radius: 30px;
     transition: background-color .2s;
 }
+
+
 
 i {
     background-color:#1c70a9;
