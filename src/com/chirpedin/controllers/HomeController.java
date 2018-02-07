@@ -304,8 +304,17 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/matches2")
-	public String showMatches(Model model) {		
+	public String showMatches2 (@ModelAttribute("user") UserDto user,Model model) {		
+		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 		
+		// print out matches again
+		List<UserDto> uniqueMatchesList = dao.findMentor(user);
+		ChirpedIn.setPersonalAndMatchFields(user, uniqueMatchesList);
+
+		uniqueMatchesList.sort(new MentorListComparator());
+
+		model.addAttribute("matchresults", uniqueMatchesList);
+
 		return "matches2";
 	}
 
