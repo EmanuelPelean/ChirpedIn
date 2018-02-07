@@ -8,21 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Search Criteria</title>
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<!-- Popper JS -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-<link href="resources/signupstyle.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+<link href="resources/searchcriteriastyle.css" type="text/css" rel="stylesheet">
 
 </head>
 <body>
@@ -30,7 +17,7 @@
 		<h2 class="h2">Update Search Criteria</h2>
 	</div>
 
-	<form:form action="searchcriteria" method="post" modelAttribute="newUserDto">
+	<form:form action="updatesearchcriteria" method="post" modelAttribute="newUserDto">
 		<div id="mydiv2" class="Top-Left">
 			<div class="form-group form-inline justify-content-left">
 				<label for="email">ID :</label>
@@ -223,8 +210,18 @@
 
 		<input type="submit" value="Update" class="btn btn-primary">
 		</div>
+			<a class="btn btn-primary btn-dashboard" id="dashboard" href="dashboard2">Dashboard</a>
 
 
 	</form:form>
+	
+		<!-- jQuery library -->
+		<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+		<!-- Popper JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+		
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 </body>
 </html>
