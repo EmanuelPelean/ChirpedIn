@@ -35,7 +35,7 @@
 							<img src="${matchedDto.linkedInLargePictureUrl}"
 								onError="this.onerror=null;this.src='https://i.imgur.com/27CDISy.jpg';"
 								style="width: 30px; height: 30px;" alt="No ImageFound" > ${matchedDto.linkedInFirstName}
-							${matchedDto.linkedInLastName},
+							${matchedDto.linkedInLastName}<br>
 							${matchedDto.totalMatchPercentForDisplay}% Match!
 						</p>
 					</div>
