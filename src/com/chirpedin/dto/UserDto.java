@@ -139,6 +139,7 @@ public class UserDto {
 	public String toString() {
 		return "UserDto: " + linkedInFirstName + " " + linkedInLastName + " linkedIn ID: " + linkedInId
 				+ "\n Total Match: " + String.format("%3.3f", totalMatchPercent)
+				+ "\n Total Match for Display: " + totalMatchPercentForDisplay		
 				+ "\n percentMentorMatch: " + String.format("%3.3f", mentorMatchPercent) + ", percentMenteeMatch: " + String.format("%3.3f", menteeMatchPercent) + ", percentNetworkingMatch: " + String.format("%3.3f", networkingMatchPercent)
 				+ "\n\n haveSkills: " + haveSkills 
 				+ "\n needSkills: " + needSkills 
