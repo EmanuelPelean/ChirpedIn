@@ -364,10 +364,12 @@ public class UserDaoImpl implements UsersDao {
 			Criterion userId = Restrictions.in("linkedInId", listOfFavoriteLinkedInIds);
 			crit.add(userId);
 			
+			list = (ArrayList<UserDto>) crit.list();
+			
 			tx.commit();
 			session.close();
 			
-			 return list = (ArrayList<UserDto>) crit.list();
+			 return list;
 		} else {
 
 			tx.commit();
