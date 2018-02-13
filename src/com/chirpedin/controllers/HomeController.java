@@ -188,7 +188,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
 	public ModelAndView signupPost(@ModelAttribute("newUserDto") UserDto user, Model model, HttpSession session) {
-		System.out.println("Entering sign up method called by '/signup'");
+		System.out.println("Entering sign up method called a form mapped to '/signup'");
 
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 
@@ -208,13 +208,39 @@ public class HomeController {
 		// List<UserDto> mentorList = dao.findMentor(user);
 		// find mentors based on criteria
 
-		List<UserDto> uniqueMatchesList = dao.findMentor(user); // find mentors based on criteria
+		List<UserDto> mentorMatchesList = dao.findMentor(user); // find mentors based on criteria
 
-		ChirpedIn.setPersonalAndMatchFields(user, uniqueMatchesList);
+		ChirpedIn.setPersonalAndMatchFields(user, mentorMatchesList);
 
-		uniqueMatchesList.sort(new MentorListComparator());
+		mentorMatchesList.sort(new MentorListComparator());
+		
+		List<UserDto> matchListFiltered = new  ArrayList<UserDto>();
+		
+		for(int i = 0; i< mentorMatchesList.size(); i++) {
+			if(mentorMatchesList.get(i).getTotalMatchPercentForDisplay() > 1) {
+				matchListFiltered.add(mentorMatchesList.get(i));
+			}
+			
+			//This doesn't work, I think it's because we are changing the list size while iterating through it
+			
+			/*if(uniqueMatchesList.get(i).getTotalMatchPercentForDisplay() < 1) {
+				System.out.println(uniqueMatchesList.get(i).getLinkedInFirstName() 
+						+ "(" + uniqueMatchesList.get(i).getLinkedInId() + ")" + " has a total match (for display) of " 
+						+ uniqueMatchesList.get(i).getTotalMatchPercentForDisplay() +" removing now...");
+				uniqueMatchesList.remove(i); }	*/
+			
+			
+		}
 
-		model.addAttribute("matchresults", uniqueMatchesList); // send data to view
+		System.out.println("\n\nMatch List Filtered");
+		for(int i = 0; i< matchListFiltered.size(); i++) {
+			System.out.println(i + ". " + matchListFiltered.get(i).getLinkedInFirstName() 
+					+  "(" + matchListFiltered.get(i).getTotalMatchPercent() + ", " 
+					+ matchListFiltered.get(i).getTotalMatchPercentForDisplay() + ")");
+		}
+		
+		
+		model.addAttribute("matchresults", matchListFiltered); // send data to view
 
 		model.addAttribute("user", user);
 
@@ -273,7 +299,7 @@ public class HomeController {
 		ChirpedIn.setPersonalAndMatchFields(user, uniqueMatchesList);
 
 		uniqueMatchesList.sort(new MentorListComparator());
-
+		
 		model.addAttribute("matchresults", uniqueMatchesList); // send data to view
 
 		model.addAttribute("user", user);
@@ -305,6 +331,9 @@ public class HomeController {
 	
 	@RequestMapping("/matches2")
 	public String showMatches2 (@ModelAttribute("user") UserDto user,Model model) {		
+		
+		System.out.println("Entering matches2 method'");
+		
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 		
 		// print out matches again
@@ -312,6 +341,7 @@ public class HomeController {
 		ChirpedIn.setPersonalAndMatchFields(user, uniqueMatchesList);
 
 		uniqueMatchesList.sort(new MentorListComparator());
+
 
 		model.addAttribute("matchresults", uniqueMatchesList);
 
