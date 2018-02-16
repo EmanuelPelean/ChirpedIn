@@ -11,6 +11,42 @@ import com.chirpedin.dto.UserDto;
 public class ChirpedIn {
 
 	/**
+	 * takes in a User ArrayList returns a User ArrayList filtered based on the totalMatchPercenForDisplay field  
+	 * 
+	 * @param unfilteredMatchList
+	 * @return
+	 */
+	public static ArrayList<UserDto> filterUserArrayListForTotalMatchPercentGreaterThan0(List<UserDto> unfilteredMatchList){
+		ArrayList<UserDto> filteredList = new ArrayList<UserDto>();
+		
+		for(int i = 0; i< unfilteredMatchList.size(); i++) {
+			if(unfilteredMatchList.get(i).getTotalMatchPercentForDisplay() > 0) {
+				filteredList.add(unfilteredMatchList.get(i));
+			}
+		}
+		
+		System.out.println("\n\nMatch List BEFORE");
+		System.out.println("(match percent, match percent for display)");
+		for(int i = 0; i< unfilteredMatchList.size(); i++) {
+			System.out.println(i + ". " + unfilteredMatchList.get(i).getLinkedInFirstName() 
+					+  "(" + unfilteredMatchList.get(i).getTotalMatchPercent() + ", " 
+					+ unfilteredMatchList.get(i).getTotalMatchPercentForDisplay() + ")");
+		}
+		
+		
+		System.out.println("\n\nMatch List FILTERED");
+		System.out.println("(match percent, match percent for display)");
+		for(int i = 0; i< filteredList.size(); i++) {
+			System.out.println(i + ". " + filteredList.get(i).getLinkedInFirstName() 
+					+  "(" + filteredList.get(i).getTotalMatchPercent() + ", " 
+					+ filteredList.get(i).getTotalMatchPercentForDisplay() + ")");
+		}
+		return filteredList;
+	}
+	
+	
+	
+	/**
 	 * for a list of UserDtos, set their personal and matching fields
 	 * 
 	 * @param user
