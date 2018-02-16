@@ -87,7 +87,9 @@ public class HomeController {
 			// Exchange temporary code for an access token
 			URL url = new URL("https://www.linkedin.com/oauth/v2/accessToken?" + "grant_type=authorization_code&"
 					+ "code=" + code + "&" + "client_id=" + APICredentials.CLIENT_ID + "&"
-					+ "redirect_uri=http://localhost:8080/ChirpedIn/result&" + "client_secret="
+					+ "redirect_uri=http://localhost:8080/ChirpedIn/result&" + "client_secret=" 
+					//http://localhost:8080/ChirpedIn/result
+					//http://chirpedin-env2.us-east-2.elasticbeanstalk.com/result
 					+ APICredentials.CLIENT_SECRET);
 
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -214,31 +216,7 @@ public class HomeController {
 
 		mentorMatchesList.sort(new MentorListComparator());
 		
-		List<UserDto> matchListFiltered = new  ArrayList<UserDto>();
-		
-		for(int i = 0; i< mentorMatchesList.size(); i++) {
-			if(mentorMatchesList.get(i).getTotalMatchPercentForDisplay() > 1) {
-				matchListFiltered.add(mentorMatchesList.get(i));
-			}
-			
-			//This doesn't work, I think it's because we are changing the list size while iterating through it
-			
-			/*if(uniqueMatchesList.get(i).getTotalMatchPercentForDisplay() < 1) {
-				System.out.println(uniqueMatchesList.get(i).getLinkedInFirstName() 
-						+ "(" + uniqueMatchesList.get(i).getLinkedInId() + ")" + " has a total match (for display) of " 
-						+ uniqueMatchesList.get(i).getTotalMatchPercentForDisplay() +" removing now...");
-				uniqueMatchesList.remove(i); }	*/
-			
-			
-		}
-
-		System.out.println("\n\nMatch List Filtered");
-		for(int i = 0; i< matchListFiltered.size(); i++) {
-			System.out.println(i + ". " + matchListFiltered.get(i).getLinkedInFirstName() 
-					+  "(" + matchListFiltered.get(i).getTotalMatchPercent() + ", " 
-					+ matchListFiltered.get(i).getTotalMatchPercentForDisplay() + ")");
-		}
-		
+		List<UserDto> matchListFiltered = ChirpedIn.filterUserArrayListForTotalMatchPercentGreaterThan0(mentorMatchesList);	
 		
 		model.addAttribute("matchresults", matchListFiltered); // send data to view
 
@@ -294,13 +272,15 @@ public class HomeController {
 		// List<UserDto> mentorList = dao.findMentor(user);
 		// find mentors based on criteria
 
-		List<UserDto> uniqueMatchesList = dao.findMentor(user); // find mentors based on criteria
+		List<UserDto> matchList = dao.findMentor(user); // find mentors based on criteria
 
-		ChirpedIn.setPersonalAndMatchFields(user, uniqueMatchesList);
+		ChirpedIn.setPersonalAndMatchFields(user, matchList);
 
-		uniqueMatchesList.sort(new MentorListComparator());
+		matchList.sort(new MentorListComparator());
 		
-		model.addAttribute("matchresults", uniqueMatchesList); // send data to view
+		List<UserDto> matchListFiltered = ChirpedIn.filterUserArrayListForTotalMatchPercentGreaterThan0(matchList);	
+		
+		model.addAttribute("matchresults", matchListFiltered); // send data to view
 
 		model.addAttribute("user", user);
 
@@ -317,13 +297,15 @@ public class HomeController {
 	public String showMatches(@ModelAttribute("user") UserDto user,Model model) {
 		
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
-		List<UserDto> uniqueMatchesList = dao.findMentor(user); // find mentors based on criteria
+		List<UserDto> matchList = dao.findMentor(user); // find mentors based on criteria
 		
-		ChirpedIn.setPersonalAndMatchFields(user, uniqueMatchesList);
+		ChirpedIn.setPersonalAndMatchFields(user, matchList);
 		
-		uniqueMatchesList.sort(new MentorListComparator());
+		matchList.sort(new MentorListComparator());
 
-		model.addAttribute("matchresults", uniqueMatchesList); // send data to view
+		List<UserDto> matchListFiltered = ChirpedIn.filterUserArrayListForTotalMatchPercentGreaterThan0(matchList);	
+		
+		model.addAttribute("matchresults", matchListFiltered); // send data to view
 		
 		
 		return "matches";
@@ -337,13 +319,15 @@ public class HomeController {
 		UsersDao dao = DaoFactory.getInstance(DaoFactory.USERSDAO);
 		
 		// print out matches again
-		List<UserDto> uniqueMatchesList = dao.findMentor(user);
-		ChirpedIn.setPersonalAndMatchFields(user, uniqueMatchesList);
+		List<UserDto> matchList = dao.findMentor(user);
+		ChirpedIn.setPersonalAndMatchFields(user, matchList);
 
-		uniqueMatchesList.sort(new MentorListComparator());
+		matchList.sort(new MentorListComparator());
 
 
-		model.addAttribute("matchresults", uniqueMatchesList);
+		List<UserDto> matchListFiltered = ChirpedIn.filterUserArrayListForTotalMatchPercentGreaterThan0(matchList);	
+		
+		model.addAttribute("matchresults", matchListFiltered); // send data to view
 
 		return "matches2";
 	}
@@ -384,7 +368,9 @@ public class HomeController {
 		model.addAttribute("favorites", favoriteDtoList);
 		}
 		
-		model.addAttribute("matchresults", topMatchList);
+		List<UserDto> matchListFiltered = ChirpedIn.filterUserArrayListForTotalMatchPercentGreaterThan0(topMatchList);	
+		
+		model.addAttribute("matchresults", matchListFiltered); // send data to view
 		
 		return "dashboard2";
 	}
